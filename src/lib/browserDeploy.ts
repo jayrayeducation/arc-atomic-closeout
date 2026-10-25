@@ -143,9 +143,25 @@ export async function estimateDeployment(rpc: RpcHealth, from: Address): Promise
   return { ...rpc, from, block: block.number, timestamp: block.timestamp, estimatedGas, gasLimit, maxFeePerGas, priorityFeePerGas, maxCost, balance, remaining: balance - maxCost, createdAt: Date.now() }
 }
 
-export function sameQuote(a: DeployQuote, b: DeployQuote): boolean {
-  return a.url === b.url && a.from === b.from && a.estimatedGas === b.estimatedGas && a.gasLimit === b.gasLimit &&
-    a.maxFeePerGas === b.maxFeePerGas && a.priorityFeePerGas === b.priorityFeePerGas && a.balance === b.balance
+const QUOTE_STEP_USDC = 10_000_000_000_000_000n // 0.01 native USDC
+
+/** An explicit spend ceiling, with 10% fee headroom rounded up to 0.01 USDC. */
+export function quoteApprovalCeiling(quote: DeployQuote): bigint {
+  if (quote.maxCost <= 0n || quote.maxCost > MAX_DEPLOY_FEE_USDC) fail('Deployment quote exceeds the hard safety cap')
+  const withHeadroom = (quote.maxCost * 110n + 99n) / 100n
+  const rounded = ((withHeadroom + QUOTE_STEP_USDC - 1n) / QUOTE_STEP_USDC) * QUOTE_STEP_USDC
+  return rounded > MAX_DEPLOY_FEE_USDC ? MAX_DEPLOY_FEE_USDC : rounded
+}
+
+/** Compare financial boundaries, not volatile RPC values from two blocks. */
+export function quoteNeedsReapproval(accepted: DeployQuote, fresh: DeployQuote, ceiling: bigint): string | null {
+  if (accepted.from.toLowerCase() !== DEPLOYER.toLowerCase() || fresh.from.toLowerCase() !== DEPLOYER.toLowerCase() ||
+      ceiling < accepted.maxCost || ceiling > MAX_DEPLOY_FEE_USDC || fresh.maxCost > MAX_DEPLOY_FEE_USDC ||
+      fresh.balance < fresh.maxCost) fail('Fresh deployment quote failed its safety checks')
+  if (fresh.maxCost > ceiling) return 'The maximum fee increased above your approved spending ceiling. Review the new values and confirm them again.'
+  const balanceChange = fresh.balance > accepted.balance ? fresh.balance - accepted.balance : accepted.balance - fresh.balance
+  if (balanceChange >= QUOTE_STEP_USDC) return 'Wallet balance changed by at least 0.01 USDC. Review the new balance and confirm again.'
+  return null
 }
 
 let requestActive = false

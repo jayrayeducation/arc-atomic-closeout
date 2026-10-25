@@ -4,7 +4,7 @@ import type { Address, Hex } from 'viem'
 import {
   ARC_USDC, ARTIFACT_FACTS, CHAIN_ID, DEPLOYER, EXPLORER, GITHUB_URL, MAX_DEPLOY_FEE_USDC, RPC_URLS, STUDIO_URL,
   assertAuthorizedWallet, assertPinnedArtifact, displayUsdc, estimateDeployment,
-  findRabby, sameQuote, selectRpc, sendDeployment, verifyDeployment, walletState,
+  findRabby, quoteApprovalCeiling, quoteNeedsReapproval, selectRpc, sendDeployment, verifyDeployment, walletState,
   type DeployQuote, type Evidence, type RabbyProvider, type RpcHealth,
 } from '@/lib/browserDeploy'
 
@@ -56,6 +56,9 @@ export default function DeployMainnet() {
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
   const [confirmOpen, setConfirmOpen] = useState(false)
+  const [reviewQuote, setReviewQuote] = useState<DeployQuote | null>(null)
+  const [approvedCeiling, setApprovedCeiling] = useState<bigint | null>(null)
+  const [reviewNotice, setReviewNotice] = useState('')
   const [phrase, setPhrase] = useState('')
   const [copied, setCopied] = useState(false)
   const [storageReady] = useState(() => {
@@ -150,17 +153,38 @@ export default function DeployMainnet() {
     } catch (failure) { setError(errorText(failure)) }
   }
 
-  const startDeploy = async () => {
-    if (busyRef.current || !provider || !quote || stored || evidence || phrase !== CONFIRM_TEXT) return
-    busyRef.current = true; setBusy(true); setConfirmOpen(false); setPhrase(''); setError('')
+  const openConfirmation = async () => {
+    if (busyRef.current || !provider || !quote || stored || evidence) return
+    busyRef.current = true; setBusy(true); setError(''); setReviewNotice('')
     try {
-      // Every external fact is reread after the user's confirmation and before the only signing request.
       const freshRpc = await selectRpc()
       const freshWallet = await walletState(provider)
       assertAuthorizedWallet(freshWallet)
       const freshQuote = await estimateDeployment(freshRpc, DEPLOYER)
       setRpc(freshRpc); rpcRef.current = freshRpc; setQuote(freshQuote); setWallet(freshWallet)
-      if (!sameQuote(quote, freshQuote)) throw new Error('Network fee, balance or gas estimate changed. Review the new quote and confirm again.')
+      setReviewQuote(freshQuote); setApprovedCeiling(quoteApprovalCeiling(freshQuote))
+      setPhrase(''); setConfirmOpen(true)
+    } catch (failure) { setQuote(null); setError(errorText(failure)) }
+    finally { busyRef.current = false; setBusy(false) }
+  }
+
+  const startDeploy = async () => {
+    if (busyRef.current || !provider || !reviewQuote || approvedCeiling === null || stored || evidence || phrase !== CONFIRM_TEXT) return
+    busyRef.current = true; setBusy(true); setError(''); setReviewNotice('')
+    try {
+      // The owner accepts an explicit fee ceiling. Recheck every safety fact before Rabby opens.
+      const freshRpc = await selectRpc()
+      const freshWallet = await walletState(provider)
+      assertAuthorizedWallet(freshWallet)
+      const freshQuote = await estimateDeployment(freshRpc, DEPLOYER)
+      setRpc(freshRpc); rpcRef.current = freshRpc; setQuote(freshQuote); setWallet(freshWallet)
+      const reason = quoteNeedsReapproval(reviewQuote, freshQuote, approvedCeiling)
+      if (reason) {
+        setReviewQuote(freshQuote); setApprovedCeiling(quoteApprovalCeiling(freshQuote))
+        setPhrase(''); setReviewNotice(reason)
+        return
+      }
+      setConfirmOpen(false); setPhrase(''); setReviewQuote(freshQuote)
       setPending({ phase: 'awaiting_wallet' })
       let hash: Hex
       try { hash = await sendDeployment(provider, freshQuote) }
@@ -171,7 +195,7 @@ export default function DeployMainnet() {
       }
       setPending({ phase: 'pending', hash })
       await verifyHash(hash, freshRpc)
-    } catch (failure) { setError(errorText(failure)) }
+    } catch (failure) { setConfirmOpen(false); setPhrase(''); setQuote(null); setError(errorText(failure)) }
     finally { busyRef.current = false; setBusy(false) }
   }
 
@@ -243,7 +267,7 @@ export default function DeployMainnet() {
       <Detail label="Hard safety cap">{displayUsdc(MAX_DEPLOY_FEE_USDC)} USDC</Detail>
       <Detail label="Balance after maximum fee">{quote ? `${displayUsdc(quote.remaining)} USDC` : 'PENDING'}</Detail>
       <Detail label="Native value sent">0 USDC</Detail>
-    </dl><p className="mt-3 text-xs text-ink-mute">Quote is refreshed immediately before Rabby opens. If any parameter changes, confirmation stops and you must review the new quote. Actual fee is known only from the receipt.</p></Panel>
+    </dl><p className="mt-3 text-xs text-ink-mute">Deploy first opens a fresh quote for your approval. Immediately before Rabby opens, network, wallet, bytecode, balance and cost are checked again. Small fee changes within your explicit spending ceiling are allowed; a larger increase requires a new confirmation. Actual fee is known only from the receipt.</p></Panel>
 
     <Panel eyebrow="05 / Action" title="Deploy with one Rabby confirmation"><div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end"><div>
       <p className="text-sm text-ink-dim">Transaction type: contract creation. <code>to</code>: absent. <code>value</code>: 0. <code>data</code>: pinned creation bytecode + one Arc USDC constructor argument. No approval or USDC transfer is requested.</p>
@@ -252,7 +276,7 @@ export default function DeployMainnet() {
       {stored?.phase === 'uncertain' && <div className="mt-4 rounded-xl border border-amber-400/20 bg-amber-400/10 p-4 text-sm text-amber-200"><p>Outcome uncertain. Do not retry until Rabby activity and Explorer have been checked.</p><button className="btn-ghost mt-3" type="button" onClick={clearUncertain}>I checked: no transaction was sent</button></div>}
       {stored?.hash && <p className="mt-4 break-all text-sm">Transaction: <a className="text-cyan underline" href={`${EXPLORER}/tx/${stored.hash}`} target="_blank" rel="noopener noreferrer">{stored.hash}</a>. Status: {stored.phase}. <button className="ml-2 text-cyan underline" type="button" onClick={() => void verifyHash(stored.hash!)}>Recheck receipt</button></p>}
       {stored?.phase === 'awaiting_wallet' && <p className="mt-4 text-sm text-warn">Rabby request is open. Review its warning and transaction details. You may reject it.</p>}
-    </div><button className="btn-primary min-w-48" type="button" disabled={!ready} onClick={() => { setPhrase(''); setConfirmOpen(true) }}><CircleDollarSign className="h-4 w-4" /> {busy ? 'Checking…' : 'Deploy Contract'}</button></div>
+    </div><button className="btn-primary min-w-48" type="button" disabled={!ready} onClick={() => void openConfirmation()}><CircleDollarSign className="h-4 w-4" /> {busy ? 'Checking…' : 'Deploy Contract'}</button></div>
     </Panel>
 
     <Panel eyebrow="06 / Evidence" title={evidence ? 'Deployment verified' : 'Awaiting verified receipt'}>
@@ -269,9 +293,9 @@ export default function DeployMainnet() {
       </> : <p className="text-sm text-ink-dim">A deployment hash is not proof of a working settlement. This panel shows VERIFIED only after a successful receipt, exact runtime bytecode comparison and initialized read methods. Mainnet settlement evidence is recorded separately.</p>}
     </Panel>
 
-    {confirmOpen && quote && <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" role="presentation"><div className="surface w-full max-w-2xl border-cyan/25 p-6 shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="deploy-confirm-title"><h2 id="deploy-confirm-title" className="font-display text-2xl font-semibold">Confirm real Arc Mainnet deployment</h2><p className="mt-3 text-sm text-ink-dim">One contract creation request will open in Rabby. Stop if Rabby shows any security warning or different transaction details.</p><dl className="mt-4">
-      <Detail label="Network">Arc Mainnet · 5042</Detail><Detail label="From">{DEPLOYER}</Detail><Detail label="To / value">Contract creation / 0 USDC</Detail><Detail label="Constructor USDC">{ARC_USDC}</Detail><Detail label="Estimated gas">{quote.estimatedGas.toString()}</Detail><Detail label="Maximum fee">{displayUsdc(quote.maxCost)} USDC</Detail>
-    </dl><label className="mt-4 block text-sm font-medium" htmlFor="deploy-phrase">Type this exact sentence to proceed:</label><p className="mt-2 rounded-lg bg-navy-800 p-3 font-mono text-sm text-cyan">{CONFIRM_TEXT}</p><input id="deploy-phrase" className="input mt-3" value={phrase} onChange={(event) => setPhrase(event.target.value)} autoComplete="off" /><div className="mt-5 flex flex-wrap justify-end gap-3"><button className="btn-ghost" type="button" onClick={() => { setConfirmOpen(false); setPhrase('') }}>Cancel</button><button className="btn-primary" type="button" disabled={phrase !== CONFIRM_TEXT || busy} onClick={() => void startDeploy()}>Confirm in Rabby</button></div></div></div>}
+    {confirmOpen && reviewQuote && approvedCeiling !== null && <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" role="presentation"><div className="surface max-h-[90dvh] w-full max-w-2xl overflow-y-auto border-cyan/25 p-6 shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="deploy-confirm-title"><h2 id="deploy-confirm-title" className="font-display text-2xl font-semibold">Confirm real Arc Mainnet deployment</h2><p className="mt-3 text-sm text-ink-dim">One contract creation request will open in Rabby only after your approval. Stop if Rabby shows any security warning or different transaction details.</p>{reviewNotice && <p role="alert" className="mt-4 rounded-xl border border-amber-400/25 bg-amber-400/10 p-3 text-sm text-amber-200">{reviewNotice}</p>}<dl className="mt-4">
+      <Detail label="Network">Arc Mainnet · 5042</Detail><Detail label="From">{DEPLOYER}</Detail><Detail label="RPC / block">{new URL(reviewQuote.url).host} · {reviewQuote.block.toString()}</Detail><Detail label="To / value">Contract creation / 0 USDC</Detail><Detail label="Constructor USDC">{ARC_USDC}</Detail><Detail label="Estimated gas">{reviewQuote.estimatedGas.toString()}</Detail><Detail label="Gas limit">{reviewQuote.gasLimit.toString()}</Detail><Detail label="maxFeePerGas">{formatGwei(reviewQuote.maxFeePerGas)} gwei</Detail><Detail label="Current maximum fee">{displayUsdc(reviewQuote.maxCost)} USDC</Detail><Detail label="Your approved spending ceiling"><strong className="text-cyan">{displayUsdc(approvedCeiling)} USDC</strong></Detail><Detail label="Hard safety cap">{displayUsdc(MAX_DEPLOY_FEE_USDC)} USDC</Detail><Detail label="Wallet balance">{displayUsdc(reviewQuote.balance)} USDC</Detail><Detail label="Remaining after current maximum">{displayUsdc(reviewQuote.remaining)} USDC</Detail>
+    </dl><p className="mt-3 text-xs text-ink-mute">The final preflight may use a slightly different gas price within your approved spending ceiling. If cost exceeds this ceiling or balance changes materially, this dialog shows the new values and asks you to confirm again. Rabby will display the final transaction.</p><label className="mt-4 block text-sm font-medium" htmlFor="deploy-phrase">Type this exact sentence to proceed:</label><p className="mt-2 rounded-lg bg-navy-800 p-3 font-mono text-sm text-cyan">{CONFIRM_TEXT}</p><input id="deploy-phrase" className="input mt-3" value={phrase} onChange={(event) => setPhrase(event.target.value)} autoComplete="off" /><div className="mt-5 flex flex-wrap justify-end gap-3"><button className="btn-ghost" type="button" disabled={busy} onClick={() => { setConfirmOpen(false); setReviewQuote(null); setApprovedCeiling(null); setReviewNotice(''); setPhrase('') }}>Cancel</button><button className="btn-primary" type="button" disabled={phrase !== CONFIRM_TEXT || busy} onClick={() => void startDeploy()}>{busy ? 'Checking current cost…' : reviewNotice ? 'Confirm updated quote in Rabby' : 'Confirm in Rabby'}</button></div></div></div>}
   </div>
 }
 

@@ -57,6 +57,23 @@ test('unavailable RPC, insufficient gas and invalid chain abort preflight', asyn
   await assert.rejects(quote({ estimateFeesPerGas: async () => ({ maxFeePerGas: 200_000_000_000n, maxPriorityFeePerGas: 1n }) }), /safety cap/)
 })
 
+test('approved fee ceiling tolerates block changes and tiny balance drift, but requires a new approval above the ceiling', async () => {
+  const accepted = await quote()
+  const ceiling = d.quoteApprovalCeiling(accepted)
+  assert.ok(ceiling > accepted.maxCost && ceiling <= d.MAX_DEPLOY_FEE_USDC)
+  const within = { ...accepted, block: 124n, maxFeePerGas: accepted.maxFeePerGas + 1n,
+    maxCost: accepted.maxCost + accepted.gasLimit, balance: accepted.balance - 1n }
+  assert.equal(d.quoteNeedsReapproval(accepted, within, ceiling), null)
+  const above = { ...within, maxCost: ceiling + 1n }
+  assert.match(d.quoteNeedsReapproval(accepted, above, ceiling), /above your approved spending ceiling/)
+  assert.equal(d.quoteNeedsReapproval(above, above, d.quoteApprovalCeiling(above)), null)
+  const changedBalance = { ...within, balance: accepted.balance - 10_000_000_000_000_000n }
+  assert.match(d.quoteNeedsReapproval(accepted, changedBalance, ceiling), /balance changed/)
+  assert.throws(() => d.quoteNeedsReapproval(accepted, { ...within, balance: 1n }, ceiling), /safety checks/)
+  assert.throws(() => d.quoteNeedsReapproval(accepted, { ...within, maxCost: d.MAX_DEPLOY_FEE_USDC + 1n }, ceiling), /safety checks/)
+  assert.throws(() => d.quoteNeedsReapproval(accepted, { ...within, from: `0x${'11'.repeat(20)}` }, ceiling), /safety checks/)
+})
+
 test('signature rejection sends only one request and has no hash', async () => {
   const q = await quote()
   const provider = wallet({ send: () => { throw Object.assign(new Error('User rejected'), { code: 4001 }) } })
