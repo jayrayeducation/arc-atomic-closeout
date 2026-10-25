@@ -1,5 +1,11 @@
 # Проверка выпуска — 25.10.2026
 
+## Исправление чистой Vercel-сборки — 25.10.2026
+
+Из опубликованного коммита `73aa0be0bdbb3bedb21c06109ecdd7f934ecf465` создан чистый checkout без `.env`. Команда `npm.cmd install --legacy-peer-deps --offline --no-audit --no-fund` — **PASS**, 947 пакетов. Предупреждения `deprecated` не прервали установку. Затем `npm.cmd run build` — **FAIL** в `scripts/check-public-config.mjs:11`: `Set the original Arc Testnet contract address and deployment block before building`. Это локально воспроизведённая причина сбоя чистой сборки; полный лог удалённого deployment недоступен, поэтому тождество с удалённой ошибкой ещё не доказано.
+
+Исправление: публичные testnet адрес и блок из архивного Studio deployment вынесены в `public-deployments.json` и используются как значения по умолчанию в проверке сборки и UI. Mainnet по умолчанию остаётся без адреса. Повторная чистая сборка с теми же установленными пакетами и без `.env` — **PASS**, Vite 6.4.5. В `package.json` зафиксирована Node 22.x для совпадения с проверенной локальной средой; Vercel поддерживает выбор этой версии. В исходном каталоге `npm.cmd run check` — **PASS**, `npm.cmd run build` — **PASS**, `npm.cmd run contracts:test` — **PASS**, 152 теста, 0 ошибок, 10 suites. Внешний Vercel deployment и его URL ещё требуют проверки после push.
+
 Все результаты ниже относятся к **текущему** запуску, если явно не указано «архив».
 
 | Команда | Результат | Тесты / пояснение |

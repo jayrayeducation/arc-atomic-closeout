@@ -1,11 +1,13 @@
 /**
  * Which AtomicCloseout deployment the app talks to, per chain.
- * Addresses come from .env (public values). A chain without an address is
- * reported as "not deployed": the app never falls back to another chain's data.
+ * The archived Studio testnet deployment has a public default. Mainnet comes
+ * only from explicit environment values. A chain without an address is reported
+ * as "not deployed": the app never falls back to another chain's data.
  */
 import { isAddress, type Address } from 'viem'
 import { arc, arcTestnet } from 'viem/chains'
 import { requireChain } from '@/onchain-facts'
+import publicDeployments from '../../public-deployments.json'
 
 export interface Deployment {
   chainId: number
@@ -32,8 +34,8 @@ export const DEPLOYMENTS: Record<number, Deployment> = {
     chainId: arcTestnet.id,
     label: 'Arc Testnet',
     isTestnet: true,
-    contract: parseAddress(env.VITE_ATOMIC_CLOSEOUT_TESTNET),
-    fromBlock: parseBlock(env.VITE_ATOMIC_DEPLOY_BLOCK_TESTNET),
+    contract: parseAddress(env.VITE_ATOMIC_CLOSEOUT_TESTNET ?? publicDeployments.testnet.contract),
+    fromBlock: parseBlock(env.VITE_ATOMIC_DEPLOY_BLOCK_TESTNET ?? publicDeployments.testnet.fromBlock),
     explorerBase: requireChain(arcTestnet.id).explorerBase,
   },
   [arc.id]: {

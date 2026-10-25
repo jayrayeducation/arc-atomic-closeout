@@ -15,7 +15,7 @@
 
 | Материал | Статус |
 |---|---|
-| Новый публичный GitHub владельца `arc-atomic-closeout` | PENDING |
+| Публичный GitHub `arc-atomic-closeout` | https://github.com/jayrayeducation/arc-atomic-closeout |
 | Публичный HTTPS сайт | PENDING |
 | Mainnet contract address | PENDING |
 | Mainnet transaction evidence с реальным USDC | PENDING |

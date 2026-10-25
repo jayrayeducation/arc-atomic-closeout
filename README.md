@@ -47,7 +47,7 @@ Network facts (chain IDs 5042 and 5042002, RPC, explorer) come from the Arc Stud
 | Arc Testnet (5042002) | `0x329cc6b4adf9e136c4b254d1e46fbe228c0b01da` | Deployed, block 69040767, tx `0xf73e8dc997d4a7ad455f73e267ba8fe0dbf5f4f4dd0c2d0d72cadce451622350` |
 | Arc Mainnet (5042) | `<MAINNET_CONTRACT_ADDRESS_PLACEHOLDER>` | **Not deployed.** Owner-run package in `docs/MAINNET_DEPLOYMENT.md` |
 
-Release links: GitHub **PENDING** (new owner account), public site **PENDING**, builder profile **PENDING**, video **PENDING**. No mainnet address or transaction exists yet. [DoraHacks submission draft](docs/DORAHACKS_SUBMISSION.md).
+Release links: [GitHub](https://github.com/jayrayeducation/arc-atomic-closeout), public site **PENDING**, builder profile **PENDING**, video **PENDING**. No mainnet address or transaction exists yet. [DoraHacks submission draft](docs/DORAHACKS_SUBMISSION.md).
 
 ## Development
 
@@ -62,7 +62,7 @@ npm run build           # production build is `vite build`
 
 ### Environment variables
 
-Public values only. Copy `.env.example` into a local `.env`; never publish `.env` or `.e2e-wallets.json`.
+Public values only. The archived Arc Studio testnet address and deployment block are tracked in `public-deployments.json`, so a clean production checkout builds without `.env`. Copy `.env.example` into a local `.env` only when overriding public settings; never publish `.env` or `.e2e-wallets.json`. Mainnet remains disabled until both mainnet values are configured after an authorized deployment.
 
 | Name | Purpose |
 |---|---|

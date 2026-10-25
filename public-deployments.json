@@ -1,0 +1,6 @@
+{
+  "testnet": {
+    "contract": "0x329cc6b4adf9e136c4b254d1e46fbe228c0b01da",
+    "fromBlock": "69040767"
+  }
+}
