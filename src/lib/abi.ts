@@ -1,0 +1,1110 @@
+// Generated from contracts/out/AtomicCloseout.sol/AtomicCloseout.json (forge build). Do not edit by hand.
+export const atomicCloseoutAbi = [
+ {
+  "type": "function",
+  "name": "MAX_DURATION",
+  "inputs": [],
+  "outputs": [
+   {
+    "name": "",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "MAX_MEMBERS",
+  "inputs": [],
+  "outputs": [
+   {
+    "name": "",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "MAX_NAME_BYTES",
+  "inputs": [],
+  "outputs": [
+   {
+    "name": "",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "MIN_DURATION",
+  "inputs": [],
+  "outputs": [
+   {
+    "name": "",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "MIN_MEMBERS",
+  "inputs": [],
+  "outputs": [
+   {
+    "name": "",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "PLAN_TYPEHASH",
+  "inputs": [],
+  "outputs": [
+   {
+    "name": "",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "USDC",
+  "inputs": [],
+  "outputs": [
+   {
+    "name": "",
+    "type": "address",
+    "internalType": "contract IERC20"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "approvePlan",
+  "inputs": [
+   {
+    "name": "roundId",
+    "type": "uint256",
+    "internalType": "uint256"
+   },
+   {
+    "name": "planHash",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "cancelPlan",
+  "inputs": [
+   {
+    "name": "roundId",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "computePlanHash",
+  "inputs": [
+   {
+    "name": "groupId",
+    "type": "uint256",
+    "internalType": "uint256"
+   },
+   {
+    "name": "roundId",
+    "type": "uint256",
+    "internalType": "uint256"
+   },
+   {
+    "name": "debts",
+    "type": "uint128[]",
+    "internalType": "uint128[]"
+   },
+   {
+    "name": "credits",
+    "type": "uint128[]",
+    "internalType": "uint128[]"
+   },
+   {
+    "name": "deadline",
+    "type": "uint64",
+    "internalType": "uint64"
+   },
+   {
+    "name": "expensesHash",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   }
+  ],
+  "outputs": [
+   {
+    "name": "",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "createGroup",
+  "inputs": [
+   {
+    "name": "name",
+    "type": "string",
+    "internalType": "string"
+   },
+   {
+    "name": "members",
+    "type": "address[]",
+    "internalType": "address[]"
+   }
+  ],
+  "outputs": [
+   {
+    "name": "groupId",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "finalize",
+  "inputs": [
+   {
+    "name": "roundId",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "fund",
+  "inputs": [
+   {
+    "name": "roundId",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "getGroup",
+  "inputs": [
+   {
+    "name": "groupId",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "outputs": [
+   {
+    "name": "",
+    "type": "tuple",
+    "internalType": "struct AtomicCloseout.GroupView",
+    "components": [
+     {
+      "name": "groupId",
+      "type": "uint256",
+      "internalType": "uint256"
+     },
+     {
+      "name": "creator",
+      "type": "address",
+      "internalType": "address"
+     },
+     {
+      "name": "name",
+      "type": "string",
+      "internalType": "string"
+     },
+     {
+      "name": "roundCount",
+      "type": "uint32",
+      "internalType": "uint32"
+     },
+     {
+      "name": "activeRoundId",
+      "type": "uint256",
+      "internalType": "uint256"
+     },
+     {
+      "name": "members",
+      "type": "address[]",
+      "internalType": "address[]"
+     }
+    ]
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "getRound",
+  "inputs": [
+   {
+    "name": "roundId",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "outputs": [
+   {
+    "name": "v",
+    "type": "tuple",
+    "internalType": "struct AtomicCloseout.RoundView",
+    "components": [
+     {
+      "name": "roundId",
+      "type": "uint256",
+      "internalType": "uint256"
+     },
+     {
+      "name": "groupId",
+      "type": "uint256",
+      "internalType": "uint256"
+     },
+     {
+      "name": "roundNumber",
+      "type": "uint32",
+      "internalType": "uint32"
+     },
+     {
+      "name": "proposer",
+      "type": "address",
+      "internalType": "address"
+     },
+     {
+      "name": "status",
+      "type": "uint8",
+      "internalType": "enum AtomicCloseout.Status"
+     },
+     {
+      "name": "approvalCount",
+      "type": "uint8",
+      "internalType": "uint8"
+     },
+     {
+      "name": "createdAt",
+      "type": "uint64",
+      "internalType": "uint64"
+     },
+     {
+      "name": "deadline",
+      "type": "uint64",
+      "internalType": "uint64"
+     },
+     {
+      "name": "planHash",
+      "type": "bytes32",
+      "internalType": "bytes32"
+     },
+     {
+      "name": "expensesHash",
+      "type": "bytes32",
+      "internalType": "bytes32"
+     },
+     {
+      "name": "totalAmount",
+      "type": "uint128",
+      "internalType": "uint128"
+     },
+     {
+      "name": "fundedTotal",
+      "type": "uint128",
+      "internalType": "uint128"
+     },
+     {
+      "name": "refundedTotal",
+      "type": "uint128",
+      "internalType": "uint128"
+     },
+     {
+      "name": "withdrawnTotal",
+      "type": "uint128",
+      "internalType": "uint128"
+     },
+     {
+      "name": "members",
+      "type": "address[]",
+      "internalType": "address[]"
+     },
+     {
+      "name": "debts",
+      "type": "uint128[]",
+      "internalType": "uint128[]"
+     },
+     {
+      "name": "credits",
+      "type": "uint128[]",
+      "internalType": "uint128[]"
+     },
+     {
+      "name": "approved",
+      "type": "bool[]",
+      "internalType": "bool[]"
+     },
+     {
+      "name": "funded",
+      "type": "bool[]",
+      "internalType": "bool[]"
+     },
+     {
+      "name": "refunded",
+      "type": "bool[]",
+      "internalType": "bool[]"
+     },
+     {
+      "name": "withdrawn",
+      "type": "bool[]",
+      "internalType": "bool[]"
+     }
+    ]
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "groupCount",
+  "inputs": [],
+  "outputs": [
+   {
+    "name": "",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "groupRounds",
+  "inputs": [
+   {
+    "name": "groupId",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "outputs": [
+   {
+    "name": "roundIds",
+    "type": "uint256[]",
+    "internalType": "uint256[]"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "memberIndex",
+  "inputs": [
+   {
+    "name": "groupId",
+    "type": "uint256",
+    "internalType": "uint256"
+   },
+   {
+    "name": "who",
+    "type": "address",
+    "internalType": "address"
+   }
+  ],
+  "outputs": [
+   {
+    "name": "isMember",
+    "type": "bool",
+    "internalType": "bool"
+   },
+   {
+    "name": "index",
+    "type": "uint8",
+    "internalType": "uint8"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "proposePlan",
+  "inputs": [
+   {
+    "name": "groupId",
+    "type": "uint256",
+    "internalType": "uint256"
+   },
+   {
+    "name": "debts",
+    "type": "uint128[]",
+    "internalType": "uint128[]"
+   },
+   {
+    "name": "credits",
+    "type": "uint128[]",
+    "internalType": "uint128[]"
+   },
+   {
+    "name": "deadline",
+    "type": "uint64",
+    "internalType": "uint64"
+   },
+   {
+    "name": "expensesHash",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   }
+  ],
+  "outputs": [
+   {
+    "name": "roundId",
+    "type": "uint256",
+    "internalType": "uint256"
+   },
+   {
+    "name": "planHash",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   }
+  ],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "refund",
+  "inputs": [
+   {
+    "name": "roundId",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "refundTo",
+  "inputs": [
+   {
+    "name": "roundId",
+    "type": "uint256",
+    "internalType": "uint256"
+   },
+   {
+    "name": "to",
+    "type": "address",
+    "internalType": "address"
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "roundCount",
+  "inputs": [],
+  "outputs": [
+   {
+    "name": "",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "roundStatus",
+  "inputs": [
+   {
+    "name": "roundId",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "outputs": [
+   {
+    "name": "",
+    "type": "uint8",
+    "internalType": "enum AtomicCloseout.Status"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "totalLocked",
+  "inputs": [],
+  "outputs": [
+   {
+    "name": "",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "withdraw",
+  "inputs": [
+   {
+    "name": "roundId",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "withdrawTo",
+  "inputs": [
+   {
+    "name": "roundId",
+    "type": "uint256",
+    "internalType": "uint256"
+   },
+   {
+    "name": "to",
+    "type": "address",
+    "internalType": "address"
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "event",
+  "name": "Finalized",
+  "inputs": [
+   {
+    "name": "roundId",
+    "type": "uint256",
+    "indexed": true,
+    "internalType": "uint256"
+   },
+   {
+    "name": "groupId",
+    "type": "uint256",
+    "indexed": true,
+    "internalType": "uint256"
+   },
+   {
+    "name": "totalAmount",
+    "type": "uint128",
+    "indexed": false,
+    "internalType": "uint128"
+   },
+   {
+    "name": "caller",
+    "type": "address",
+    "indexed": true,
+    "internalType": "address"
+   }
+  ],
+  "anonymous": false
+ },
+ {
+  "type": "event",
+  "name": "Funded",
+  "inputs": [
+   {
+    "name": "roundId",
+    "type": "uint256",
+    "indexed": true,
+    "internalType": "uint256"
+   },
+   {
+    "name": "member",
+    "type": "address",
+    "indexed": true,
+    "internalType": "address"
+   },
+   {
+    "name": "amount",
+    "type": "uint128",
+    "indexed": false,
+    "internalType": "uint128"
+   },
+   {
+    "name": "fundedTotal",
+    "type": "uint128",
+    "indexed": false,
+    "internalType": "uint128"
+   }
+  ],
+  "anonymous": false
+ },
+ {
+  "type": "event",
+  "name": "FundingOpened",
+  "inputs": [
+   {
+    "name": "roundId",
+    "type": "uint256",
+    "indexed": true,
+    "internalType": "uint256"
+   }
+  ],
+  "anonymous": false
+ },
+ {
+  "type": "event",
+  "name": "GroupCreated",
+  "inputs": [
+   {
+    "name": "groupId",
+    "type": "uint256",
+    "indexed": true,
+    "internalType": "uint256"
+   },
+   {
+    "name": "creator",
+    "type": "address",
+    "indexed": true,
+    "internalType": "address"
+   },
+   {
+    "name": "name",
+    "type": "string",
+    "indexed": false,
+    "internalType": "string"
+   },
+   {
+    "name": "members",
+    "type": "address[]",
+    "indexed": false,
+    "internalType": "address[]"
+   }
+  ],
+  "anonymous": false
+ },
+ {
+  "type": "event",
+  "name": "MemberAdded",
+  "inputs": [
+   {
+    "name": "groupId",
+    "type": "uint256",
+    "indexed": true,
+    "internalType": "uint256"
+   },
+   {
+    "name": "member",
+    "type": "address",
+    "indexed": true,
+    "internalType": "address"
+   },
+   {
+    "name": "index",
+    "type": "uint8",
+    "indexed": false,
+    "internalType": "uint8"
+   }
+  ],
+  "anonymous": false
+ },
+ {
+  "type": "event",
+  "name": "PlanApproved",
+  "inputs": [
+   {
+    "name": "roundId",
+    "type": "uint256",
+    "indexed": true,
+    "internalType": "uint256"
+   },
+   {
+    "name": "member",
+    "type": "address",
+    "indexed": true,
+    "internalType": "address"
+   },
+   {
+    "name": "planHash",
+    "type": "bytes32",
+    "indexed": false,
+    "internalType": "bytes32"
+   },
+   {
+    "name": "approvalCount",
+    "type": "uint8",
+    "indexed": false,
+    "internalType": "uint8"
+   }
+  ],
+  "anonymous": false
+ },
+ {
+  "type": "event",
+  "name": "PlanCancelled",
+  "inputs": [
+   {
+    "name": "roundId",
+    "type": "uint256",
+    "indexed": true,
+    "internalType": "uint256"
+   },
+   {
+    "name": "by",
+    "type": "address",
+    "indexed": true,
+    "internalType": "address"
+   }
+  ],
+  "anonymous": false
+ },
+ {
+  "type": "event",
+  "name": "PlanProposed",
+  "inputs": [
+   {
+    "name": "groupId",
+    "type": "uint256",
+    "indexed": true,
+    "internalType": "uint256"
+   },
+   {
+    "name": "roundId",
+    "type": "uint256",
+    "indexed": true,
+    "internalType": "uint256"
+   },
+   {
+    "name": "proposer",
+    "type": "address",
+    "indexed": true,
+    "internalType": "address"
+   },
+   {
+    "name": "planHash",
+    "type": "bytes32",
+    "indexed": false,
+    "internalType": "bytes32"
+   },
+   {
+    "name": "totalAmount",
+    "type": "uint128",
+    "indexed": false,
+    "internalType": "uint128"
+   },
+   {
+    "name": "deadline",
+    "type": "uint64",
+    "indexed": false,
+    "internalType": "uint64"
+   },
+   {
+    "name": "expensesHash",
+    "type": "bytes32",
+    "indexed": false,
+    "internalType": "bytes32"
+   }
+  ],
+  "anonymous": false
+ },
+ {
+  "type": "event",
+  "name": "Refunded",
+  "inputs": [
+   {
+    "name": "roundId",
+    "type": "uint256",
+    "indexed": true,
+    "internalType": "uint256"
+   },
+   {
+    "name": "member",
+    "type": "address",
+    "indexed": true,
+    "internalType": "address"
+   },
+   {
+    "name": "to",
+    "type": "address",
+    "indexed": false,
+    "internalType": "address"
+   },
+   {
+    "name": "amount",
+    "type": "uint128",
+    "indexed": false,
+    "internalType": "uint128"
+   }
+  ],
+  "anonymous": false
+ },
+ {
+  "type": "event",
+  "name": "Withdrawn",
+  "inputs": [
+   {
+    "name": "roundId",
+    "type": "uint256",
+    "indexed": true,
+    "internalType": "uint256"
+   },
+   {
+    "name": "member",
+    "type": "address",
+    "indexed": true,
+    "internalType": "address"
+   },
+   {
+    "name": "to",
+    "type": "address",
+    "indexed": false,
+    "internalType": "address"
+   },
+   {
+    "name": "amount",
+    "type": "uint128",
+    "indexed": false,
+    "internalType": "uint128"
+   }
+  ],
+  "anonymous": false
+ },
+ {
+  "type": "error",
+  "name": "AlreadyApproved",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "AlreadyFunded",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "AlreadyRefunded",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "AlreadyWithdrawn",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "AmountOverflow",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "ArrayLengthMismatch",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "BadDeadline",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "BadGroupSize",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "BadName",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "CreatorNotMember",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "DeadlinePassed",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "DuplicateMember",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "EmptyPlan",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "InvalidToken",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "NetPositionConflict",
+  "inputs": [
+   {
+    "name": "index",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ]
+ },
+ {
+  "type": "error",
+  "name": "NotCreditor",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "NotDebtor",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "NotFullyFunded",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "NotMember",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "NotProposer",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "NotRefundable",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "NotSettled",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "NothingToRefund",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "PlanHashMismatch",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "PlanUnbalanced",
+  "inputs": [
+   {
+    "name": "debtSum",
+    "type": "uint256",
+    "internalType": "uint256"
+   },
+   {
+    "name": "creditSum",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ]
+ },
+ {
+  "type": "error",
+  "name": "ReentrancyGuardReentrantCall",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "RoundStillActive",
+  "inputs": [
+   {
+    "name": "activeRoundId",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ]
+ },
+ {
+  "type": "error",
+  "name": "SafeERC20FailedOperation",
+  "inputs": [
+   {
+    "name": "token",
+    "type": "address",
+    "internalType": "address"
+   }
+  ]
+ },
+ {
+  "type": "error",
+  "name": "TransferAmountMismatch",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "UnknownGroup",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "UnknownRound",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "WrongDecimals",
+  "inputs": [
+   {
+    "name": "actual",
+    "type": "uint8",
+    "internalType": "uint8"
+   }
+  ]
+ },
+ {
+  "type": "error",
+  "name": "WrongStatus",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "ZeroAddressMember",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "ZeroRecipient",
+  "inputs": []
+ }
+] as const

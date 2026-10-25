@@ -1,0 +1,12 @@
+.env
+.env.*
+.e2e-wallets.json
+node_modules/
+dist/
+contracts/out/
+contracts/cache/
+broadcast/
+docs/test-results/
+docs/screenshots/
+console.jsonl
+*.log

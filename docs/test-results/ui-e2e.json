@@ -1,0 +1,112 @@
+{
+  "ranAt": "2026-10-25T15:29:23.534Z",
+  "groupId": "9",
+  "passed": 16,
+  "failed": 6,
+  "results": [
+    {
+      "name": "open create page, wallet disconnected",
+      "pass": true
+    },
+    {
+      "name": "connect injected wallet through the connect modal",
+      "pass": true
+    },
+    {
+      "name": "network mismatch is shown and blocks the action",
+      "pass": true
+    },
+    {
+      "name": "switch network from the app",
+      "pass": true
+    },
+    {
+      "name": "validation: duplicate members are rejected before any transaction",
+      "pass": true
+    },
+    {
+      "name": "create group through the UI (real transaction)",
+      "pass": true
+    },
+    {
+      "name": "add expenses (exact integer math) and keep them across reload",
+      "pass": true
+    },
+    {
+      "name": "balances tab shows exact net positions summing to zero",
+      "pass": true
+    },
+    {
+      "name": "propose the plan onchain (real transaction)",
+      "pass": true
+    },
+    {
+      "name": "non-member sees a read-only view and cannot approve",
+      "pass": true
+    },
+    {
+      "name": "approve exact plan as alex (real transaction)",
+      "pass": true
+    },
+    {
+      "name": "approve exact plan as maya (real transaction)",
+      "pass": true
+    },
+    {
+      "name": "approve exact plan as jordan (real transaction)",
+      "pass": true
+    },
+    {
+      "name": "funding opens only after unanimous approval",
+      "pass": true
+    },
+    {
+      "name": "maya: exact allowance then deposit 3.00 USDC (real transactions)",
+      "pass": true
+    },
+    {
+      "name": "jordan: exact allowance then deposit 4.50 USDC (real transactions)",
+      "pass": false,
+      "error": "locator.click: Timeout 30000ms exceeded. Call log:   - waiting for getByRole('button', { name: /allow exactly 4\\.50/ }).first()"
+    },
+    {
+      "name": "fully funded round can be finalized (real transaction)",
+      "pass": false,
+      "error": "locator.waitFor: Timeout 90000ms exceeded. Call log:   - waiting for getByText('Fully funded').first() to be visible"
+    },
+    {
+      "name": "creditor withdraws (real transaction)",
+      "pass": false,
+      "error": "locator.waitFor: Timeout 30000ms exceeded. Call log:   - waiting for getByRole('button', { name: /Withdraw 7\\.50 USDC/ }).first() to be visible"
+    },
+    {
+      "name": "activity timeline lists confirmed events with explorer links",
+      "pass": false,
+      "error": "locator.waitFor: Timeout 90000ms exceeded. Call log:   - waiting for getByText('Withdrew 7.50 USDC').first() to be visible"
+    },
+    {
+      "name": "reload keeps connection, group and settled state (persistence)",
+      "pass": false,
+      "error": "locator.waitFor: Timeout 60000ms exceeded. Call log:   - waiting for getByText('Settled and fully withdrawn').first() to be visible"
+    },
+    {
+      "name": "shared link works with no wallet and no local notes",
+      "pass": false,
+      "error": "locator.waitFor: Timeout 60000ms exceeded. Call log:   - waiting for getByText('Settled and fully withdrawn').first() to be visible"
+    },
+    {
+      "name": "refunded group from the scripted lifecycle test renders its refund state",
+      "pass": true
+    }
+  ],
+  "transactions": [
+    "0x1b7734f41eedd2983884660ed1181977bae8362f594fd9b63a635d18c84d2594",
+    "0xb98c4268732b53fa53cba28ee5b1add810832358603efc8b6c0a4fd0b3ddd501",
+    "0x31603ab64983ec6f718573901307c8df93a1bbb512f8effea11e56fbfe90bd08",
+    "0x949b205d93fc925dc0742b322d1e5bb77006dc6bbbd0ca37e4cc862af6d23f90",
+    "0xe0a55ba5a7225f6078aa197a202979940ae4f664945435abdbfdbfbdd7327fa0",
+    "0x1015ac1408419a3918b291d819dd22ff79222c1b6414abab4313f4e940c37a7b",
+    "0xc0120b637c2d74eca24d5b6c70b284d6187ce0b40d240fc8d469d8601e4e47f2"
+  ],
+  "pageErrors": []
+}

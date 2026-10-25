@@ -1,0 +1,445 @@
+No files changed, compilation skipped
+
+Ran 1 test for contracts/test/AtomicCloseout.Invariant.t.sol:ACInvariantTest
+[PASS] test_Handler_ReachesSettlementAndRefund() (gas: 2549485)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 4.78ms (3.14ms CPU time)
+
+Ran 19 tests for contracts/test/AtomicCloseout.Approval.t.sol:ACApprovalTest
+[PASS] test_Approve_AfterDeadlineReverts() (gas: 46638)
+[PASS] test_Approve_AfterFundingOpenedReverts() (gas: 409791)
+[PASS] test_Approve_DuplicateReverts() (gas: 152522)
+[PASS] test_Approve_EveryMemberMustApprove() (gas: 447672)
+[PASS] test_Approve_NoOneCanApproveForAnother() (gas: 300037)
+[PASS] test_Approve_NonUnanimousExpiresAndNeverFunds() (gas: 403091)
+[PASS] test_Approve_OneSecondBeforeDeadlineOk() (gas: 169370)
+[PASS] test_Approve_ProposerMustApproveSeparately() (gas: 411084)
+[PASS] test_Approve_StrangerReverts() (gas: 43629)
+[PASS] test_Approve_UnanimityOpensFundingWithEvent() (gas: 418507)
+[PASS] test_Approve_UnknownRoundReverts() (gas: 37027)
+[PASS] test_Approve_WrongHashReverts() (gas: 46170)
+[PASS] test_Cancel_ByProposerInApproval() (gas: 49656)
+[PASS] test_Cancel_CancelledRoundCannotBeFunded() (gas: 208542)
+[PASS] test_Cancel_NewPlanAllowedAndOldHashUnapprovable() (gas: 930142)
+[PASS] test_Cancel_NotAfterDeadline() (gas: 39588)
+[PASS] test_Cancel_NotInFunding() (gas: 402811)
+[PASS] test_Cancel_OnlyProposer() (gas: 64192)
+[PASS] test_Cancel_TwiceReverts() (gas: 68923)
+Suite result: ok. 19 passed; 0 failed; 0 skipped; finished in 7.34ms (5.34ms CPU time)
+
+Ran 24 tests for contracts/test/AtomicCloseout.Funding.t.sol:ACFundingTest
+[PASS] test_Finalize_AfterDeadlineUnderfundedStillNotFullyFunded() (gas: 1257031)
+[PASS] test_Finalize_BeforeApprovalsReverts() (gas: 600269)
+[PASS] test_Finalize_FundAfterSettledReverts() (gas: 426068)
+[PASS] test_Finalize_NotFullyFunded_NothingFunded() (gas: 41556)
+[PASS] test_Finalize_NotFullyFunded_Partial() (gas: 1530633)
+[PASS] test_Finalize_PermissionlessAnyCaller() (gas: 334538)
+[PASS] test_Finalize_RefundImpossibleOnceFullyFunded() (gas: 402027)
+[PASS] test_Finalize_SucceedsWhenFullyFundedAndEmits() (gas: 359043)
+[PASS] test_Finalize_TwiceReverts() (gas: 360288)
+[PASS] test_Finalize_UnknownRoundReverts() (gas: 37030)
+[PASS] test_Finalize_WorksAfterDeadlineWhenFullyFunded() (gas: 347475)
+[PASS] test_Fund_AfterDeadlineReverts() (gas: 177225)
+[PASS] test_Fund_BeforeUnanimityReverts() (gas: 733563)
+[PASS] test_Fund_BlocklistedDebtorCannotFund() (gas: 268351)
+[PASS] test_Fund_CreditorReverts_NotDebtor() (gas: 174346)
+[PASS] test_Fund_DoubleFundingReverts() (gas: 288945)
+[PASS] test_Fund_ExtraBalanceNotTouched() (gas: 249009)
+[PASS] test_Fund_InsufficientAllowanceReverts() (gas: 216571)
+[PASS] test_Fund_InsufficientBalanceReverts() (gas: 284478)
+[PASS] test_Fund_LastSecondBeforeDeadlineOk() (gas: 352406)
+[PASS] test_Fund_MissingAllowanceReverts() (gas: 229943)
+[PASS] test_Fund_NonMemberReverts() (gas: 172003)
+[PASS] test_Fund_PullsExactAmountAndEmits() (gas: 319139)
+[PASS] test_Fund_UnknownRoundReverts() (gas: 39654)
+Suite result: ok. 24 passed; 0 failed; 0 skipped; finished in 7.28ms (7.17ms CPU time)
+
+Ran 33 tests for contracts/test/AtomicCloseout.Lifecycle.t.sol:ACLifecycleTest
+[PASS] test_Constructor_Accepts6Decimals() (gas: 30297)
+[PASS] test_Constructor_Rejects18Decimals() (gas: 864726)
+[PASS] test_Constructor_RejectsContractWithoutDecimals() (gas: 321373)
+[PASS] test_Constructor_RejectsEOA() (gas: 324623)
+[PASS] test_Constructor_RejectsZeroAddress() (gas: 320275)
+[PASS] test_CreateGroup_Bounds_NineMembersRevert() (gas: 55864)
+[PASS] test_CreateGroup_Bounds_OneMemberReverts() (gas: 34467)
+[PASS] test_CreateGroup_Bounds_TwoAndEightAccepted() (gas: 774432)
+[PASS] test_CreateGroup_EmitsGroupCreatedAndMemberAdded() (gas: 290152)
+[PASS] test_CreateGroup_RevertsOnDuplicateMember() (gas: 40368)
+[PASS] test_CreateGroup_RevertsOnEmptyName() (gas: 39599)
+[PASS] test_CreateGroup_RevertsOnTooLongName() (gas: 308605)
+[PASS] test_CreateGroup_RevertsOnZeroMember() (gas: 38359)
+[PASS] test_CreateGroup_RevertsWhenCreatorNotMember() (gas: 45131)
+[PASS] test_CreateGroup_StableMemberOrderAndIndex() (gas: 352073)
+[PASS] test_CreateGroup_UnknownGroupViewsRevert() (gas: 31652)
+[PASS] test_Propose_AllowedAfterCancelled() (gas: 915116)
+[PASS] test_Propose_AllowedAfterExpired() (gas: 905257)
+[PASS] test_Propose_AllowedAfterRefunded() (gas: 1653996)
+[PASS] test_Propose_AllowedAfterSettled() (gas: 1707042)
+[PASS] test_Propose_BalancedPlanOk() (gas: 701464)
+[PASS] test_Propose_BlockedWhileApproval() (gas: 650052)
+[PASS] test_Propose_BlockedWhileFunding() (gas: 1036272)
+[PASS] test_Propose_DeadlineTooFarReverts() (gas: 642701)
+[PASS] test_Propose_DeadlineTooSoonReverts() (gas: 680843)
+[PASS] test_Propose_NonMemberProposerReverts() (gas: 311748)
+[PASS] test_Propose_PlanHashBindsRoundAndDeadline() (gas: 355350)
+[PASS] test_Propose_PlanHashMatchesIndependentRecompute() (gas: 697430)
+[PASS] test_Propose_RevertsOnArrayLengthMismatch() (gas: 346754)
+[PASS] test_Propose_RevertsOnEmptyPlan() (gas: 314364)
+[PASS] test_Propose_RevertsOnNetPositionConflict() (gas: 313872)
+[PASS] test_Propose_RevertsWhenUnbalanced() (gas: 315546)
+[PASS] test_Propose_UnknownGroupReverts() (gas: 39445)
+Suite result: ok. 33 passed; 0 failed; 0 skipped; finished in 8.98ms (9.12ms CPU time)
+
+Ran 3 tests for contracts/test/AtomicCloseout.Gas.t.sol:ACGasTest
+[PASS] test_Gas_Lifecycle_3Members() (gas: 3386309)
+Logs:
+  GAS|--- 3-member lifecycle ---
+  GAS|n=3|createGroup 261882
+  GAS|n=3|proposePlan 343790
+  GAS|n=3|approvePlan.first 41691
+  GAS|n=3|approvePlan.last 43081
+  GAS|n=3|approvePlan.avg 42154
+  GAS|n=3|fund.first 105693
+  GAS|n=3|fund.last 105693
+  GAS|n=3|fund.avg 105693
+  GAS|n=3|finalize 36043
+  GAS|n=3|withdraw.first 103749
+  GAS|n=3|withdraw.avg 90374
+  GAS|n=3|refund(expiry scenario) 98729
+  GAS|n=3|debtors 1
+  GAS|n=3|creditors 2
+  GAS|n=3|txCount(create+propose+approvals+funds+finalize+withdrawals) 9
+  GAS|n=3|approxTotalLifecycleGas 1054618
+
+[PASS] test_Gas_Lifecycle_5Members() (gas: 4388604)
+Logs:
+  GAS|--- 5-member lifecycle ---
+  GAS|n=5|createGroup 362238
+  GAS|n=5|proposePlan 358186
+  GAS|n=5|approvePlan.first 41691
+  GAS|n=5|approvePlan.last 43081
+  GAS|n=5|approvePlan.avg 41969
+  GAS|n=5|fund.first 105693
+  GAS|n=5|fund.last 71543
+  GAS|n=5|fund.avg 88618
+  GAS|n=5|finalize 36043
+  GAS|n=5|withdraw.first 103699
+  GAS|n=5|withdraw.avg 89115
+  GAS|n=5|refund(expiry scenario) 98729
+  GAS|n=5|debtors 2
+  GAS|n=5|creditors 3
+  GAS|n=5|txCount(create+propose+approvals+funds+finalize+withdrawals) 13
+  GAS|n=5|approxTotalLifecycleGas 1410893
+
+[PASS] test_Gas_Lifecycle_8Members() (gas: 6074177)
+Logs:
+  GAS|--- 8-member lifecycle ---
+  GAS|n=8|createGroup 516774
+  GAS|n=8|proposePlan 397756
+  GAS|n=8|approvePlan.first 41691
+  GAS|n=8|approvePlan.last 43081
+  GAS|n=8|approvePlan.avg 41864
+  GAS|n=8|fund.first 105693
+  GAS|n=8|fund.last 71543
+  GAS|n=8|fund.avg 80068
+  GAS|n=8|finalize 36043
+  GAS|n=8|withdraw.first 103699
+  GAS|n=8|withdraw.avg 88499
+  GAS|n=8|refund(expiry scenario) 98729
+  GAS|n=8|debtors 4
+  GAS|n=8|creditors 4
+  GAS|n=8|txCount(create+propose+approvals+funds+finalize+withdrawals) 19
+  GAS|n=8|approxTotalLifecycleGas 1959753
+
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 10.44ms (8.95ms CPU time)
+
+Ran 25 tests for contracts/test/AtomicCloseout.Payout.t.sol:ACPayoutTest
+[PASS] test_Refund_BlocklistedDepositorCannotRefund_StateUnchanged() (gas: 1636635)
+[PASS] test_Refund_DepositorGetsOwnDepositAndEmits() (gas: 1958814)
+[PASS] test_Refund_DoubleRefundReverts() (gas: 1834027)
+[PASS] test_Refund_MissedDeadlineLetsNobodyTakeOthersDeposits() (gas: 1990622)
+[PASS] test_Refund_NewRoundProposedWhileOldDepositsRefundable() (gas: 3059413)
+[PASS] test_Refund_NonDepositorReverts_NothingToRefund() (gas: 1564937)
+[PASS] test_Refund_NotAfterSettledOrCancelled() (gas: 1132362)
+[PASS] test_Refund_NotBeforeDeadline() (gas: 1507823)
+[PASS] test_Refund_StatusApprovalBecomesExpired() (gas: 81487)
+[PASS] test_Refund_StatusFundingBecomesExpired() (gas: 401836)
+[PASS] test_Refund_StatusRefundedOnceAllDepositsReturned() (gas: 1926789)
+[PASS] test_Refund_StatusStaysFundingWhenFullyFundedPastDeadline() (gas: 1930823)
+[PASS] test_Refund_UnknownRoundReverts() (gas: 39558)
+[PASS] test_WithdrawTo_OnlyCreditorCanCall() (gas: 997639)
+[PASS] test_WithdrawTo_SendsToChosenAddress() (gas: 882127)
+[PASS] test_WithdrawTo_ZeroRecipientReverts() (gas: 845768)
+[PASS] test_Withdraw_BeforeSettleReverts_NotSettled() (gas: 840200)
+[PASS] test_Withdraw_BlocklistedCreditor_StateUnchangedThenWithdrawToWorks() (gas: 1184445)
+[PASS] test_Withdraw_CreditorGetsExactCredit() (gas: 1024603)
+[PASS] test_Withdraw_DebtorReverts_NotCreditor() (gas: 792141)
+[PASS] test_Withdraw_DoubleWithdrawReverts() (gas: 938083)
+[PASS] test_Withdraw_StillWorksLongAfterDeadline() (gas: 878097)
+[PASS] test_Withdraw_StrangerReverts_NotMember() (gas: 789750)
+[PASS] test_Withdraw_UnknownRoundReverts() (gas: 39652)
+[PASS] test_Withdraw_WithdrawToBlocklistedRecipientReverts() (gas: 940138)
+Suite result: ok. 25 passed; 0 failed; 0 skipped; finished in 29.40ms (27.29ms CPU time)
+
+Ran 15 tests for contracts/test/AtomicCloseout.Scenarios.t.sol:ACScenariosTest
+[PASS] test_Concurrent_MemberOfTwoGroupsCannotCrossFund() (gas: 2184885)
+[PASS] test_Concurrent_OldRoundWithdrawStillWorksAfterNewerRoundsExpire() (gas: 1756424)
+[PASS] test_Concurrent_RefundInOneGroupCannotTouchAnotherGroupsFunds() (gas: 2859201)
+[PASS] test_Concurrent_SequentialRoundsInOneGroup() (gas: 2806045)
+[PASS] test_Concurrent_TwoGroupsIndependentAccounting() (gas: 2930606)
+[PASS] test_OddRemainder_OffByOneBaseUnitIsRejected() (gas: 315763)
+[PASS] test_OddRemainder_OneCreditorOneBaseUnitSplitAcrossDebtors() (gas: 1680496)
+[PASS] test_OddRemainder_ThreeWaySplitHandledExactly() (gas: 1745534)
+[PASS] test_Precision_LargeAmount() (gas: 1251504)
+[PASS] test_Precision_Odd123456789() (gas: 1251431)
+[PASS] test_Precision_OneBaseUnit() (gas: 1251365)
+[PASS] test_Precision_OneUSDC() (gas: 1251394)
+[PASS] test_Precision_Uint128MaxSinglePairAccepted() (gas: 586896)
+[PASS] test_Precision_Uint128OverflowGuard() (gas: 369408)
+[PASS] test_WeekendTrip_FullLifecycle() (gas: 1665990)
+Suite result: ok. 15 passed; 0 failed; 0 skipped; finished in 44.47ms (30.91ms CPU time)
+
+Ran 21 tests for contracts/test/AtomicCloseout.Security.t.sol:ACSecurityTest
+[PASS] test_DirectDonationDoesNotBreakAccounting() (gas: 1603646)
+[PASS] test_FeeOnTransfer_FundRevertsTransferAmountMismatch() (gas: 4721477)
+[PASS] test_FeeOnTransfer_ZeroFeeWorks() (gas: 4895034)
+[PASS] test_NativeValue_ContractRejectsPlainTransfer() (gas: 36053)
+[PASS] test_NativeValue_ForcedEthDoesNotAffectAccounting() (gas: 1530743)
+[PASS] test_NativeValue_NoFunctionIsPayable() (gas: 871937)
+[PASS] test_PlanHash_BoundToChainId() (gas: 317360)
+[PASS] test_PlanHash_BoundToContractAddress() (gas: 3692470)
+[PASS] test_Reentrancy_FundCannotReenterFinalize() (gas: 6624818)
+[PASS] test_Reentrancy_FundCannotReenterFund() (gas: 6614345)
+[PASS] test_Reentrancy_FundCannotReenterRefund() (gas: 6614302)
+[PASS] test_Reentrancy_FundCannotReenterWithdraw() (gas: 6614248)
+[PASS] test_Reentrancy_RefundCannotReenterFinalize() (gas: 6730826)
+[PASS] test_Reentrancy_RefundCannotReenterRefund() (gas: 6730936)
+[PASS] test_Reentrancy_RefundCannotReenterWithdraw() (gas: 6730957)
+[PASS] test_Reentrancy_WithdrawCannotReenterFinalize() (gas: 6832806)
+[PASS] test_Reentrancy_WithdrawCannotReenterFund() (gas: 6832937)
+[PASS] test_Reentrancy_WithdrawCannotReenterRefund() (gas: 6832817)
+[PASS] test_Reentrancy_WithdrawCannotReenterWithdraw() (gas: 6832915)
+[PASS] test_Reentrancy_WithdrawCannotReenterWithdrawTo() (gas: 6857836)
+[PASS] test_Reentrancy_WithdrawToCannotReenterWithdraw() (gas: 6833401)
+Suite result: ok. 21 passed; 0 failed; 0 skipped; finished in 43.44ms (41.85ms CPU time)
+
+Ran 7 tests for contracts/test/AtomicCloseout.Fuzz.t.sol:ACFuzzTest
+[PASS] testFuzz_DeadlineWindow(uint64) (runs: 256, μ: 481906, ~: 604614)
+[PASS] testFuzz_DebtorsPayExactlyDebtWithSurplus(uint256,uint8,uint96) (runs: 256, μ: 2191617, ~: 1790957)
+[PASS] testFuzz_PartialFundingRefundsExactly(uint256,uint8,uint8) (runs: 256, μ: 1771167, ~: 1495504)
+[PASS] testFuzz_PlanBalanceRule(uint128,uint128) (runs: 256, μ: 317209, ~: 315859)
+[PASS] testFuzz_PlanHashIndependent(uint256,uint8,bytes32) (runs: 256, μ: 713811, ~: 631995)
+[PASS] testFuzz_RandomPlanFullLifecycle(uint256,uint8,uint256) (runs: 256, μ: 2262084, ~: 1820675)
+[PASS] testFuzz_StrangerCannotTouchRound(address,uint8) (runs: 256, μ: 1332874, ~: 1332782)
+Suite result: ok. 7 passed; 0 failed; 0 skipped; finished in 552.58ms (1.87s CPU time)
+
+╭------------------------------------------------------+-----------------+--------+--------+--------+---------╮
+| contracts/AtomicCloseout.sol:AtomicCloseout Contract |                 |        |        |        |         |
++=============================================================================================================+
+| Deployment Cost                                      | Deployment Size |        |        |        |         |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                              2769523 |           13027 |        |        |        |         |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                      |                 |        |        |        |         |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| Function Name                                        | Min             | Avg    | Median | Max    | # Calls |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| PLAN_TYPEHASH                                        |             293 |    293 |    293 |    293 |     259 |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| USDC                                                 |             304 |    304 |    304 |    304 |       1 |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| approvePlan                                          |           21375 |  42014 |  41691 |  43081 |    4465 |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| cancelPlan                                           |           21247 |  27444 |  28629 |  30902 |      12 |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| computePlanHash                                      |           11604 |  16554 |  14186 |  27098 |     265 |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| createGroup                                          |           22887 | 293978 | 261678 | 516774 |    1967 |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| finalize                                             |           21247 |  35986 |  36043 |  36043 |     888 |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| fund                                                 |           21247 |  92229 | 105693 | 116469 |    1582 |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| getGroup                                             |            2691 |  17577 |  17752 |  29138 |       8 |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| getRound                                             |            3173 |  54490 |  49049 |  75828 |    7398 |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| groupCount                                           |            2415 |   2415 |   2415 |   2415 |       1 |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| groupRounds                                          |            7313 |   8432 |   8432 |   9551 |       2 |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| memberIndex                                          |            5004 |   5077 |   5102 |   5102 |       4 |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| proposePlan                                          |           23299 | 284162 | 323914 | 477176 |    1968 |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| refund                                               |           21247 |  43001 |  38409 | 108379 |    1149 |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| roundCount                                           |            2329 |   2329 |   2329 |   2329 |       1 |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| roundStatus                                          |            3240 |   6110 |   5437 |  10107 |    1661 |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| totalLocked                                          |            2417 |   2417 |   2417 |   2417 |     756 |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| withdraw                                             |           21247 |  84798 |  86649 | 103749 |    1146 |
+|------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| withdrawTo                                           |           21591 |  36346 |  33907 | 104225 |      88 |
+╰------------------------------------------------------+-----------------+--------+--------+--------+---------╯
+
+╭------------------------------------------------------------------+-----------------+--------+--------+--------+---------╮
+| contracts/test/AtomicCloseout.Invariant.t.sol:ACHandler Contract |                 |        |        |        |         |
++=========================================================================================================================+
+| Deployment Cost                                                  | Deployment Size |        |        |        |         |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                          4395557 |           15561 |        |        |        |         |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                                  |                 |        |        |        |         |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| Function Name                                                    | Min             | Avg    | Median | Max    | # Calls |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| approveAll                                                       |          159753 | 160017 | 160017 | 160281 |       2 |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| finalize                                                         |          117759 | 117759 | 117759 | 117759 |       1 |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| fundAll                                                          |          222922 | 233379 | 233379 | 243837 |       2 |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| okCalls                                                          |            2538 |   2538 |   2538 |   2538 |       3 |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| propose                                                          |          409856 | 412291 | 412291 | 414726 |       2 |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| refund                                                           |          102135 | 130067 | 102135 | 185933 |       3 |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| roundsLength                                                     |            2371 |   2371 |   2371 |   2371 |       1 |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| warp                                                             |           46901 |  46901 |  46901 |  46901 |       1 |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| withdraw                                                         |           95641 | 123567 |  95703 | 179359 |       3 |
+╰------------------------------------------------------------------+-----------------+--------+--------+--------+---------╯
+
+╭------------------------------------------------------------------------+-----------------+-----+--------+-----+---------╮
+| contracts/test/AtomicCloseout.Lifecycle.t.sol:ACLifecycleTest Contract |                 |     |        |     |         |
++=========================================================================================================================+
+| Deployment Cost                                                        | Deployment Size |     |        |     |         |
+|------------------------------------------------------------------------+-----------------+-----+--------+-----+---------|
+|                                                                8743521 |           43711 |     |        |     |         |
+|------------------------------------------------------------------------+-----------------+-----+--------+-----+---------|
+|                                                                        |                 |     |        |     |         |
+|------------------------------------------------------------------------+-----------------+-----+--------+-----+---------|
+| Function Name                                                          | Min             | Avg | Median | Max | # Calls |
+|------------------------------------------------------------------------+-----------------+-----+--------+-----+---------|
+| decimals                                                               |             278 | 278 |    278 | 278 |       1 |
+╰------------------------------------------------------------------------+-----------------+-----+--------+-----+---------╯
+
+╭-------------------------------------------------------------------------+-----------------+-------+--------+-------+---------╮
+| contracts/test/mocks/FeeOnTransferToken.sol:FeeOnTransferToken Contract |                 |       |        |       |         |
++==============================================================================================================================+
+| Deployment Cost                                                         | Deployment Size |       |        |       |         |
+|-------------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                                  589118 |            2605 |       |        |       |         |
+|-------------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                                         |                 |       |        |       |         |
+|-------------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| Function Name                                                           | Min             | Avg   | Median | Max   | # Calls |
+|-------------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| approve                                                                 |           46678 | 46678 |  46678 | 46678 |       2 |
+|-------------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| balanceOf                                                               |             559 |  1987 |   2559 |  2559 |       7 |
+|-------------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| decimals                                                                |             287 |   287 |    287 |   287 |       2 |
+|-------------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| mint                                                                    |           68504 | 68504 |  68504 | 68504 |       2 |
+|-------------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| setFeeBps                                                               |           21646 | 21646 |  21646 | 21646 |       1 |
+╰-------------------------------------------------------------------------+-----------------+-------+--------+-------+---------╯
+
+╭-------------------------------------------------------+-----------------+-------+--------+-------+---------╮
+| contracts/test/mocks/HookToken.sol:HookToken Contract |                 |       |        |       |         |
++============================================================================================================+
+| Deployment Cost                                       | Deployment Size |       |        |       |         |
+|-------------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                595521 |            2734 |       |        |       |         |
+|-------------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                       |                 |       |        |       |         |
+|-------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| Function Name                                         | Min             | Avg   | Median | Max   | # Calls |
+|-------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| approve                                               |           46678 | 46678 |  46678 | 46678 |      19 |
+|-------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| balanceOf                                             |             581 |  1914 |   2581 |  2581 |      78 |
+|-------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| decimals                                              |             265 |   265 |    265 |   265 |      13 |
+|-------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| mint                                                  |           51454 | 60010 |  60010 | 68566 |      26 |
+|-------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| setHookTarget                                         |           43899 | 43899 |  43899 | 43899 |      13 |
+╰-------------------------------------------------------+-----------------+-------+--------+-------+---------╯
+
+╭-----------------------------------------------------------+-----------------+-----+--------+-----+---------╮
+| contracts/test/mocks/MockToken18.sol:MockToken18 Contract |                 |     |        |     |         |
++============================================================================================================+
+| Deployment Cost                                           | Deployment Size |     |        |     |         |
+|-----------------------------------------------------------+-----------------+-----+--------+-----+---------|
+|                                                    507852 |            2325 |     |        |     |         |
+|-----------------------------------------------------------+-----------------+-----+--------+-----+---------|
+|                                                           |                 |     |        |     |         |
+|-----------------------------------------------------------+-----------------+-----+--------+-----+---------|
+| Function Name                                             | Min             | Avg | Median | Max | # Calls |
+|-----------------------------------------------------------+-----------------+-----+--------+-----+---------|
+| decimals                                                  |             265 | 265 |    265 | 265 |       1 |
+╰-----------------------------------------------------------+-----------------+-----+--------+-----+---------╯
+
+╭-----------------------------------------------------+-----------------+-------+--------+-------+---------╮
+| contracts/test/mocks/MockUSDC.sol:MockUSDC Contract |                 |       |        |       |         |
++==========================================================================================================+
+| Deployment Cost                                     | Deployment Size |       |        |       |         |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                              575081 |            2638 |       |        |       |         |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                     |                 |       |        |       |         |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+| Function Name                                       | Min             | Avg   | Median | Max   | # Calls |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+| approve                                             |           26800 | 46659 |  46700 | 46700 |    1488 |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+| balanceOf                                           |             559 |  2184 |   2559 |  2559 |    7909 |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+| decimals                                            |             287 |   287 |    287 |   287 |     149 |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+| mint                                                |           32982 | 59924 |  55826 | 72938 |    1977 |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+| setBlocked                                          |           44115 | 44133 |  44139 | 44139 |       4 |
+╰-----------------------------------------------------+-----------------+-------+--------+-------+---------╯
+
+╭-----------------------------------------------------------------------+-----------------+--------+--------+--------+---------╮
+| contracts/test/mocks/ReentrantAttacker.sol:ReentrantAttacker Contract |                 |        |        |        |         |
++==============================================================================================================================+
+| Deployment Cost                                                       | Deployment Size |        |        |        |         |
+|-----------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                                634309 |            2900 |        |        |        |         |
+|-----------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                                       |                 |        |        |        |         |
+|-----------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| Function Name                                                         | Min             | Avg    | Median | Max    | # Calls |
+|-----------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| approveToken                                                          |           49416 |  49416 |  49416 |  49416 |       7 |
+|-----------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| arm                                                                   |          111073 | 112807 | 111073 | 133626 |      13 |
+|-----------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| armed                                                                 |            2344 |   2344 |   2344 |   2344 |      13 |
+|-----------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| doApprove                                                             |           44896 |  44896 |  44896 |  44896 |      13 |
+|-----------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| doFund                                                                |           97759 | 114101 | 126292 | 126401 |       7 |
+|-----------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| doRefund                                                              |          146006 | 146057 | 146072 | 146094 |       3 |
+|-----------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| doWithdraw                                                            |          158444 | 158970 | 158532 | 160813 |       5 |
+|-----------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| doWithdrawTo                                                          |          159215 | 159215 | 159215 | 159215 |       1 |
+|-----------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| lastOk                                                                |            2354 |   2354 |   2354 |   2354 |      13 |
+|-----------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| lastRet                                                               |            3144 |   3144 |   3144 |   3144 |      13 |
+╰-----------------------------------------------------------------------+-----------------+--------+--------+--------+---------╯
+
+
+Ran 9 test suites in 974.37ms (708.72ms CPU time): 148 tests passed, 0 failed, 0 skipped (148 total tests)
+GASREPORT_EXIT=0

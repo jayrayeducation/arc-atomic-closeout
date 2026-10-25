@@ -1,0 +1,55 @@
+# Measured with: forge test --isolate --match-path contracts/test/AtomicCloseout.Gas.t.sol -vv
+# gas = vm.lastCallGas().gasTotalUsed per call (isolated tx: includes 21000 intrinsic + calldata, cold storage). Mock USDC, not Arc USDC proxy.
+# Without --isolate (plain 'forge test') storage stays warm/dirty inside one test tx, so numbers are lower (see forge-test.txt GAS| lines).
+# Re-measured after refundTo was added: 2026-10-25T14:37Z
+GAS|--- 3-member lifecycle ---
+GAS|n=3|createGroup 261882
+GAS|n=3|proposePlan 343790
+GAS|n=3|approvePlan.first 41691
+GAS|n=3|approvePlan.last 43081
+GAS|n=3|approvePlan.avg 42154
+GAS|n=3|fund.first 105693
+GAS|n=3|fund.last 105693
+GAS|n=3|fund.avg 105693
+GAS|n=3|finalize 36043
+GAS|n=3|withdraw.first 103761
+GAS|n=3|withdraw.avg 90386
+GAS|n=3|refund(expiry scenario) 98660
+GAS|n=3|debtors 1
+GAS|n=3|creditors 2
+GAS|n=3|txCount(create+propose+approvals+funds+finalize+withdrawals) 9
+GAS|n=3|approxTotalLifecycleGas 1054642
+GAS|--- 5-member lifecycle ---
+GAS|n=5|createGroup 362238
+GAS|n=5|proposePlan 358186
+GAS|n=5|approvePlan.first 41691
+GAS|n=5|approvePlan.last 43081
+GAS|n=5|approvePlan.avg 41969
+GAS|n=5|fund.first 105693
+GAS|n=5|fund.last 71543
+GAS|n=5|fund.avg 88618
+GAS|n=5|finalize 36043
+GAS|n=5|withdraw.first 103711
+GAS|n=5|withdraw.avg 89127
+GAS|n=5|refund(expiry scenario) 98660
+GAS|n=5|debtors 2
+GAS|n=5|creditors 3
+GAS|n=5|txCount(create+propose+approvals+funds+finalize+withdrawals) 13
+GAS|n=5|approxTotalLifecycleGas 1410929
+GAS|--- 8-member lifecycle ---
+GAS|n=8|createGroup 516774
+GAS|n=8|proposePlan 397756
+GAS|n=8|approvePlan.first 41691
+GAS|n=8|approvePlan.last 43081
+GAS|n=8|approvePlan.avg 41864
+GAS|n=8|fund.first 105693
+GAS|n=8|fund.last 71543
+GAS|n=8|fund.avg 80068
+GAS|n=8|finalize 36043
+GAS|n=8|withdraw.first 103711
+GAS|n=8|withdraw.avg 88511
+GAS|n=8|refund(expiry scenario) 98660
+GAS|n=8|debtors 4
+GAS|n=8|creditors 4
+GAS|n=8|txCount(create+propose+approvals+funds+finalize+withdrawals) 19
+GAS|n=8|approxTotalLifecycleGas 1959801

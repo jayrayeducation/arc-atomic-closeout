@@ -1,0 +1,399 @@
+{
+  "contract": "0x329cc6b4adf9e136c4b254d1e46fbe228c0b01da",
+  "chainId": 5042002,
+  "ranAt": "2026-10-25T14:43:05.015Z",
+  "passed": 67,
+  "failed": 0,
+  "fatal": null,
+  "steps": [
+    {
+      "name": "network: Arc Testnet chain id",
+      "pass": true,
+      "detail": "chainId 5042002"
+    },
+    {
+      "name": "contract uses Arc USDC ERC-20 interface",
+      "pass": true,
+      "detail": "0x3600000000000000000000000000000000000000"
+    },
+    {
+      "name": "USDC ERC-20 decimals are 6",
+      "pass": true,
+      "detail": "6"
+    },
+    {
+      "name": "model: net positions sum to zero",
+      "pass": true,
+      "detail": "7500000,-3000000,-4500000"
+    },
+    {
+      "name": "createGroup",
+      "pass": true,
+      "detail": "alex confirmed in block 69045891",
+      "hash": "0x02341be0294f69c3bda37b80d6657d4445e938d49a41610c9987e8560969b7f3",
+      "gasUsed": "244794",
+      "block": "69045891"
+    },
+    {
+      "name": "state: group members stored in order",
+      "pass": true,
+      "detail": "group #5"
+    },
+    {
+      "name": "createGroup rejects duplicate member",
+      "pass": true,
+      "detail": "reverts with DuplicateMember"
+    },
+    {
+      "name": "proposePlan rejects non-member",
+      "pass": true,
+      "detail": "reverts with NotMember"
+    },
+    {
+      "name": "proposePlan rejects unbalanced plan",
+      "pass": true,
+      "detail": "reverts with PlanUnbalanced"
+    },
+    {
+      "name": "proposePlan",
+      "pass": true,
+      "detail": "alex confirmed in block 69045900",
+      "hash": "0x44b1784775df1aa9b69c4391943284a8a287813cf9fd7137b084cb867dd40542",
+      "gasUsed": "326921",
+      "block": "69045900"
+    },
+    {
+      "name": "state: round is Approval",
+      "pass": true,
+      "detail": "Approval"
+    },
+    {
+      "name": "plan ID: browser-side TypeScript hash equals onchain hash",
+      "pass": true,
+      "detail": "0x364d4093a5a6513622f6846f50dcb6e2d9160896ad03f71c43783591c34665c8"
+    },
+    {
+      "name": "proposePlan blocked while round active",
+      "pass": true,
+      "detail": "reverts with RoundStillActive"
+    },
+    {
+      "name": "fund before unanimous approval",
+      "pass": true,
+      "detail": "reverts with WrongStatus"
+    },
+    {
+      "name": "approve with wrong plan hash",
+      "pass": true,
+      "detail": "reverts with PlanHashMismatch"
+    },
+    {
+      "name": "approve by non-member",
+      "pass": true,
+      "detail": "reverts with NotMember"
+    },
+    {
+      "name": "approvePlan (alex)",
+      "pass": true,
+      "detail": "alex confirmed in block 69045908",
+      "hash": "0xfbca23acfe5bba6209097c0185c2272196a7470c164124e98df203fe0d9a4de5",
+      "gasUsed": "41691",
+      "block": "69045908"
+    },
+    {
+      "name": "duplicate approval",
+      "pass": true,
+      "detail": "reverts with AlreadyApproved"
+    },
+    {
+      "name": "approvePlan (maya)",
+      "pass": true,
+      "detail": "maya confirmed in block 69045917",
+      "hash": "0x4d03f46158cba57c2e53f59d97ac6acbd18b47fa9d614cef5e8605627c4056c9",
+      "gasUsed": "41691",
+      "block": "69045917"
+    },
+    {
+      "name": "approvePlan (jordan)",
+      "pass": true,
+      "detail": "jordan confirmed in block 69045925",
+      "hash": "0x8c1b8b529328e0b2ff1d6e70f0e95f1d63452a34e45951636e17846eb80e847a",
+      "gasUsed": "43081",
+      "block": "69045925"
+    },
+    {
+      "name": "state: unanimous approvals open Funding",
+      "pass": true,
+      "detail": "Funding 3/3"
+    },
+    {
+      "name": "creditor cannot fund (NotDebtor)",
+      "pass": true,
+      "detail": "reverts with NotDebtor"
+    },
+    {
+      "name": "fund without allowance fails",
+      "pass": true,
+      "detail": "reverts with allowance"
+    },
+    {
+      "name": "finalize impossible before funding",
+      "pass": true,
+      "detail": "reverts with NotFullyFunded"
+    },
+    {
+      "name": "USDC approve exact 3000000 (maya)",
+      "pass": true,
+      "detail": "maya confirmed in block 69045934",
+      "hash": "0x09966cd07e767dea00f5dce2638266fcc99e141d6ae768b2162a189a687925e5",
+      "gasUsed": "55438",
+      "block": "69045934"
+    },
+    {
+      "name": "fund 3000000 (maya)",
+      "pass": true,
+      "detail": "maya confirmed in block 69045942",
+      "hash": "0xa63d2b5a05d86bf308a655c4ba81d2510af4555a188f823a575e28de9fa75a84",
+      "gasUsed": "101546",
+      "block": "69045942"
+    },
+    {
+      "name": "accounting: contract USDC +3000000 exactly after maya funds",
+      "pass": true,
+      "detail": "0 -> 3000000"
+    },
+    {
+      "name": "double funding rejected (maya)",
+      "pass": true,
+      "detail": "reverts with AlreadyFunded"
+    },
+    {
+      "name": "USDC approve exact 4500000 (jordan)",
+      "pass": true,
+      "detail": "jordan confirmed in block 69045951",
+      "hash": "0x638bbeeff8bf63b22733fc750237179d7df842a5b396c701d66cad75da6ea5b6",
+      "gasUsed": "55438",
+      "block": "69045951"
+    },
+    {
+      "name": "fund 4500000 (jordan)",
+      "pass": true,
+      "detail": "jordan confirmed in block 69045959",
+      "hash": "0x2fd2d68f5da166f95e5916c5b8cc7370ce9df75e7692d57199ca07080828220c",
+      "gasUsed": "84396",
+      "block": "69045959"
+    },
+    {
+      "name": "accounting: contract USDC +4500000 exactly after jordan funds",
+      "pass": true,
+      "detail": "3000000 -> 7500000"
+    },
+    {
+      "name": "double funding rejected (jordan)",
+      "pass": true,
+      "detail": "reverts with AlreadyFunded"
+    },
+    {
+      "name": "state: fundedTotal equals totalAmount",
+      "pass": true,
+      "detail": "7500000/7500000"
+    },
+    {
+      "name": "state: still Funding (funding is not settlement)",
+      "pass": true,
+      "detail": "Funding"
+    },
+    {
+      "name": "refund impossible when fully funded",
+      "pass": true,
+      "detail": "reverts with NotRefundable"
+    },
+    {
+      "name": "withdraw before finalize",
+      "pass": true,
+      "detail": "reverts with NotSettled"
+    },
+    {
+      "name": "finalize (permissionless, called by a debtor)",
+      "pass": true,
+      "detail": "jordan confirmed in block 69045968",
+      "hash": "0x3e9f8533b1062a56449f7e9923de025f1628c3a08b1a7ff42c95021c58d87da4",
+      "gasUsed": "36043",
+      "block": "69045968"
+    },
+    {
+      "name": "state: Settled with entitlements recorded",
+      "pass": true,
+      "detail": "Settled credit 7500000"
+    },
+    {
+      "name": "finalize twice",
+      "pass": true,
+      "detail": "reverts with WrongStatus"
+    },
+    {
+      "name": "debtor cannot withdraw",
+      "pass": true,
+      "detail": "reverts with NotCreditor"
+    },
+    {
+      "name": "withdrawTo zero address",
+      "pass": true,
+      "detail": "reverts with ZeroRecipient"
+    },
+    {
+      "name": "withdrawTo fresh address (exact recipient delta)",
+      "pass": true,
+      "detail": "alex confirmed in block 69045977",
+      "hash": "0x1c3a4dd86701166651fe9179d05b26440455c1b410087cc9223686a926870eba",
+      "gasUsed": "119309",
+      "block": "69045977"
+    },
+    {
+      "name": "accounting: recipient received exactly the entitlement",
+      "pass": true,
+      "detail": "0 -> 7500000"
+    },
+    {
+      "name": "accounting: contract paid out exactly the entitlement",
+      "pass": true,
+      "detail": "7500000 -> 0"
+    },
+    {
+      "name": "double withdraw rejected",
+      "pass": true,
+      "detail": "reverts with AlreadyWithdrawn"
+    },
+    {
+      "name": "state: withdrawnTotal equals totalAmount",
+      "pass": true,
+      "detail": "7500000"
+    },
+    {
+      "name": "invariant: totalLocked back to starting value",
+      "pass": true,
+      "detail": "0"
+    },
+    {
+      "name": "proposePlan (round 2, expiry scenario)",
+      "pass": true,
+      "detail": "alex confirmed in block 69045986",
+      "hash": "0x2a4ac2be3031e7b15c7f4c971c865df86f428486af69c69a4a5ef209a2d6aaa9",
+      "gasUsed": "295538",
+      "block": "69045986"
+    },
+    {
+      "name": "approvePlan round 2 (alex)",
+      "pass": true,
+      "detail": "alex confirmed in block 69045994",
+      "hash": "0x699f5a8031c15670acf3bdff7e97c489998e9ecf6f2dbd1a7ee070c492441a53",
+      "gasUsed": "41691",
+      "block": "69045994"
+    },
+    {
+      "name": "approvePlan round 2 (maya)",
+      "pass": true,
+      "detail": "maya confirmed in block 69046002",
+      "hash": "0xba899338969bea87b2a979a9d77d41eae6e099c3379f6259ad706b571985ffe6",
+      "gasUsed": "41691",
+      "block": "69046002"
+    },
+    {
+      "name": "approvePlan round 2 (jordan)",
+      "pass": true,
+      "detail": "jordan confirmed in block 69046011",
+      "hash": "0x65d515ee0ad93fc354529618055398ff542874658255a8d6e4e7be5bdb6a4447",
+      "gasUsed": "43081",
+      "block": "69046011"
+    },
+    {
+      "name": "USDC approve exact 1000000 (maya)",
+      "pass": true,
+      "detail": "maya confirmed in block 69046019",
+      "hash": "0x83826890564228258ce0f0ff56e3af00f9f85e1e2110015fdde0f06f33d80136",
+      "gasUsed": "55438",
+      "block": "69046019"
+    },
+    {
+      "name": "fund round 2 (maya only, jordan never funds)",
+      "pass": true,
+      "detail": "maya confirmed in block 69046028",
+      "hash": "0xddba09c342e538ed358c4a0341e287f70d94eb6011fb878c6ce31dcfe487a0c1",
+      "gasUsed": "101546",
+      "block": "69046028"
+    },
+    {
+      "name": "invariant: totalLocked +1 USDC after deposit",
+      "pass": true,
+      "detail": "1000000"
+    },
+    {
+      "name": "refund before deadline rejected",
+      "pass": true,
+      "detail": "reverts with NotRefundable"
+    },
+    {
+      "name": "finalize with partial funding",
+      "pass": true,
+      "detail": "reverts with NotFullyFunded"
+    },
+    {
+      "name": "state: derived status is Expired after deadline",
+      "pass": true,
+      "detail": "Expired"
+    },
+    {
+      "name": "fund after deadline rejected",
+      "pass": true,
+      "detail": "reverts with DeadlinePassed"
+    },
+    {
+      "name": "non-depositor refund rejected",
+      "pass": true,
+      "detail": "reverts with NothingToRefund"
+    },
+    {
+      "name": "creditor cannot take deposits",
+      "pass": true,
+      "detail": "reverts with NothingToRefund"
+    },
+    {
+      "name": "withdraw on an expired round rejected",
+      "pass": true,
+      "detail": "reverts with NotSettled"
+    },
+    {
+      "name": "refundTo fresh address (own deposit only)",
+      "pass": true,
+      "detail": "maya confirmed in block 69046651",
+      "hash": "0xa842ca8591be3fbec0ac06d55999894323f75efb1e31ce0f5184be94bd9f1230",
+      "gasUsed": "123887",
+      "block": "69046651"
+    },
+    {
+      "name": "accounting: depositor recovered exactly 1.000000 USDC",
+      "pass": true,
+      "detail": "0 -> 1000000"
+    },
+    {
+      "name": "accounting: contract returned exactly 1.000000 USDC",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "double refund rejected",
+      "pass": true,
+      "detail": "reverts with AlreadyRefunded"
+    },
+    {
+      "name": "state: derived status is Refunded after all deposits returned",
+      "pass": true,
+      "detail": "Refunded"
+    },
+    {
+      "name": "invariant: totalLocked back to starting value",
+      "pass": true,
+      "detail": "0"
+    }
+  ]
+}

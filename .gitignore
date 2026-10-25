@@ -1,0 +1,31 @@
+
+# local testnet test wallets (never commit)
+.e2e-wallets.json
+
+# dependencies, secrets and local artifacts
+node_modules
+.env
+.env.*
+!.env.example
+!env.example.txt
+dist
+contracts/cache/
+contracts/out/
+out/
+cache/
+*.log
+*.tmp
+*.bak
+.vercel/
+.circle/
+playwright-report/
+/test-results/
+coverage/
+.foundry-home/
+# Original ZIP screenshots are retained locally but the exported PNG bytes are corrupt.
+docs/screenshots/
+# Vendored forge-std self-tests are not used by this project and contain public mnemonic fixtures.
+lib/forge-std/test/
+traces.jsonl
+console.jsonl
+broadcast

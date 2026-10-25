@@ -1,0 +1,247 @@
+﻿No files changed, compilation skipped
+
+Ran 1 test for contracts/test/AtomicCloseout.HashVector.t.sol:ACHashVectorTest
+[PASS] test_PlanHashVector() (gas: 3713614)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.13ms (568.70µs CPU time)
+
+Ran 19 tests for contracts/test/AtomicCloseout.Approval.t.sol:ACApprovalTest
+[PASS] test_Approve_AfterDeadlineReverts() (gas: 46638)
+[PASS] test_Approve_AfterFundingOpenedReverts() (gas: 409703)
+[PASS] test_Approve_DuplicateReverts() (gas: 152500)
+[PASS] test_Approve_EveryMemberMustApprove() (gas: 447606)
+[PASS] test_Approve_NoOneCanApproveForAnother() (gas: 299971)
+[PASS] test_Approve_NonUnanimousExpiresAndNeverFunds() (gas: 403047)
+[PASS] test_Approve_OneSecondBeforeDeadlineOk() (gas: 169326)
+[PASS] test_Approve_ProposerMustApproveSeparately() (gas: 410996)
+[PASS] test_Approve_StrangerReverts() (gas: 43629)
+[PASS] test_Approve_UnanimityOpensFundingWithEvent() (gas: 418419)
+[PASS] test_Approve_UnknownRoundReverts() (gas: 37027)
+[PASS] test_Approve_WrongHashReverts() (gas: 46170)
+[PASS] test_Cancel_ByProposerInApproval() (gas: 49634)
+[PASS] test_Cancel_CancelledRoundCannotBeFunded() (gas: 208520)
+[PASS] test_Cancel_NewPlanAllowedAndOldHashUnapprovable() (gas: 929988)
+[PASS] test_Cancel_NotAfterDeadline() (gas: 39566)
+[PASS] test_Cancel_NotInFunding() (gas: 402701)
+[PASS] test_Cancel_OnlyProposer() (gas: 64148)
+[PASS] test_Cancel_TwiceReverts() (gas: 68879)
+Suite result: ok. 19 passed; 0 failed; 0 skipped; finished in 14.01ms (11.60ms CPU time)
+
+Ran 24 tests for contracts/test/AtomicCloseout.Funding.t.sol:ACFundingTest
+[PASS] test_Finalize_AfterDeadlineUnderfundedStillNotFullyFunded() (gas: 1264521)
+[PASS] test_Finalize_BeforeApprovalsReverts() (gas: 600269)
+[PASS] test_Finalize_FundAfterSettledReverts() (gas: 436446)
+[PASS] test_Finalize_NotFullyFunded_NothingFunded() (gas: 41556)
+[PASS] test_Finalize_NotFullyFunded_Partial() (gas: 1548501)
+[PASS] test_Finalize_PermissionlessAnyCaller() (gas: 344916)
+[PASS] test_Finalize_RefundImpossibleOnceFullyFunded() (gas: 412445)
+[PASS] test_Finalize_SucceedsWhenFullyFundedAndEmits() (gas: 369421)
+[PASS] test_Finalize_TwiceReverts() (gas: 370666)
+[PASS] test_Finalize_UnknownRoundReverts() (gas: 37030)
+[PASS] test_Finalize_WorksAfterDeadlineWhenFullyFunded() (gas: 357853)
+[PASS] test_Fund_AfterDeadlineReverts() (gas: 177225)
+[PASS] test_Fund_BeforeUnanimityReverts() (gas: 733563)
+[PASS] test_Fund_BlocklistedDebtorCannotFund() (gas: 268351)
+[PASS] test_Fund_CreditorReverts_NotDebtor() (gas: 174346)
+[PASS] test_Fund_DoubleFundingReverts() (gas: 291745)
+[PASS] test_Fund_ExtraBalanceNotTouched() (gas: 251809)
+[PASS] test_Fund_InsufficientAllowanceReverts() (gas: 216571)
+[PASS] test_Fund_InsufficientBalanceReverts() (gas: 284456)
+[PASS] test_Fund_LastSecondBeforeDeadlineOk() (gas: 359962)
+[PASS] test_Fund_MissingAllowanceReverts() (gas: 229921)
+[PASS] test_Fund_NonMemberReverts() (gas: 172003)
+[PASS] test_Fund_PullsExactAmountAndEmits() (gas: 326717)
+[PASS] test_Fund_UnknownRoundReverts() (gas: 39654)
+Suite result: ok. 24 passed; 0 failed; 0 skipped; finished in 36.20ms (18.78ms CPU time)
+
+Ran 27 tests for contracts/test/AtomicCloseout.Payout.t.sol:ACPayoutTest
+[PASS] test_RefundTo_BlocklistedDepositorRecoversToOtherAddress() (gas: 1672198)
+[PASS] test_RefundTo_RevertsZeroRecipient_OnlyOwnDeposit_NoDouble() (gas: 1714256)
+[PASS] test_Refund_BlocklistedDepositorCannotRefund_StateUnchanged() (gas: 1643682)
+[PASS] test_Refund_DepositorGetsOwnDepositAndEmits() (gas: 1976997)
+[PASS] test_Refund_DoubleRefundReverts() (gas: 1851897)
+[PASS] test_Refund_MissedDeadlineLetsNobodyTakeOthersDeposits() (gas: 2008449)
+[PASS] test_Refund_NewRoundProposedWhileOldDepositsRefundable() (gas: 3112179)
+[PASS] test_Refund_NonDepositorReverts_NothingToRefund() (gas: 1572566)
+[PASS] test_Refund_NotAfterSettledOrCancelled() (gas: 1142626)
+[PASS] test_Refund_NotBeforeDeadline() (gas: 1515331)
+[PASS] test_Refund_StatusApprovalBecomesExpired() (gas: 81600)
+[PASS] test_Refund_StatusFundingBecomesExpired() (gas: 401726)
+[PASS] test_Refund_StatusRefundedOnceAllDepositsReturned() (gas: 1956897)
+[PASS] test_Refund_StatusStaysFundingWhenFullyFundedPastDeadline() (gas: 1953425)
+[PASS] test_Refund_UnknownRoundReverts() (gas: 39578)
+[PASS] test_WithdrawTo_OnlyCreditorCanCall() (gas: 1010675)
+[PASS] test_WithdrawTo_SendsToChosenAddress() (gas: 895257)
+[PASS] test_WithdrawTo_ZeroRecipientReverts() (gas: 855992)
+[PASS] test_Withdraw_BeforeSettleReverts_NotSettled() (gas: 853391)
+[PASS] test_Withdraw_BlocklistedCreditor_StateUnchangedThenWithdrawToWorks() (gas: 1209893)
+[PASS] test_Withdraw_CreditorGetsExactCredit() (gas: 1050129)
+[PASS] test_Withdraw_DebtorReverts_NotCreditor() (gas: 802387)
+[PASS] test_Withdraw_DoubleWithdrawReverts() (gas: 951141)
+[PASS] test_Withdraw_StillWorksLongAfterDeadline() (gas: 891266)
+[PASS] test_Withdraw_StrangerReverts_NotMember() (gas: 799996)
+[PASS] test_Withdraw_UnknownRoundReverts() (gas: 39652)
+[PASS] test_Withdraw_WithdrawToBlocklistedRecipientReverts() (gas: 950362)
+Suite result: ok. 27 passed; 0 failed; 0 skipped; finished in 62.71ms (57.36ms CPU time)
+
+Ran 33 tests for contracts/test/AtomicCloseout.Lifecycle.t.sol:ACLifecycleTest
+[PASS] test_Constructor_Accepts6Decimals() (gas: 30253)
+[PASS] test_Constructor_Rejects18Decimals() (gas: 865739)
+[PASS] test_Constructor_RejectsContractWithoutDecimals() (gas: 322381)
+[PASS] test_Constructor_RejectsEOA() (gas: 325635)
+[PASS] test_Constructor_RejectsZeroAddress() (gas: 321283)
+[PASS] test_CreateGroup_Bounds_NineMembersRevert() (gas: 55864)
+[PASS] test_CreateGroup_Bounds_OneMemberReverts() (gas: 34467)
+[PASS] test_CreateGroup_Bounds_TwoAndEightAccepted() (gas: 774432)
+[PASS] test_CreateGroup_EmitsGroupCreatedAndMemberAdded() (gas: 290152)
+[PASS] test_CreateGroup_RevertsOnDuplicateMember() (gas: 40368)
+[PASS] test_CreateGroup_RevertsOnEmptyName() (gas: 39599)
+[PASS] test_CreateGroup_RevertsOnTooLongName() (gas: 308605)
+[PASS] test_CreateGroup_RevertsOnZeroMember() (gas: 38359)
+[PASS] test_CreateGroup_RevertsWhenCreatorNotMember() (gas: 45131)
+[PASS] test_CreateGroup_StableMemberOrderAndIndex() (gas: 352165)
+[PASS] test_CreateGroup_UnknownGroupViewsRevert() (gas: 31630)
+[PASS] test_Propose_AllowedAfterCancelled() (gas: 915094)
+[PASS] test_Propose_AllowedAfterExpired() (gas: 905257)
+[PASS] test_Propose_AllowedAfterRefunded() (gas: 1673817)
+[PASS] test_Propose_AllowedAfterSettled() (gas: 1717288)
+[PASS] test_Propose_BalancedPlanOk() (gas: 701442)
+[PASS] test_Propose_BlockedWhileApproval() (gas: 650052)
+[PASS] test_Propose_BlockedWhileFunding() (gas: 1036184)
+[PASS] test_Propose_DeadlineTooFarReverts() (gas: 642701)
+[PASS] test_Propose_DeadlineTooSoonReverts() (gas: 680843)
+[PASS] test_Propose_NonMemberProposerReverts() (gas: 311748)
+[PASS] test_Propose_PlanHashBindsRoundAndDeadline() (gas: 355350)
+[PASS] test_Propose_PlanHashMatchesIndependentRecompute() (gas: 697408)
+[PASS] test_Propose_RevertsOnArrayLengthMismatch() (gas: 346754)
+[PASS] test_Propose_RevertsOnEmptyPlan() (gas: 314364)
+[PASS] test_Propose_RevertsOnNetPositionConflict() (gas: 313872)
+[PASS] test_Propose_RevertsWhenUnbalanced() (gas: 315546)
+[PASS] test_Propose_UnknownGroupReverts() (gas: 39445)
+Suite result: ok. 33 passed; 0 failed; 0 skipped; finished in 197.97ms (23.34ms CPU time)
+
+Ran 15 tests for contracts/test/AtomicCloseout.Scenarios.t.sol:ACScenariosTest
+[PASS] test_Concurrent_MemberOfTwoGroupsCannotCrossFund() (gas: 2192287)
+[PASS] test_Concurrent_OldRoundWithdrawStillWorksAfterNewerRoundsExpire() (gas: 1769504)
+[PASS] test_Concurrent_RefundInOneGroupCannotTouchAnotherGroupsFunds() (gas: 2894976)
+[PASS] test_Concurrent_SequentialRoundsInOneGroup() (gas: 2844573)
+[PASS] test_Concurrent_TwoGroupsIndependentAccounting() (gas: 2972034)
+[PASS] test_OddRemainder_OffByOneBaseUnitIsRejected() (gas: 315763)
+[PASS] test_OddRemainder_OneCreditorOneBaseUnitSplitAcrossDebtors() (gas: 1710754)
+[PASS] test_OddRemainder_ThreeWaySplitHandledExactly() (gas: 1775770)
+[PASS] test_Precision_LargeAmount() (gas: 1274206)
+[PASS] test_Precision_Odd123456789() (gas: 1274133)
+[PASS] test_Precision_OneBaseUnit() (gas: 1274067)
+[PASS] test_Precision_OneUSDC() (gas: 1274096)
+[PASS] test_Precision_Uint128MaxSinglePairAccepted() (gas: 586874)
+[PASS] test_Precision_Uint128OverflowGuard() (gas: 369408)
+[PASS] test_WeekendTrip_FullLifecycle() (gas: 1691460)
+Suite result: ok. 15 passed; 0 failed; 0 skipped; finished in 199.60ms (35.64ms CPU time)
+
+Ran 21 tests for contracts/test/AtomicCloseout.Security.t.sol:ACSecurityTest
+[PASS] test_DirectDonationDoesNotBreakAccounting() (gas: 1624338)
+[PASS] test_FeeOnTransfer_FundRevertsTransferAmountMismatch() (gas: 4734385)
+[PASS] test_FeeOnTransfer_ZeroFeeWorks() (gas: 4925932)
+[PASS] test_NativeValue_ContractRejectsPlainTransfer() (gas: 36053)
+[PASS] test_NativeValue_ForcedEthDoesNotAffectAccounting() (gas: 1556235)
+[PASS] test_NativeValue_NoFunctionIsPayable() (gas: 871937)
+[PASS] test_PlanHash_BoundToChainId() (gas: 317360)
+[PASS] test_PlanHash_BoundToContractAddress() (gas: 3705492)
+[PASS] test_Reentrancy_FundCannotReenterFinalize() (gas: 6657660)
+[PASS] test_Reentrancy_FundCannotReenterFund() (gas: 6647187)
+[PASS] test_Reentrancy_FundCannotReenterRefund() (gas: 6647144)
+[PASS] test_Reentrancy_FundCannotReenterWithdraw() (gas: 6647090)
+[PASS] test_Reentrancy_RefundCannotReenterFinalize() (gas: 6766399)
+[PASS] test_Reentrancy_RefundCannotReenterRefund() (gas: 6766509)
+[PASS] test_Reentrancy_RefundCannotReenterWithdraw() (gas: 6766530)
+[PASS] test_Reentrancy_WithdrawCannotReenterFinalize() (gas: 6871238)
+[PASS] test_Reentrancy_WithdrawCannotReenterFund() (gas: 6871369)
+[PASS] test_Reentrancy_WithdrawCannotReenterRefund() (gas: 6871249)
+[PASS] test_Reentrancy_WithdrawCannotReenterWithdraw() (gas: 6871347)
+[PASS] test_Reentrancy_WithdrawCannotReenterWithdrawTo() (gas: 6896268)
+[PASS] test_Reentrancy_WithdrawToCannotReenterWithdraw() (gas: 6871833)
+Suite result: ok. 21 passed; 0 failed; 0 skipped; finished in 199.59ms (66.48ms CPU time)
+
+Ran 3 tests for contracts/test/AtomicCloseout.Gas.t.sol:ACGasTest
+Warning: the following cheatcode(s) are deprecated and will be removed in future versions:
+  lastCallGas(): replaced by `lastFrameGas`
+[PASS] test_Gas_Lifecycle_3Members() (gas: 3431818)
+[PASS] test_Gas_Lifecycle_5Members() (gas: 4444531)
+[PASS] test_Gas_Lifecycle_8Members() (gas: 6148168)
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 207.84ms (19.04ms CPU time)
+
+Ran 7 tests for contracts/test/AtomicCloseout.Fuzz.t.sol:ACFuzzTest
+[PASS] testFuzz_DeadlineWindow(uint64) (runs: 256, μ: 493185, ~: 604614)
+[PASS] testFuzz_DebtorsPayExactlyDebtWithSurplus(uint256,uint8,uint96) (runs: 256, μ: 2163705, ~: 1811507)
+[PASS] testFuzz_PartialFundingRefundsExactly(uint256,uint8,uint8) (runs: 256, μ: 1768233, ~: 1525062)
+[PASS] testFuzz_PlanBalanceRule(uint128,uint128) (runs: 256, μ: 315876, ~: 315853)
+[PASS] testFuzz_PlanHashIndependent(uint256,uint8,bytes32) (runs: 256, μ: 722780, ~: 651895)
+[PASS] testFuzz_RandomPlanFullLifecycle(uint256,uint8,uint256) (runs: 256, μ: 2245401, ~: 1921744)
+[PASS] testFuzz_StrangerCannotTouchRound(address,uint8) (runs: 256, μ: 1343156, ~: 1343072)
+Suite result: ok. 7 passed; 0 failed; 0 skipped; finished in 208.06ms (1.26s CPU time)
+
+Ran 2 tests for contracts/test/AtomicCloseout.Invariant.t.sol:ACInvariantTest
+[PASS]
+ACInvariantTest invariants:
+[PASS] invariant_A_BalanceCoversLocked
+[PASS] invariant_B_TotalLockedMatchesRoundState
+[PASS] invariant_C_PerRoundBounds
+[PASS] invariant_D_SettledRoundsFullyFunded
+[PASS] invariant_E_TokenConservation
+ ACInvariantTest invariants (runs: 128, calls: 19200, reverts: 0)
+
+╭-----------+-------------+-------+---------+----------╮
+| Contract  | Selector    | Calls | Reverts | Discards |
++======================================================+
+| ACHandler | approve     | 1464  | 0       | 0        |
+|-----------+-------------+-------+---------+----------|
+| ACHandler | approveAll  | 1449  | 0       | 0        |
+|-----------+-------------+-------+---------+----------|
+| ACHandler | cancel      | 1500  | 0       | 0        |
+|-----------+-------------+-------+---------+----------|
+| ACHandler | finalize    | 1432  | 0       | 0        |
+|-----------+-------------+-------+---------+----------|
+| ACHandler | fund        | 1441  | 0       | 0        |
+|-----------+-------------+-------+---------+----------|
+| ACHandler | fundAll     | 1475  | 0       | 0        |
+|-----------+-------------+-------+---------+----------|
+| ACHandler | propose     | 1523  | 0       | 0        |
+|-----------+-------------+-------+---------+----------|
+| ACHandler | refund      | 1502  | 0       | 0        |
+|-----------+-------------+-------+---------+----------|
+| ACHandler | refundAll   | 1476  | 0       | 0        |
+|-----------+-------------+-------+---------+----------|
+| ACHandler | settle      | 1483  | 0       | 0        |
+|-----------+-------------+-------+---------+----------|
+| ACHandler | warp        | 1456  | 0       | 0        |
+|-----------+-------------+-------+---------+----------|
+| ACHandler | withdraw    | 1521  | 0       | 0        |
+|-----------+-------------+-------+---------+----------|
+| ACHandler | withdrawAll | 1478  | 0       | 0        |
+╰-----------+-------------+-------+---------+----------╯
+
+[PASS] test_Handler_ReachesSettlementAndRefund() (gas: 2585150)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 30.87s (30.86s CPU time)
+
+╭------------------+--------+--------+---------╮
+| Test Suite       | Passed | Failed | Skipped |
++==============================================+
+| ACApprovalTest   | 19     | 0      | 0       |
+|------------------+--------+--------+---------|
+| ACFundingTest    | 24     | 0      | 0       |
+|------------------+--------+--------+---------|
+| ACFuzzTest       | 7      | 0      | 0       |
+|------------------+--------+--------+---------|
+| ACGasTest        | 3      | 0      | 0       |
+|------------------+--------+--------+---------|
+| ACHashVectorTest | 1      | 0      | 0       |
+|------------------+--------+--------+---------|
+| ACInvariantTest  | 2      | 0      | 0       |
+|------------------+--------+--------+---------|
+| ACLifecycleTest  | 33     | 0      | 0       |
+|------------------+--------+--------+---------|
+| ACPayoutTest     | 27     | 0      | 0       |
+|------------------+--------+--------+---------|
+| ACScenariosTest  | 15     | 0      | 0       |
+|------------------+--------+--------+---------|
+| ACSecurityTest   | 21     | 0      | 0       |
+╰------------------+--------+--------+---------╯

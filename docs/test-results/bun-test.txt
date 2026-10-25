@@ -1,0 +1,24 @@
+bun test v1.3.14 (0d9b296a)
+
+tests/settlement.test.ts:
+(pass) USDC integer parsing > exact six decimals [2.25ms]
+(pass) USDC integer parsing > rejects a seventh decimal instead of rounding (deliberate wrong precision) [0.25ms]
+(pass) USDC integer parsing > rejects an 18-decimal native-unit string being passed as USDC [0.04ms]
+(pass) allocation > equal split gives odd remainder to the earliest included members [0.22ms]
+(pass) allocation > excluded members receive nothing and order is stable [0.04ms]
+(pass) allocation > custom must match the total exactly [0.06ms]
+(pass) allocation > percentages must total 100% and use largest remainder with index tiebreak [0.10ms]
+(pass) allocation > rejects zero amounts, unknown payers and empty participation [0.04ms]
+(pass) conservation properties (randomized, seeded) > shares sum to amount, nets sum to zero, plan balances, order-independent [16.98ms]
+(pass) Weekend Trip fixture (exact math) > paid, share, net [0.13ms]
+(pass) Weekend Trip fixture (exact math) > plan and who-covers-whom [0.06ms]
+(pass) plan hash > deterministic [2.63ms]
+(pass) plan hash > binds chain, contract, group, round, ordering, amounts and expiry [3.37ms]
+(pass) cross-language vector > matches the Solidity vector (AtomicCloseout.HashVector.t.sol) [0.75ms]
+(pass) member validation > rejects duplicates, zero, malformed and bad sizes [0.18ms]
+
+ 15 pass
+ 0 fail
+ 6359 expect() calls
+Ran 15 tests across 1 file. [182.00ms]
+exit=0

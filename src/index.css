@@ -1,0 +1,77 @@
+@import '@fontsource-variable/dm-sans';
+@import '@fontsource-variable/space-grotesk';
+@import '@fontsource-variable/jetbrains-mono';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: 'DM Sans Variable', ui-sans-serif, sans-serif;
+  background: #080d18;
+  color: #f3f7fc;
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer components {
+  .surface {
+    @apply rounded-2xl border border-white/[0.06] bg-card shadow-card;
+  }
+  .surface-inner {
+    @apply rounded-xl border border-white/[0.05] bg-navy-800;
+  }
+  .label {
+    @apply text-[11px] font-semibold uppercase tracking-[0.08em] text-ink-mute;
+  }
+  .btn {
+    @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl px-4 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan/60 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-cyan text-navy-900 hover:brightness-110;
+  }
+  .btn-blue {
+    @apply btn bg-blue text-white hover:brightness-110;
+  }
+  .btn-ghost {
+    @apply btn border border-white/10 bg-white/[0.03] text-ink hover:bg-white/[0.07];
+  }
+  .input {
+    @apply min-h-[44px] w-full rounded-xl border border-white/10 bg-navy-800 px-3 text-sm text-ink placeholder:text-ink-mute focus:border-cyan/60 focus:outline-none focus:ring-2 focus:ring-cyan/20;
+  }
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.04) 25%, rgba(255, 255, 255, 0.09) 37%, rgba(255, 255, 255, 0.04) 63%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s linear infinite;
+  border-radius: 0.75rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+  * {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Keep the Studio watermark from covering mobile bottom controls */
+@media (max-width: 640px) {
+  body {
+    padding-bottom: 56px;
+  }
+}

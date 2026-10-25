@@ -1,0 +1,107 @@
+{
+  "ranAt": "2026-10-25T15:19:16.318Z",
+  "groups": {
+    "cancelRefund": "6",
+    "insufficientFunds": "7"
+  },
+  "passed": 17,
+  "failed": 3,
+  "results": [
+    {
+      "name": "create group X (alex, maya, jordan)",
+      "pass": true
+    },
+    {
+      "name": "add expenses: alex paid 6.00, equal split",
+      "pass": true
+    },
+    {
+      "name": "propose plan #1 (6 minute window)",
+      "pass": true
+    },
+    {
+      "name": "only the proposer sees Cancel; other member does not",
+      "pass": false,
+      "error": "non-proposer sees cancel"
+    },
+    {
+      "name": "wallet rejection is silent: no error banner, button usable again",
+      "pass": false,
+      "error": "rejection shown as failure"
+    },
+    {
+      "name": "proposer cancels the unfunded plan (real transaction)",
+      "pass": true
+    },
+    {
+      "name": "corrected plan can be proposed after cancellation",
+      "pass": true
+    },
+    {
+      "name": "approve plan #2 as alex",
+      "pass": true
+    },
+    {
+      "name": "approve plan #2 as maya",
+      "pass": true
+    },
+    {
+      "name": "approve plan #2 as jordan",
+      "pass": true
+    },
+    {
+      "name": "maya deposits her exact 2.00 USDC; jordan never funds",
+      "pass": true
+    },
+    {
+      "name": "mobile layout of the funding screen has no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "wait for the deadline; UI shows the plan as expired with refund option",
+      "pass": true
+    },
+    {
+      "name": "jordan (no deposit) cannot refund; strangers see no refund button",
+      "pass": true
+    },
+    {
+      "name": "maya reclaims exactly her own deposit through the UI (real transaction)",
+      "pass": true
+    },
+    {
+      "name": "mobile layout of the refund screen has no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "create group Y (alex, maya, stranger)",
+      "pass": true
+    },
+    {
+      "name": "propose a plan where the unfunded wallet owes money",
+      "pass": true
+    },
+    {
+      "name": "unfunded wallet gets a clear insufficient-USDC error on approve",
+      "pass": false,
+      "error": "locator.waitFor: Timeout 30000ms exceeded. Call log:   - waiting for getByRole('button', { name: /Approve this exact plan/ }).first() to be visible"
+    },
+    {
+      "name": "mobile layouts: create, groups, group workspace",
+      "pass": true
+    }
+  ],
+  "transactions": [
+    "0xbf1be57fc8c592056d431b6d02617946f9b517245a34e7a867dc21edc2f7132d",
+    "0xbffb6509d27a87b8f19d2df9545e9e5fb260a83fe82e14e3c282b3b00b3e3995",
+    "0xe9a5067af2af8ab560a3eb2153f694f61bb5854dc1b7b2a14330679b1127fe6b",
+    "0x671d753216d9ad97d72a0577adf49837332e32adc2b3a43b4a64975257d5ecfd",
+    "0x9890465f4005c91a97509020b684fd55b981b8a3c50d5c0663f4e9a8db825390",
+    "0xfa7f3979083e5341fbc9e14bbc40dac0c295279288bd433af6f38b0cb9ad751d",
+    "0x3beaf5e94d9e709a0ee35e88484edd5dff8915862cec77040dcb8380d4eb96fc",
+    "0xf1fc37f324ac3aa096e9f293b3ca95c4c8977de9de269cdb79d5854252f3fe21",
+    "0x0bfe0dad8ee0703728bd289be126d733dd07566ff77181e9bf156b3c8854c573",
+    "0x757de461f433b19f49da51f4048e7c83607dd30e3fda130c78272dc90a7f3fad",
+    "0xc15a244e6522fb29d6fb51c3fa0f748473eaa8bddbb4a3a0965bf44ec3cc0e55"
+  ]
+}
