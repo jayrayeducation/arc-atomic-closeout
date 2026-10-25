@@ -23,7 +23,7 @@ export default function Groups({ chainId }: { chainId: number }) {
         </a>
       </div>
       <NetworkBadge chainId={chainId} />
-      {!deployment?.contract && <Callout tone="bad">No contract is configured for this network.</Callout>}
+      {(!deployment?.contract || deployment.fromBlock === null) && <Callout tone="bad">Deployment configuration is missing for {deployment?.label ?? `chain ${chainId}`}. Financial actions are disabled; the app will not switch to another network.</Callout>}
       {!address ? (
         <Callout title="Connect a wallet to see your groups">
           <span className="mt-2 block">

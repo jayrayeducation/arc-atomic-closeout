@@ -10,6 +10,7 @@ import { hrefGroup, navigate } from '@/lib/router'
 import { useTx } from '@/hooks/useTx'
 import { Callout, Card } from '@/components/primitives'
 import { NetworkBadge } from '@/components/NetworkBadge'
+import { ExplorerLink } from '@/components/ExplorerLink'
 import { TxButton, TxStatus } from '@/components/TxButton'
 
 interface Row {
@@ -45,7 +46,7 @@ export default function CreateGroup({ chainId }: { chainId: number }) {
     if (!address || !addrs.some((a) => a.toLowerCase() === address.toLowerCase())) {
       return setError('The connected wallet must be one of the members.')
     }
-    if (!deployment?.contract || !client) return setError('No contract is deployed on this network.')
+    if (!deployment?.contract || deployment.fromBlock === null || !client) return setError('Deployment configuration is missing on this network.')
     const contract = deployment.contract
     const hash = await tx.run('Create group', async (ctx) => {
       const { request } = await ctx.client.simulateContract({
@@ -55,7 +56,7 @@ export default function CreateGroup({ chainId }: { chainId: number }) {
         args: [name.trim(), addrs as Address[]],
         account: ctx.account,
       })
-      ctx.signing()
+      await ctx.signing()
       return ctx.wallet.writeContract(request)
     })
     if (!hash) return
@@ -78,7 +79,8 @@ export default function CreateGroup({ chainId }: { chainId: number }) {
         <p className="mt-2 text-ink-dim">The member list and its order are written onchain and cannot be changed. Choose 2 to {MAX_MEMBERS} wallets.</p>
       </div>
       <NetworkBadge chainId={chainId} />
-      {!deployment?.contract && <Callout tone="bad">No contract is configured for this network.</Callout>}
+      {deployment?.contract && deployment.fromBlock !== null ? <p className="text-sm text-ink-dim">{deployment.label} contract: <ExplorerLink chainId={chainId} kind="address" value={deployment.contract} />. {chainId === 5042 ? 'Actions use real USDC for network fees.' : 'Testnet actions use test tokens.'}</p>
+        : <Callout tone="bad">Deployment configuration is missing for {deployment?.label ?? `chain ${chainId}`}. Financial actions are disabled; the app will not switch to another network.</Callout>}
       <Card>
         <div className="space-y-5">
           <label className="block">
@@ -104,7 +106,7 @@ export default function CreateGroup({ chainId }: { chainId: number }) {
             <p className="mt-3 text-xs text-ink-mute">Names are saved only in this browser. Everyone else sees shortened wallet addresses until they add their own labels.</p>
           </div>
           {error && <Callout tone="bad">{error}</Callout>}
-          <TxButton tx={tx} chainId={chainId} label="Create group onchain" onRun={() => void submit()} disabled={!deployment?.contract} />
+          <TxButton tx={tx} chainId={chainId} label="Create group onchain" onRun={() => void submit()} disabled={!deployment?.contract || deployment.fromBlock === null} />
           <TxStatus tx={tx} chainId={chainId} />
         </div>
       </Card>

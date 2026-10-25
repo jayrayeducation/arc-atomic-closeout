@@ -105,7 +105,7 @@ export function ApprovalProgress({ ctx }: { ctx: RoundCtx }) {
                   args: [round.roundId, round.planHash],
                   account: c.account,
                 })
-                c.signing()
+                await c.signing()
                 return c.wallet.writeContract(request)
               })
             }
@@ -128,7 +128,7 @@ export function ApprovalProgress({ ctx }: { ctx: RoundCtx }) {
                   args: [round.roundId],
                   account: c.account,
                 })
-                c.signing()
+                await c.signing()
                 return c.wallet.writeContract(request)
               })
             }

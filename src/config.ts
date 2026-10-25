@@ -14,9 +14,8 @@ import { RPC_URLS } from './lib/arcMainnetRpc'
 const testnetRpc = requireChain(arcTestnet.id).rpcUrls[0]
 
 export const config = createConfig({
-  // Arc Mainnet is listed so the wallet can recognise it, but the app only talks to it
-  // when a mainnet deployment address has been configured by the owner.
-  chains: [arcTestnet, arc, mainnet],
+  // The first chain is the ConnectKit default. Keep it aligned with the main app route.
+  chains: [arc, arcTestnet, mainnet],
   connectors: [injected()],
   transports: {
     [arcTestnet.id]: http(testnetRpc),

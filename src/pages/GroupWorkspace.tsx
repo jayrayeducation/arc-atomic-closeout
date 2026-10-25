@@ -56,7 +56,7 @@ export default function GroupWorkspace({ chainId, groupId, initialTab }: { chain
     }
   }, [local.expenses, members.length])
 
-  if (!deployment?.contract) {
+  if (!deployment?.contract || deployment.fromBlock === null) {
     return <Callout tone="bad" title={`No deployment configured for ${deployment?.label ?? `chain ${chainId}`}`}>This app only reads a network when its contract address is configured. Data from other networks is never shown here.</Callout>
   }
   if (q.isLoading) {

@@ -85,7 +85,7 @@ export function ProposePanel({ chainId, contract, groupId, members, expenses, me
                       args: [groupId, plan.debts, plan.credits, deadline, expensesHash],
                       account: c.account,
                     })
-                    c.signing()
+                    await c.signing()
                     return c.wallet.writeContract(request)
                   })
                 }

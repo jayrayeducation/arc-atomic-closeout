@@ -1,6 +1,6 @@
-# Arc Mainnet deployment package (owner-run, not executed)
+# Arc Mainnet deployment record and historical owner-run checklist
 
-> **Status: NOT DEPLOYED.** Nothing in this repository has broadcast a mainnet transaction or spent real USDC.
+> **Status: DEPLOYED by the owner.** Read-only RPC verification confirmed the creation receipt, pinned creation data, runtime bytecode, deployer and constructor USDC at block 27856267. This Codex task sent no transaction.
 > Arc Mainnet moves real USDC and transactions are irreversible. Atomic Closeout is **not audited**.
 > Review every address and setting yourself before continuing. An independent professional audit has not been performed.
 
@@ -54,18 +54,18 @@ Confirm real fees with Arc's tooling before broadcasting.
 
 ## 2. Signing and broadcast (separate owner approval)
 
-The read-only scripts never send a transaction. `arc-forge script --broadcast` is **not** a Rabby wallet connection and must not be run without a verified local signer. The dedicated `/deploy` browser flow has now been implemented locally for the authorized Rabby address; it has passed mock/browser tests but has **not yet been published or exercised with a live Rabby transaction**. See `BROWSER_MAINNET_DEPLOY_RU.md`. Do not export Rabby keys or seed phrase to Foundry. A hardware signer remains an alternative only after separately checking the installed Arc Foundry version and device compatibility.
+The read-only scripts never send a transaction. `arc-forge script --broadcast` is **not** a Rabby wallet connection and must not be run without a verified local signer. The dedicated `/deploy` browser flow remains available for historical deployment evidence; the main app now points to the verified existing contract and this task does not broadcast another deployment. See `BROWSER_MAINNET_DEPLOY_RU.md`. Do not export Rabby keys or seed phrase to Foundry. A hardware signer remains an alternative only after separately checking the installed Arc Foundry version and device compatibility.
 
 Before signing, record the authorized `from` address, chain ID 5042, constructor USDC address, fresh `eth_estimateGas`, `maxFeePerGas`, maximum fee in USDC and full 12-transaction budget in `MAINNET_RELEASE_PREFLIGHT_RU.md`. Obtain a separate go-ahead for deployment. Broadcast exactly one transaction, then verify its receipt and code before proceeding. The current repository does not automate that action.
 
-Record the deployed address and deployment block here (placeholders until you do it):
+Recorded deployment (the checklist above predates this owner-run transaction):
 
 | Field | Value |
 |---|---|
-| Mainnet contract | `<MAINNET_CONTRACT_ADDRESS_PLACEHOLDER>` |
-| Deploy transaction | `<MAINNET_DEPLOY_TX_HASH_PLACEHOLDER>` |
-| Deployment block | `<MAINNET_DEPLOY_BLOCK_PLACEHOLDER>` |
-| Deployer wallet | `<AUTHORIZED_BUILDER_WALLET_PLACEHOLDER>` |
+| Mainnet contract | `0xe05790767da98b524472ea9d78459aca4fb3b6c6` |
+| Deploy transaction | `0xd3135a28e036f0227c8b21e6c657b7e5325caa44e3d332a8cfba167c02a02b54` |
+| Deployment block | `27856267` |
+| Deployer wallet | `0x3B0278E623a5F9C50AfaAB22c972c69Ec687448a` |
 
 ## 3. Read-only verification
 

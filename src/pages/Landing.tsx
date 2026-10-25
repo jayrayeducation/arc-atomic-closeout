@@ -35,7 +35,7 @@ export default function Landing() {
             </a>
           </div>
           <p className="mt-4 text-sm text-ink-mute">
-            The demo uses synthetic data and never touches a wallet. Creating a group sends real transactions on Arc Testnet.
+            The demo uses synthetic data and never touches a wallet. Creating a group on Arc Mainnet 5042 uses real USDC for network fees. Review every wallet request; this contract has not had an independent audit.
           </p>
         </div>
         <div className="surface relative overflow-hidden p-5 sm:p-6">

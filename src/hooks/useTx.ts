@@ -3,6 +3,9 @@ import { useAccount, usePublicClient, useWalletClient } from 'wagmi'
 import { useQueryClient } from '@tanstack/react-query'
 import type { Address, Hash, PublicClient, WalletClient } from 'viem'
 import { describeTxError } from '@/lib/format'
+import { assertWriteSafety } from '@/lib/mainnetWriteSafety'
+import { getDeployment } from '@/lib/deployments'
+import { arc } from 'viem/chains'
 
 export type TxPhase = 'idle' | 'switching' | 'preparing' | 'wallet' | 'confirming' | 'confirmed' | 'failed'
 
@@ -18,7 +21,7 @@ export interface TxContext {
   wallet: WalletClient
   account: Address
   /** Call right before asking the wallet to sign, so the UI is truthful. */
-  signing: () => void
+  signing: () => Promise<void>
 }
 
 const IDLE: TxState = { phase: 'idle', label: '', hash: null, error: null }
@@ -46,14 +49,19 @@ export function useTx(chainId: number) {
       }
       try {
         if (walletChainId !== chainId) throw new Error('Switch your wallet to the network shown on this page before signing.')
+        if (chainId === arc.id && !window.confirm(`${label} on Arc Mainnet 5042?\n\nContract: ${getDeployment(chainId)?.contract ?? 'MISSING'}\nReal USDC network fees apply. Review the exact amount, recipient and contract in your wallet. Atomic Closeout has not had an independent audit.`)) return null
         setState({ ...IDLE, phase: 'preparing', label })
         const w = wallet
         if (!w || w.chain?.id !== chainId) throw new Error('Wallet is not ready on this network. Try again in a moment.')
+        await assertWriteSafety(client, w, chainId, address)
         const hash = await action({
           client: client,
           wallet: w,
           account: address,
-          signing: () => setState({ ...IDLE, phase: 'wallet', label }),
+          signing: async () => {
+            await assertWriteSafety(client, w, chainId, address)
+            setState({ ...IDLE, phase: 'wallet', label })
+          },
         })
         setState({ phase: 'confirming', label, hash, error: null })
         const receipt = await client.waitForTransactionReceipt({ hash })

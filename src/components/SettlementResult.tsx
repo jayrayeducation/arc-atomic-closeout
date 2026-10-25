@@ -26,11 +26,11 @@ export function SettlementResult({ ctx }: { ctx: RoundCtx }) {
       const base = { address: contract, abi: atomicCloseoutAbi, account: c.account } as const
       if (showAlt && to) {
         const { request } = await c.client.simulateContract({ ...base, functionName: 'withdrawTo', args: [round.roundId, to as Address] })
-        c.signing()
+        await c.signing()
         return c.wallet.writeContract(request)
       }
       const { request } = await c.client.simulateContract({ ...base, functionName: 'withdraw', args: [round.roundId] })
-      c.signing()
+      await c.signing()
       return c.wallet.writeContract(request)
     })
 

@@ -35,7 +35,7 @@ export function TxButton({ tx, chainId, label, onRun, disabled, variant = 'prima
     return (
       <ConnectKitButton.Custom>
         {({ show }) => (
-          <button className={cls} onClick={show}>
+          <button className={cls} disabled={disabled} onClick={show}>
             Connect wallet to continue
           </button>
         )}
@@ -44,7 +44,7 @@ export function TxButton({ tx, chainId, label, onRun, disabled, variant = 'prima
   }
   if (tx.wrongNetwork) {
     return (
-      <button className={cls} disabled={isPending} onClick={() => switchChain({ chainId })}>
+      <button className={cls} disabled={disabled || isPending} onClick={() => switchChain({ chainId })}>
         Switch wallet to {getDeployment(chainId)?.label ?? 'the right network'}
       </button>
     )

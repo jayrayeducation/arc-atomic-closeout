@@ -23,11 +23,11 @@ export function RefundPanel({ ctx }: { ctx: RoundCtx }) {
       const base = { address: contract, abi: atomicCloseoutAbi, account: c.account } as const
       if (showAlt && alt.trim()) {
         const { request } = await c.client.simulateContract({ ...base, functionName: 'refundTo', args: [round.roundId, alt.trim() as Address] })
-        c.signing()
+        await c.signing()
         return c.wallet.writeContract(request)
       }
       const { request } = await c.client.simulateContract({ ...base, functionName: 'refund', args: [round.roundId] })
-      c.signing()
+      await c.signing()
       return c.wallet.writeContract(request)
     })
 

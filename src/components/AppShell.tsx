@@ -78,7 +78,7 @@ export function AppShell({ route, children }: { route: Route; children: ReactNod
         {(route.name === 'create' || route.name === 'groups') && (
           <div className="mb-6 flex flex-wrap items-center gap-3 text-sm">
             <span>Network:</span>
-            {[5042002, 5042].map((chainId) => {
+            {[5042, 5042002].map((chainId) => {
               const label = getDeployment(chainId)?.label
               const available = Boolean(getDeployment(chainId)?.contract)
               return available ? (

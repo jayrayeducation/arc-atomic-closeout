@@ -96,7 +96,7 @@ export function FundingStatus({ ctx }: { ctx: RoundCtx }) {
                   void tx.run('USDC allowance', async (c) => {
                     if (!usdcAddress) throw new Error('USDC is not available on this network.')
                     const { request } = await c.client.simulateContract({ address: usdcAddress, abi: erc20Abi, functionName: 'approve', args: [contract, myDebt], account: c.account })
-                    c.signing()
+                    await c.signing()
                     return c.wallet.writeContract(request)
                   })
                 }
@@ -110,7 +110,7 @@ export function FundingStatus({ ctx }: { ctx: RoundCtx }) {
                 onRun={() =>
                   void tx.run('Deposit', async (c) => {
                     const { request } = await c.client.simulateContract({ address: contract, abi: atomicCloseoutAbi, functionName: 'fund', args: [round.roundId], account: c.account })
-                    c.signing()
+                    await c.signing()
                     return c.wallet.writeContract(request)
                   })
                 }
@@ -134,7 +134,7 @@ export function FundingStatus({ ctx }: { ctx: RoundCtx }) {
               onRun={() =>
                 void tx.run('Finalize', async (c) => {
                   const { request } = await c.client.simulateContract({ address: contract, abi: atomicCloseoutAbi, functionName: 'finalize', args: [round.roundId], account: c.account })
-                  c.signing()
+                  await c.signing()
                   return c.wallet.writeContract(request)
                 })
               }

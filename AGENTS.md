@@ -21,9 +21,11 @@ debtors fund exact amounts into escrow, creditors withdraw after full funding, a
 | Network | Chain ID | Contract | Block |
 |---|---|---|---|
 | Arc Testnet | 5042002 | `0x329cc6b4adf9e136c4b254d1e46fbe228c0b01da` | 69040767 |
-| Arc Mainnet | 5042 | NOT DEPLOYED (owner-run only, see `docs/MAINNET_DEPLOYMENT.md`) | n/a |
+| Arc Mainnet | 5042 | `0xe05790767da98b524472ea9d78459aca4fb3b6c6` | 27856267 |
 
 Deploy tx (testnet): `0xf73e8dc997d4a7ad455f73e267ba8fe0dbf5f4f4dd0c2d0d72cadce451622350`. Addresses live in `.env` as `VITE_ATOMIC_*` keys (see `env.example.txt`).
+
+Mainnet deployment tx (owner-run): `0xd3135a28e036f0227c8b21e6c657b7e5325caa44e3d332a8cfba167c02a02b54`. Read-only RPC verification matched the pinned creation data, runtime bytecode, deployer and Arc USDC constructor. Public deployment facts are pinned in `public-deployments.json`; Vite variables may repeat them but must match. The default app route is Mainnet 5042; Interactive Demo is synthetic and separate.
 
 ## Key files
 

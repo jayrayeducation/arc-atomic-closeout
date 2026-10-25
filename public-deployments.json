@@ -2,5 +2,9 @@
   "testnet": {
     "contract": "0x329cc6b4adf9e136c4b254d1e46fbe228c0b01da",
     "fromBlock": "69040767"
+  },
+  "mainnet": {
+    "contract": "0xe05790767da98b524472ea9d78459aca4fb3b6c6",
+    "fromBlock": "27856267"
   }
 }
