@@ -16,7 +16,7 @@
 | Материал | Статус |
 |---|---|
 | Публичный GitHub `arc-atomic-closeout` | https://github.com/jayrayeducation/arc-atomic-closeout |
-| Публичный HTTPS сайт | PENDING |
+| Публичный HTTPS сайт | https://arc-atomic-closeout.vercel.app/ — URL сообщил владелец; текущий bundle и MetaMask warning ещё не проверены |
 | Mainnet contract address | PENDING |
 | Mainnet transaction evidence с реальным USDC | PENDING |
 | Видео 90–120 c | сценарий готов, запись PENDING |

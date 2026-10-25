@@ -94,7 +94,7 @@ Gas figures are in `docs/test-results/gas-benchmarks.txt` (mock USDC, isolated t
 
 ## Security
 
-Not audited. See `docs/SECURITY.md` for guarantees, Arc-specific handling and known limitations.
+Not audited. See `docs/SECURITY.md` for guarantees, Arc-specific handling and known limitations. The [MetaMask connection warning review](docs/METAMASK_SECURITY_AUDIT_RU.md) records the production provider-instrumentation fix and the remaining need to classify the live warning.
 No admin, no upgrade path, pull-payment settlement, deposits refundable only to the depositor.
 
 ## Arc Mainnet
