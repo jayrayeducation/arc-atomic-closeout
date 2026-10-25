@@ -26,6 +26,7 @@ const NAV: { label: string; href: string; match: Route['name'][] }[] = [
   { label: 'My groups', href: '#/groups', match: ['groups', 'group'] },
   { label: 'Create', href: '#/create', match: ['create'] },
   { label: 'Interactive demo', href: '#/demo', match: ['demo'] },
+  { label: 'Mainnet deploy', href: '/deploy', match: ['deploy'] },
 ]
 
 export function AppShell({ route, children }: { route: Route; children: ReactNode }) {
@@ -34,7 +35,7 @@ export function AppShell({ route, children }: { route: Route; children: ReactNod
       <div className="pointer-events-none fixed inset-x-0 top-0 -z-0 h-[420px] bg-[radial-gradient(60%_60%_at_20%_0%,rgba(86,138,255,0.16),transparent),radial-gradient(40%_50%_at_85%_0%,rgba(67,224,208,0.10),transparent)]" />
       <header className="sticky top-0 z-30 border-b border-white/[0.06] bg-navy-900/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
-          <a href="#/" className="flex items-center gap-2.5" aria-label="Atomic Closeout home">
+          <a href="/#/" className="flex items-center gap-2.5" aria-label="Atomic Closeout home">
             <LogoMark />
             <span className="font-display text-[17px] font-semibold tracking-tight">Atomic Closeout</span>
           </a>
@@ -42,7 +43,7 @@ export function AppShell({ route, children }: { route: Route; children: ReactNod
             {NAV.map((n) => (
               <a
                 key={n.href}
-                href={n.href}
+                href={route.name === 'deploy' && n.href.startsWith('#') ? `/${n.href}` : n.href}
                 className={clsx(
                   'rounded-lg px-3 py-2 text-sm font-medium transition hover:bg-white/[0.05]',
                   n.match.includes(route.name) ? 'text-cyan' : 'text-ink-dim',
@@ -52,20 +53,20 @@ export function AppShell({ route, children }: { route: Route; children: ReactNod
               </a>
             ))}
           </nav>
-          <ConnectKitButton.Custom>
+          {route.name !== 'deploy' && <ConnectKitButton.Custom>
             {({ isConnected, show, address }) => (
               <button className="btn-ghost min-h-[40px]" onClick={show}>
                 <Wallet className="h-4 w-4" aria-hidden />
                 {isConnected && address ? shortAddr(address) : 'Connect wallet'}
               </button>
             )}
-          </ConnectKitButton.Custom>
+          </ConnectKitButton.Custom>}
         </div>
         <nav className="flex gap-1 overflow-x-auto border-t border-white/[0.04] px-3 py-1 md:hidden" aria-label="Primary mobile">
           {NAV.map((n) => (
             <a
               key={n.href}
-              href={n.href}
+              href={route.name === 'deploy' && n.href.startsWith('#') ? `/${n.href}` : n.href}
               className={clsx('whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium', n.match.includes(route.name) ? 'text-cyan' : 'text-ink-dim')}
             >
               {n.label}

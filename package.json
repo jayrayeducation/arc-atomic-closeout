@@ -22,10 +22,12 @@
     "e2e:wallets": "bun run scripts/e2e-wallets.ts",
     "e2e:testnet": "bun run scripts/testnet-e2e.ts",
     "e2e:ui": "node tests-ui/run.mjs",
+    "test:deploy": "node --test tests/browser-deploy.test.mjs && node tests-ui/deploy-audit.mjs && node tests-ui/deploy-flow-mock.mjs",
     "mainnet:preflight": "node scripts/mainnet-deploy.mjs",
     "mainnet:verify": "node scripts/mainnet-verify.mjs",
     "mainnet:smoke": "node scripts/mainnet-smoke-test.mjs",
-    "build": "node scripts/check-public-config.mjs && vite build"
+    "deploy:artifact:check": "node scripts/check-deploy-artifact.mjs",
+    "build": "node scripts/check-public-config.mjs && node scripts/check-deploy-artifact.mjs && vite build"
   },
   "dependencies": {
     "@circle-fin/adapter-viem-v2": "^1.19.2",

@@ -203,4 +203,61 @@ contract ACGasTest is ACBase {
         assertEq(r.txCount, 1 + 1 + 8 + 4 + 1 + 4);
         assertLt(r.propose, 1_500_000);
     }
+
+    /// @dev Exact 0.20 USDC video plan: A receives 0.20, B and C each fund 0.10.
+    ///      Mock token figures are planning data, never a live Arc fee quote.
+    function test_Gas_SmallSettlement_3Wallets() public {
+        address[] memory members = _members(3);
+        uint128[] memory debts = new uint128[](3);
+        uint128[] memory credits = new uint128[](3);
+        debts[1] = 100_000;
+        debts[2] = 100_000;
+        credits[0] = 200_000;
+
+        vm.prank(members[0]);
+        uint256 groupId = ac.createGroup("Video closeout", members);
+        uint256 createGas = _g();
+        vm.prank(members[0]);
+        (uint256 roundId, bytes32 planHash) = ac.proposePlan(groupId, debts, credits, T0 + DAY, EXP);
+        uint256 proposeGas = _g();
+
+        uint256 approvalsGas;
+        for (uint256 i; i < 3; ++i) {
+            vm.prank(members[i]);
+            ac.approvePlan(roundId, planHash);
+            approvalsGas += _g();
+        }
+
+        uint256 tokenApprovalsGas;
+        uint256 fundingGas;
+        for (uint256 i = 1; i < 3; ++i) {
+            _mint(members[i], 100_000);
+            vm.prank(members[i]);
+            tok.approve(address(ac), 100_000);
+            tokenApprovalsGas += _g();
+            vm.prank(members[i]);
+            ac.fund(roundId);
+            fundingGas += _g();
+        }
+        assertEq(ac.totalLocked(), 200_000);
+        vm.prank(members[0]);
+        ac.finalize(roundId);
+        uint256 finalizeGas = _g();
+        vm.prank(members[0]);
+        ac.withdraw(roundId);
+        uint256 withdrawGas = _g();
+        assertEq(_bal(members[0]), 200_000);
+        assertEq(ac.totalLocked(), 0);
+
+        uint256 total = createGas + proposeGas + approvalsGas + tokenApprovalsGas + fundingGas + finalizeGas + withdrawGas;
+        console.log("GAS|video|createGroup", createGas);
+        console.log("GAS|video|proposePlan", proposeGas);
+        console.log("GAS|video|approvePlan.3", approvalsGas);
+        console.log("GAS|video|USDC.approve.2", tokenApprovalsGas);
+        console.log("GAS|video|fund.2", fundingGas);
+        console.log("GAS|video|finalize", finalizeGas);
+        console.log("GAS|video|withdraw", withdrawGas);
+        console.log("GAS|video|lifecycleTotalExcludingDeployAndTxIntrinsic", total);
+        console.log("GAS|video|transactionCountIncludingDeploy", uint256(12));
+    }
 }

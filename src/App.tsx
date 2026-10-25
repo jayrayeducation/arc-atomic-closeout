@@ -5,6 +5,7 @@ import DemoMode from '@/pages/DemoMode'
 import CreateGroup from '@/pages/CreateGroup'
 import Groups from '@/pages/Groups'
 import GroupWorkspace from '@/pages/GroupWorkspace'
+import DeployMainnet from '@/pages/DeployMainnet'
 
 export default function App() {
   const route = useRoute()
@@ -12,6 +13,7 @@ export default function App() {
     <AppShell route={route}>
       {route.name === 'landing' && <Landing />}
       {route.name === 'demo' && <DemoMode />}
+      {route.name === 'deploy' && <DeployMainnet />}
       {route.name === 'create' && <CreateGroup key={route.chainId} chainId={route.chainId} />}
       {route.name === 'groups' && <Groups chainId={route.chainId} />}
       {route.name === 'group' && (

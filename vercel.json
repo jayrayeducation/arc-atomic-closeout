@@ -5,6 +5,7 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "rewrites": [
+    { "source": "/deploy", "destination": "/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

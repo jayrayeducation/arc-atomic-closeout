@@ -1,5 +1,7 @@
 # Arc Mainnet: минимальный план, без отправки транзакций
 
+**Актуализация 25.10.2026:** свежие gas-значения, два варианта минимального числа кошельков и текущие блокеры приведены в `MAINNET_RELEASE_PREFLIGHT_RU.md`. Расчёт ниже архивный и не является live-котировкой или лимитом расходов.
+
 **Статус:** технический план готов, выполнение BLOCKED до свежего RPC preflight, адресов владельца и отдельного разрешения. Сеть `5042`; RPC `https://rpc.mainnet.arc.io`; explorer `https://explorer.arc.io`; USDC ERC-20 `0x3600000000000000000000000000000000000000` с 6 decimals. Gas оплачивается тем же USDC как native balance с 18 decimals. [Сеть](https://docs.arc.io/integrate/connect-to-arc), [USDC](https://docs.arc.io/arc/references/contract-addresses), [gas](https://docs.arc.io/arc/references/gas-and-fees).
 
 ## Участники и активы

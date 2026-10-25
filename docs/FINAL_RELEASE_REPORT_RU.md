@@ -1,5 +1,17 @@
 # Atomic Closeout — release audit, 25.10.2026
 
+## Браузерный Arc Mainnet deploy: локальный gate
+
+Страница `/deploy` **IMPLEMENTED / LOCAL TESTED / NOT PUBLISHED**. Pinned bytecode сверяется с оригинальным source SHA-256, compiler 0.8.28/Cancun/optimizer 200, import hashes, ABI и свежей контрольной компиляцией. Контракт не изменён; Arc Studio бейдж и provenance сохранены. `npm.cmd run check`, `npm.cmd run build`, `npm.cmd run contracts:test` (**153 PASS**), `npm.cmd run test:deploy` (**7 mock PASS + Chromium mobile/desktop PASS**) выполнены. Это внутренние тесты, не независимый аудит. Live RPC, баланс разрешённого deployer, current block, gas quote, live Rabby и публичный `/deploy` **BLOCKED/PENDING**. Mainnet tx и USDC расходов **0**. GitHub/Vercel не менялись в этой работе. Детали и действия владельца: `BROWSER_MAINNET_DEPLOY_RU.md`, `TEST_REPORT_RU.md`.
+
+Дополнительный Chromium mock-flow с подставным RPC получил gas quote, прошёл ручную фразу и открыл **ровно один** fake запрос contract creation; mock Rabby отказал. Это не реальная подпись. Staged secret scan: 206 файлов, 0 совпадений и 0 закрытых путей; `git diff --cached --check` PASS. Публикация остановлена, поскольку обязательная проверка `gh api user --jq .login` блокируется TCP 443.
+
+## Обновление Arc Mainnet preflight — 25.10.2026
+
+Локальный релизный gate: исходный Solidity-контракт не изменён (SHA-256 `ac11dd2cfbd5485574a0e9f12c8bb8c77e729bd3a8bbc2dc5eb73b5de8a7b80c`); 153 контрактных теста PASS, lint/typecheck PASS, production build PASS, ABI/bytecode/compiler audit PASS. Это внутренние проверки, **не независимый аудит**. Arc Foundry через WSL BLOCKED (`E_ACCESSDENIED`), live Arc RPC BLOCKED (`EACCES`), адреса и балансы A/B/C PENDING, стоимость deploy и максимальный budget PENDING. GitHub/Vercel текущие опубликованные версии не менялись в этом сеансе; локальные mainnet-preflight файлы пока не опубликованы. Real USDC NOT YET, video SCRIPTED/NOT RECORDED, DoraHacks NOT SUBMITTED. Подробности: `MAINNET_RELEASE_PREFLIGHT_RU.md`, `ARC_FOUNDRY_WSL_RU.md`, `TEST_REPORT_RU.md`.
+
+В mainnet UX исправлен ошибочный совет получить testnet USDC при недостаточном балансе. Staged-пакет просканирован: 197 tracked файлов, 0 совпадений с секретами, 0 закрытых путей, 0 файлов >5 МБ; `git diff --cached --check` PASS. После UX-правки `npm.cmd run check` и `npm.cmd run build` повторно PASS. Новый commit/push не создавался: `gh api user --jq .login` заблокирован TCP 443, поэтому подтвердить `jayrayeducation` из текущей среды нельзя.
+
 ## Gate
 
 | Этап | Статус | Доказательство / блокер |

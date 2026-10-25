@@ -1,5 +1,23 @@
 # Переносимый checkpoint — ARC_ATOMIC_CLOSEOUT_RELEASE_V1
 
+## Браузерный Arc Mainnet deploy — актуальное состояние
+
+Новый маршрут `/deploy` реализован локально, **не опубликован**. Pinned artifact из свежей компиляции оригинального контракта; hardcoded контрольные SHA-256 source `ac11dd2c…7b80c`, creation `77653c12…3913e3`, runtime template `e45af6d1…772ff2b`. Полные значения и воспроизводимость: `scripts/check-deploy-artifact.mjs`, `src/generated/mainnetDeployArtifact.json`, `docs/BROWSER_MAINNET_DEPLOY_RU.md`. Разрешённый владелец сообщил deployer `0x3B0278E623a5F9C50AfaAB22c972c69Ec687448a`. Страница через Rabby EIP-1193 запрашивает только один contract creation после явной фразы. Предел максимальной комиссии одного deploy — 0,50 USDC. Mainnet app contract адрес по-прежнему пуст.
+
+Фактически PASS: свежая компиляция 56 Solidity файлов, 153/153 контрактных теста; `npm.cmd run check`, `npm.cmd run build`, `npm.cmd run test:deploy` (7 mock-тестов + Chromium mobile/desktop). BLOCKED: live Blockdaemon/dRPC/Nodeflare RPC из sandbox, поэтому баланс A, текущий блок и реальный gas PENDING; live Rabby с разрешённым кошельком не тестировался. Нет mainnet deploy, tx hashes и расходов USDC. Старые пункты ниже являются историческим состоянием до этой работы, включая упоминание A как PENDING.
+
+GitHub/Vercel: изменения локальные; до публикации нужен `gh api user --jq .login` = `jayrayeducation`, secret scan и push в существующий `origin`. Публичный `/deploy` не проверен и не должен считаться доступным до успешного Vercel release. После этого владелец самостоятельно открывает страницу, проверяет live RPC/баланс/quote и отдельно решает, подписывать ли одну транзакцию в Rabby. Production mainnet address задавать только после exact runtime/state verification и просмотра evidence JSON.
+
+## Обновление Arc Mainnet, 25.10.2026
+
+Текущий HEAD `2d4dae45167a9bb3b3b241a13f2ada41e1c4eb9c`; ветка `main...origin/main` была чистой перед новым локальным preflight. Добавлены **неопубликованные** `scripts/mainnet-artifact-audit.mjs`, `scripts/mainnet-wallet-preflight.mjs`, gas-тест и документы `ARC_FOUNDRY_WSL_RU.md`, `MAINNET_RELEASE_PREFLIGHT_RU.md`. Исходный контракт не менялся. `npm.cmd run contracts:test`: **153 PASS**; `npm.cmd run check`, `npm.cmd run build`, artifact audit: **PASS**. Артефакт: solc 0.8.28, Cancun, optimizer 200, creation 13055 B, runtime 12468 B, ABI UI совпадает; source SHA-256 прежний.
+
+В `src/components/FundingStatus.tsx` исправлен совет о testnet faucet, который ошибочно показывался в mainnet при недостаточном балансе. После исправления `npm.cmd run check` и `npm.cmd run build` повторно PASS.
+
+Arc RPC `eth_chainId` с диагностическими адресами блокирован Windows `EACCES` на TCP 443; `wsl.exe --status` и список дистрибутивов возвращают `Wsl/EnumerateDistros/Service/E_ACCESSDENIED`. Arc Foundry не запущен. Публичные адреса A/B/C пока PENDING, реальный gas/balance PENDING, Rabby deployment signer не готов. Mainnet tx 0, USDC spent 0. `gh api user --jq .login` также блокируется TCP 443, поэтому новые файлы **не публиковались**. Не считать старую оценку gas в `MAINNET_PLAN_RU.md` live-котировкой; актуальное дополнение — `MAINNET_RELEASE_PREFLIGHT_RU.md`.
+
+Дальше: на разрешённом хосте настроить WSL/Arc Foundry по `ARC_FOUNDRY_WSL_RU.md`; получить только публичные A/B/C и подтверждённый способ локальной подписи (Rabby-only требует проверенного EIP-1193 deploy flow либо аппаратный кошелёк); повторить read-only RPC preflight и посчитать максимальные расходы. Перед **первой** подписью отдельно показать владельцу точный `from`, destination, gas, сумму и 12-шаговый план, получить явное разрешение. Не использовать ключи/seed, не запускать `--broadcast` автоматически. GitHub/Vercel mainnet config менять только после подтверждённого deploy и отдельного разрешения на публикацию.
+
 Дата: 25.10.2026. Папка `C:\Hackathons\Arc\AtomicCloseout\source`; оригинальный ZIP на уровень выше. Цель — публичный Atomic Closeout и DoraHacks Arc Microgrants Round 2. GitHub уже опубликован в `https://github.com/jayrayeducation/arc-atomic-closeout`, исходный commit `73aa0be0bdbb3bedb21c06109ecdd7f934ecf465`. **Mainnet транзакций нет.** Не использовать старые GitHub/кошельки/секреты.
 
 1. Прочитать `AGENTS.md`, `README.md`, `docs/ARC_STUDIO_PROVENANCE.md`, `docs/TEST_REPORT_RU.md`, `docs/FINAL_RELEASE_REPORT_RU.md`. SHA-256 ZIP: `e845a395b9dcebf722ee286d0e8f8d118e17e4704978c3347455c997cad4629a`. Контракт исходный без изменений, SHA-256 `ac11dd2cfbd5485574a0e9f12c8bb8c77e729bd3a8bbc2dc5eb73b5de8a7b80c`.

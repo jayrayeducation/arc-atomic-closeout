@@ -1,5 +1,46 @@
 # Проверка выпуска — 25.10.2026
 
+## Браузерный deploy на Arc Mainnet — 25.10.2026
+
+| Команда / сценарий | Результат | Проверено |
+|---|---|---|
+| `npm.cmd run contracts:test -- --force` | PASS | Свежая компиляция 56 файлов solc 0.8.28, **153/153** контрактных теста. |
+| `node scripts/check-deploy-artifact.mjs --write` | PASS | Pinned payload получен из только что собранного `contracts/out`, контрольные SHA-256 source/creation/runtime, 9 import hashes, ABI, compiler, optimizer, Cancun, 6 immutable refs, без linked libraries. |
+| `node scripts/check-deploy-artifact.mjs` | PASS | Browser artifact совпал с контрольной сборкой, source/import hashes и UI ABI. В чистой Vercel-сборке без `contracts/out` этот же gate сверяет фиксированные fingerprints и установленные исходники. |
+| `node scripts/check-deploy-artifact.mjs --pinned-only` | PASS | Смоделирован Vercel-путь без локального Foundry `out`: 9 source/import hashes и pinned source/ABI/creation/runtime fingerprints совпали; транзакций 0. |
+| `npm.cmd run check` | PASS | oxlint type-aware и `tsc --noEmit` после страницы `/deploy`. |
+| `npm.cmd run build` | PASS | Vite 6.4.5; `/deploy` включён в bundle; mainnet app contract address остаётся пустым. |
+| `npm.cmd run contracts:test` | PASS | **153/153**, 0 FAIL, 10 suites; invariants 128 runs / 19200 calls / 0 reverts. |
+| `npm.cmd run test:deploy` | PASS | 7 mock-тестов: неподходящая сеть/адрес/кошелёк, испорченный bytecode, недоступный RPC, недостаточный gas, отказ подписи, неверный receipt/code, повторный запрос. Chromium headless: `/deploy` на 390×844 и 1280×800, Connect Rabby без финансовых RPC, блокировка при недоступном RPC и восстановление после reload. Отдельный mock RPC дал quote; после точной фразы страница сделала **ровно один** fake `eth_sendTransaction` contract creation, mock Rabby отказал без hash. Никакая реальная сеть не использовалась. |
+| `selectRpc()` по Blockdaemon/dRPC/Nodeflare | BLOCKED | Все три RPC недоступны из sandbox: `HTTP request failed`. Поэтому реальный latest block, eth_estimateGas, баланс и live fee **не получены**. Пользователь сообщил, что эти endpoints работают в его среде; из текущей это не подтверждено. |
+| `gh api user --jq .login` | BLOCKED | GitHub API TCP 443: `connectex ... forbidden by its access permissions`; аккаунт `jayrayeducation` из sandbox сейчас не подтверждён, push не делался. |
+| `python scripts/scan-staged-secrets.py`; `git diff --cached --check` | PASS | 206 staged/tracked файлов, 0 чувствительных путей, 0 secret-pattern matches, 0 файлов >5 МБ; ошибок whitespace нет. |
+
+Исходный контракт и тестовые testnet evidence не изменены. Ни одной настоящей подписи, `eth_sendTransaction` или USDC-транзакции в этой работе нет. `BROWSER_MAINNET_DEPLOY_RU.md` содержит порядок ручного действия и проверки evidence.
+
+После обнаруженного 403 официального RPC mainnet wagmi transport переведён на fallback из трёх публичных endpoint, предоставленных владельцем; testnet transport не менялся. `npm.cmd run check`, `npm.cmd run build` и `npm.cmd run test:deploy` повторно проверяются после этого изменения. Live доступность endpoint остаётся BLOCKED в sandbox.
+
+## Дополнение: Arc Mainnet preflight, 25.10.2026
+
+| Проверка | Статус | Результат |
+|---|---|---|
+| `node scripts/run-foundry.mjs test --offline --force --summary` | PASS | Свежая компиляция 56 Solidity файлов с solc 0.8.28, затем 152 теста до добавления точного gas-сценария. |
+| `npm.cmd run contracts:test` | PASS | **153 теста, 0 FAIL**, 10 suites; новая проверка 0,20 USDC, invariant: 128 runs / 19200 calls / 0 reverts. |
+| `npm.cmd run contracts:test -- --match-test test_Gas_SmallSettlement_3Wallets -vv` | PASS | 1 тест; lifecycle 1 169 250 gas без deploy и intrinsic; 12 операций в сценарии трёх кошельков. |
+| `node scripts/mainnet-artifact-audit.mjs` | PASS | SHA-256 оригинала, hashes 9 исходников в metadata, solc 0.8.28, Cancun, optimizer 200, 72 artifact ABI entries, runtime ABI UI совпадает; creation 13055 B, runtime 12468 B. |
+| `npm.cmd run check` | PASS | lint и typecheck. |
+| `npm.cmd run build` | PASS | Vite 6.4.5; mainnet config пуст, testnet настроен. |
+| `wsl.exe --status`, `wsl.exe --list --quiet` | BLOCKED | `Wsl/EnumerateDistros/Service/E_ACCESSDENIED`; Arc Foundry внутри WSL не установлен и не проверен. |
+| `node scripts/mainnet-deploy.mjs <diagnostic address>` | BLOCKED | Arc RPC TCP 443: Node `fetch failed` / `EACCES`, ещё до `eth_chainId`; live gas и баланс не получены. |
+| `node scripts/mainnet-wallet-preflight.mjs <A> <B> <C>` | BLOCKED | Диагностический запуск с тремя фиктивными адресами дошёл до `eth_chainId`; TCP 443 вернул `EACCES`. Публичные A/B/C пока не получены; реальные балансы не проверены, транзакций 0. |
+| `python scripts/scan-staged-secrets.py` | PASS | 197 staged/tracked файлов, 0 sensitive paths, 0 secret-pattern paths, 0 файлов >5 МБ. |
+| `git diff --cached --check`; `node --check` для `mainnet-artifact-audit.mjs`, `mainnet-wallet-preflight.mjs`, `mainnet-deploy.mjs` | PASS | Ошибок форматирования и синтаксиса нет. |
+| `gh api user --jq .login` | BLOCKED | GitHub API TCP 443: `connectex ... forbidden by its access permissions`. Новый commit/push не выполнялся. |
+
+Контракт `contracts/AtomicCloseout.sol` не изменён. Локальные mock gas значения не заменяют Arc-specific simulation и live fee quote. Детали в `MAINNET_RELEASE_PREFLIGHT_RU.md` и `ARC_FOUNDRY_WSL_RU.md`.
+
+UX-исправление: в `src/components/FundingStatus.tsx` при нехватке USDC на Arc Mainnet больше не предлагается testnet faucet. После изменения `npm.cmd run check` и `npm.cmd run build` повторно PASS; проверка live Rabby на публичном URL остаётся BLOCKED до подтверждённого mainnet deployment.
+
 ## Исправление чистой Vercel-сборки — 25.10.2026
 
 Из опубликованного коммита `73aa0be0bdbb3bedb21c06109ecdd7f934ecf465` создан чистый checkout без `.env`. Команда `npm.cmd install --legacy-peer-deps --offline --no-audit --no-fund` — **PASS**, 947 пакетов. Предупреждения `deprecated` не прервали установку. Затем `npm.cmd run build` — **FAIL** в `scripts/check-public-config.mjs:11`: `Set the original Arc Testnet contract address and deployment block before building`. Это локально воспроизведённая причина сбоя чистой сборки; полный лог удалённого deployment недоступен, поэтому тождество с удалённой ошибкой ещё не доказано.

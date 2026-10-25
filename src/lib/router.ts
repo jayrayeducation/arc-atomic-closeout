@@ -5,6 +5,7 @@
  *   #/groups                my groups
  *   #/create                create group
  *   #/g/<chainId>/<groupId> shareable group workspace (reads the chain, not the creator's browser)
+ *   /deploy                 owner-only Arc Mainnet deployment page
  * No private expense data is ever placed in a URL.
  */
 import { useEffect, useState } from 'react'
@@ -12,6 +13,7 @@ import { DEFAULT_CHAIN_ID, isSupportedChain } from './deployments'
 
 export type Route =
   | { name: 'landing' }
+  | { name: 'deploy' }
   | { name: 'demo' }
   | { name: 'groups'; chainId: number }
   | { name: 'create'; chainId: number }
@@ -29,10 +31,11 @@ export function parseHash(hash: string): Route {
 }
 
 export function useRoute(): Route {
-  const [route, setRoute] = useState<Route>(() => parseHash(window.location.hash))
+  const current = () => window.location.pathname === '/deploy' ? ({ name: 'deploy' } as const) : parseHash(window.location.hash)
+  const [route, setRoute] = useState<Route>(current)
   useEffect(() => {
     const onChange = () => {
-      setRoute(parseHash(window.location.hash))
+      setRoute(current())
       window.scrollTo({ top: 0 })
     }
     window.addEventListener('hashchange', onChange)

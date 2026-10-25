@@ -2,7 +2,7 @@
 
 > **Status: NOT DEPLOYED.** Nothing in this repository has broadcast a mainnet transaction or spent real USDC.
 > Arc Mainnet moves real USDC and transactions are irreversible. Atomic Closeout is **not audited**.
-> Obtain an independent professional audit and review every address and setting yourself before continuing.
+> Review every address and setting yourself before continuing. An independent professional audit has not been performed.
 
 Arc Studio can write and edit mainnet configuration but does not deploy to, sign for, fund or transact on mainnet.
 Every step below is performed by the authorized builder, from their own wallet, outside Arc Studio.
@@ -22,10 +22,10 @@ Network fees are paid by each caller from the same USDC balance and are never ta
 
 ## Pre-flight checklist
 
-- [ ] Independent audit completed and findings resolved. Record the report link: `<AUDIT_REPORT_URL_PLACEHOLDER>`
-- [ ] `forge test` and `bun test tests` pass on the exact commit you will deploy.
-- [ ] The live testnet lifecycle (`bun run e2e:testnet`) passed on the same commit. See `docs/test-results/`.
-- [ ] You control the deployer wallet (hardware wallet or Foundry keystore). Never paste a private key into a shell history, file or chat.
+- [ ] Record the lack of an independent audit in the owner risk decision; resolve any new findings before deployment.
+- [ ] `arc-forge build` and `arc-forge test --network arc` pass on the exact commit you will deploy. Current Windows mock suite and artifact audit are recorded in `TEST_REPORT_RU.md`.
+- [ ] Review the archived live testnet lifecycle evidence in `docs/test-results/`; repeat it only if the exact bytecode or workflow changes.
+- [ ] You control the deployer wallet. Never paste a private key or seed phrase into a shell, file or chat. See `ARC_FOUNDRY_WSL_RU.md`.
 - [ ] The deployer wallet holds enough mainnet USDC for gas. Funding is your decision. Arc Studio never funds mainnet wallets.
 - [ ] You re-checked chain ID 5042, the RPC URL and the USDC address against https://docs.arc.io/arc/references/contract-addresses.md.
 
@@ -34,7 +34,7 @@ Network fees are paid by each caller from the same USDC balance and are never ta
 ```bash
 export ARC_RPC_URL=https://rpc.mainnet.arc.io
 export CONFIRM_MAINNET=I_UNDERSTAND_THIS_USES_REAL_USDC
-forge script contracts/script/DeployAtomicCloseout.s.sol --rpc-url $ARC_RPC_URL
+arc-forge script contracts/script/DeployAtomicCloseout.s.sol --rpc-url $ARC_RPC_URL
 ```
 
 The script refuses to run on any chain other than 5042 or 5042002, refuses mainnet without `CONFIRM_MAINNET`, and refuses any USDC address other than Arc's.
@@ -52,13 +52,11 @@ Dry-run record (simulation only, no transaction sent, run while building):
 Stock `forge` prints the estimated cost in "ETH" and computes it from the node's gas price. On Arc the gas token is USDC, so read that figure as USDC and treat it as a rough estimate only.
 Confirm real fees with Arc's tooling before broadcasting.
 
-## 2. Broadcast (explicit owner action)
+## 2. Signing and broadcast (separate owner approval)
 
-```bash
-cast wallet import atomic-deployer --interactive     # stores an encrypted keystore, prompts for the key locally
-forge script contracts/script/DeployAtomicCloseout.s.sol \
-  --rpc-url $ARC_RPC_URL --account atomic-deployer --broadcast
-```
+The read-only scripts never send a transaction. `arc-forge script --broadcast` is **not** a Rabby wallet connection and must not be run without a verified local signer. The dedicated `/deploy` browser flow has now been implemented locally for the authorized Rabby address; it has passed mock/browser tests but has **not yet been published or exercised with a live Rabby transaction**. See `BROWSER_MAINNET_DEPLOY_RU.md`. Do not export Rabby keys or seed phrase to Foundry. A hardware signer remains an alternative only after separately checking the installed Arc Foundry version and device compatibility.
+
+Before signing, record the authorized `from` address, chain ID 5042, constructor USDC address, fresh `eth_estimateGas`, `maxFeePerGas`, maximum fee in USDC and full 12-transaction budget in `MAINNET_RELEASE_PREFLIGHT_RU.md`. Obtain a separate go-ahead for deployment. Broadcast exactly one transaction, then verify its receipt and code before proceeding. The current repository does not automate that action.
 
 Record the deployed address and deployment block here (placeholders until you do it):
 
@@ -72,7 +70,7 @@ Record the deployed address and deployment block here (placeholders until you do
 ## 3. Read-only verification
 
 ```bash
-bun run verify:deployment -- --chain 5042 --address <MAINNET_CONTRACT_ADDRESS>
+node scripts/mainnet-verify.mjs <MAINNET_CONTRACT_ADDRESS>
 ```
 
 This sends no transaction. It checks the chain ID, that the runtime bytecode matches `contracts/out/AtomicCloseout.sol/AtomicCloseout.json`

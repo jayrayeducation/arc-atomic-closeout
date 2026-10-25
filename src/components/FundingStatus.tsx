@@ -79,7 +79,9 @@ export function FundingStatus({ ctx }: { ctx: RoundCtx }) {
             </div>
             {insufficient && (
               <Callout tone="bad" title="Insufficient USDC">
-                You need {usdc(myDebt)} USDC plus network fees. Use Get test USDC in the sidebar to add testnet funds.
+                You need {usdc(myDebt)} USDC plus network fees. {chainId === 5042
+                  ? 'Add real Arc Mainnet USDC to this wallet only after confirming the network and your budget.'
+                  : 'Use Get test USDC in the sidebar to add testnet funds.'}
               </Callout>
             )}
             {noFeeRoom && <Callout tone="warn">Depositing would use your whole balance. Network fees are paid in USDC from the same balance, so keep a little extra.</Callout>}

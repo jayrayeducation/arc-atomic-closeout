@@ -11,3 +11,7 @@ Once everyone agrees, each debtor grants an exact USDC allowance and funds their
 Here are the transaction receipts and contract events in the Arc explorer: group creation, proposal, approvals, funding, finalization and the final withdrawal. The network label and transaction hashes on screen show whether this is testnet or mainnet. Nothing from the simulated demo is presented as payment evidence.
 
 Atomic Closeout turns a shared expense list into a verifiable agreement and a completed USDC closeout.
+
+## Recording gate
+
+Use the narration above only with matching Explorer evidence. For an Arc Mainnet cut, show chain 5042 and the verified deployment, then the real 0.10 USDC funding transactions from each debtor, the separate finalization and creditor withdrawal, and their successful receipts. If any step is incomplete, say "planned" or label the footage Arc Testnet; do not narrate a completed mainnet settlement. The video has not been recorded.

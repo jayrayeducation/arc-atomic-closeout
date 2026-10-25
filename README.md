@@ -7,6 +7,8 @@ Built with [Arc Studio](https://studio.arc.io/app/c6e2330d-8e2f-44aa-935c-a9859f
 
 > **Status:** unaudited testnet MVP. Live on Arc Testnet. **Not deployed to Arc Mainnet.** No mainnet transaction has been sent and no real USDC has been spent.
 
+An owner-only [Arc Mainnet deployment page](https://arc-atomic-closeout.vercel.app/deploy) is prepared locally for Rabby. It remains a manual contract-creation action gated by the authorized public deployer address, a pinned Arc Studio build, a fresh RPC gas quote and an explicit confirmation. See [browser deployment procedure](docs/BROWSER_MAINNET_DEPLOY_RU.md). This route will become public only after the reviewed changes are published; it does not imply a deployed mainnet contract.
+
 ## The problem
 
 Splitwise-style apps tell you who owes whom, then rely on trust and a separate payment. Basic onchain splitters move money but have no shared agreement about the numbers.
@@ -47,7 +49,7 @@ Network facts (chain IDs 5042 and 5042002, RPC, explorer) come from the Arc Stud
 | Arc Testnet (5042002) | `0x329cc6b4adf9e136c4b254d1e46fbe228c0b01da` | Deployed, block 69040767, tx `0xf73e8dc997d4a7ad455f73e267ba8fe0dbf5f4f4dd0c2d0d72cadce451622350` |
 | Arc Mainnet (5042) | `<MAINNET_CONTRACT_ADDRESS_PLACEHOLDER>` | **Not deployed.** Owner-run package in `docs/MAINNET_DEPLOYMENT.md` |
 
-Release links: [GitHub](https://github.com/jayrayeducation/arc-atomic-closeout), public site **PENDING**, builder profile **PENDING**, video **PENDING**. No mainnet address or transaction exists yet. [DoraHacks submission draft](docs/DORAHACKS_SUBMISSION.md).
+Release links: [GitHub](https://github.com/jayrayeducation/arc-atomic-closeout), [public site](https://arc-atomic-closeout.vercel.app/) (reported by owner; current deployment not independently reachable from this environment), builder profile **PENDING**, video **PENDING**. No mainnet address or transaction exists yet. [DoraHacks submission draft](docs/DORAHACKS_SUBMISSION.md).
 
 ## Development
 
@@ -86,7 +88,7 @@ bun run verify:deployment -- --chain 5042002 --address 0x329cc6b4adf9e136c4b254d
 
 ### Results (recorded in `docs/test-results/`)
 
-Current local release check (2026-10-25): `npm run contracts:test` **152 PASS, 0 FAIL**; `npm run lint`, `npm run typecheck`, `npm run build` PASS. Bun model tests and live Arc RPC checks remain BLOCKED by this environment. Separate native `forge build` compiles but fails while writing its global signature cache. See [exact commands and limitations](docs/TEST_REPORT_RU.md) and [toolchain setup](docs/TOOLCHAIN_SETUP_RU.md).
+Current local release check (2026-10-25): `npm run contracts:test` **153 PASS, 0 FAIL**; `npm run check`, `npm run build`, `npm run test:deploy` PASS. Bun model tests and live Arc RPC checks remain BLOCKED by this environment. Separate native `forge build` compiles but fails while writing its global signature cache. See [exact commands and limitations](docs/TEST_REPORT_RU.md) and [toolchain setup](docs/TOOLCHAIN_SETUP_RU.md).
 
 `scripts/compass-deploy.ts` is an archived Studio helper requiring the unavailable `@circlefin/compass-chains` module. It is preserved but excluded from current app lint/typecheck. The archival PNG files in `docs/screenshots/` are damaged in the ZIP; new screenshots must be recorded before submission. Video script: [English](docs/VIDEO_SCRIPT_EN.md), [shotlist](docs/VIDEO_SHOTLIST_RU.md).
 
