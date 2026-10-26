@@ -6,7 +6,7 @@ The six animated WebP clips in this directory were extracted from the owner's re
 |---|---:|---|
 | `overview.webp` | 0–5 | App landing and labelled synthetic sample card |
 | `expenses.webp` | 100–106 | Real demo expense editor and split controls |
-| `approvals.webp` | 150–156 | Arc Demo plan and approvals |
+| `approvals.webp` | 194–200 | Third wallet approval; 2/3 becomes 3/3 and funding opens |
 | `funding.webp` | 265–271 | Debtor funding progress |
 | `activity.webp` | 310–316 | Arc Demo Activity and transaction links |
 | `withdrawn.webp` | 346–352 | Explorer withdrawal receipt and final UI state |
