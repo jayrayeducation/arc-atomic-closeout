@@ -1,0 +1,238 @@
+{
+  "schemaVersion": 1,
+  "network": "Arc Mainnet",
+  "chainId": 5042,
+  "contract": "0xe05790767da98b524472ea9d78459aca4fb3b6c6",
+  "verificationStatus": "RPC_VERIFIED",
+  "contractDeployment": {
+    "hash": "0xd3135a28e036f0227c8b21e6c657b7e5325caa44e3d332a8cfba167c02a02b54",
+    "expectedBlock": 27856267,
+    "status": "RPC_VERIFIED",
+    "blockNumber": 27856267,
+    "timestamp": "2026-10-25T21:10:35.000Z",
+    "from": "0x3b0278e623a5f9c50afaab22c972c69ec687448a",
+    "contractAddress": "0xe05790767da98b524472ea9d78459aca4fb3b6c6",
+    "explorer": "https://explorer.arc.io/tx/0xd3135a28e036f0227c8b21e6c657b7e5325caa44e3d332a8cfba167c02a02b54"
+  },
+  "arcDemo": {
+    "label": "Arc Demo",
+    "groupId": "5",
+    "roundId": "3",
+    "videoDurationSeconds": 367.916,
+    "steps": [
+      {
+        "stage": "create",
+        "event": "GroupCreated",
+        "hash": "0x006edcf63759ca302a2b86556056c31df3396d3f5daffe26e7cf55a35f0e9d02",
+        "status": "RPC_VERIFIED",
+        "blockNumber": 27923431,
+        "timestamp": "2026-10-26T06:38:03.000Z",
+        "from": "0x3b0278e623a5f9c50afaab22c972c69ec687448a",
+        "to": "0xe05790767da98b524472ea9d78459aca4fb3b6c6",
+        "function": "createGroup",
+        "eventArgs": {
+          "groupId": "5",
+          "creator": "0x3B0278E623a5F9C50AfaAB22c972c69Ec687448a",
+          "name": "Arc Demo",
+          "members": [
+            "0x3B0278E623a5F9C50AfaAB22c972c69Ec687448a",
+            "0x30917A314B1B48F415768AEd78e9e239BCFea739",
+            "0x2B65Cf5eb9D5D48e4D02EFF6ca40C854b43f95e3"
+          ]
+        },
+        "explorer": "https://explorer.arc.io/tx/0x006edcf63759ca302a2b86556056c31df3396d3f5daffe26e7cf55a35f0e9d02"
+      },
+      {
+        "stage": "propose",
+        "event": "PlanProposed",
+        "expectedUsdcBaseUnits": "200000",
+        "hash": "0xce678f0b3341e126fc3b5252e3f4e984644ca4e99882d9f273d6d5cb66a65cb0",
+        "status": "RPC_VERIFIED",
+        "blockNumber": 27923592,
+        "timestamp": "2026-10-26T06:39:25.000Z",
+        "from": "0x3b0278e623a5f9c50afaab22c972c69ec687448a",
+        "to": "0xe05790767da98b524472ea9d78459aca4fb3b6c6",
+        "function": "proposePlan",
+        "eventArgs": {
+          "groupId": "5",
+          "roundId": "3",
+          "proposer": "0x3B0278E623a5F9C50AfaAB22c972c69Ec687448a",
+          "planHash": "0x03c90bce6f84f19d5a8ddaff6e8ae437d9f381b8116622b40cee9d36179c90d2",
+          "totalAmount": "200000",
+          "deadline": "1793083162",
+          "expensesHash": "0xd89977a66d196abf7fc709e9126b4e18637805676288e55508c4cd8b23616103"
+        },
+        "explorer": "https://explorer.arc.io/tx/0xce678f0b3341e126fc3b5252e3f4e984644ca4e99882d9f273d6d5cb66a65cb0"
+      },
+      {
+        "stage": "approve_1",
+        "event": "PlanApproved",
+        "hash": "0x7190a8ae129414490db66ddd576f4a25c7e6d3ee9908a084f0e5bc13422acc96",
+        "status": "RPC_VERIFIED",
+        "blockNumber": 27923615,
+        "timestamp": "2026-10-26T06:39:36.000Z",
+        "from": "0x3b0278e623a5f9c50afaab22c972c69ec687448a",
+        "to": "0xe05790767da98b524472ea9d78459aca4fb3b6c6",
+        "function": "approvePlan",
+        "eventArgs": {
+          "roundId": "3",
+          "member": "0x3B0278E623a5F9C50AfaAB22c972c69Ec687448a",
+          "planHash": "0x03c90bce6f84f19d5a8ddaff6e8ae437d9f381b8116622b40cee9d36179c90d2",
+          "approvalCount": 1
+        },
+        "explorer": "https://explorer.arc.io/tx/0x7190a8ae129414490db66ddd576f4a25c7e6d3ee9908a084f0e5bc13422acc96"
+      },
+      {
+        "stage": "approve_2",
+        "event": "PlanApproved",
+        "hash": "0x820d588b0f59c9ddfe9e9b952ba6f0144f67877847bf922bd12715b656daf744",
+        "status": "RPC_VERIFIED",
+        "blockNumber": 27923666,
+        "timestamp": "2026-10-26T06:40:02.000Z",
+        "from": "0x30917a314b1b48f415768aed78e9e239bcfea739",
+        "to": "0xe05790767da98b524472ea9d78459aca4fb3b6c6",
+        "function": "approvePlan",
+        "eventArgs": {
+          "roundId": "3",
+          "member": "0x30917A314B1B48F415768AEd78e9e239BCFea739",
+          "planHash": "0x03c90bce6f84f19d5a8ddaff6e8ae437d9f381b8116622b40cee9d36179c90d2",
+          "approvalCount": 2
+        },
+        "explorer": "https://explorer.arc.io/tx/0x820d588b0f59c9ddfe9e9b952ba6f0144f67877847bf922bd12715b656daf744"
+      },
+      {
+        "stage": "approve_3",
+        "event": "PlanApproved",
+        "hash": "0x3d3eddeebe19bef927ab92699f3050e7ff49d68fdbfb1a9a56ebf6d7f068ce1a",
+        "status": "RPC_VERIFIED",
+        "blockNumber": 27923710,
+        "timestamp": "2026-10-26T06:40:25.000Z",
+        "from": "0x2b65cf5eb9d5d48e4d02eff6ca40c854b43f95e3",
+        "to": "0xe05790767da98b524472ea9d78459aca4fb3b6c6",
+        "function": "approvePlan",
+        "eventArgs": {
+          "roundId": "3",
+          "member": "0x2B65Cf5eb9D5D48e4D02EFF6ca40C854b43f95e3",
+          "planHash": "0x03c90bce6f84f19d5a8ddaff6e8ae437d9f381b8116622b40cee9d36179c90d2",
+          "approvalCount": 3
+        },
+        "explorer": "https://explorer.arc.io/tx/0x3d3eddeebe19bef927ab92699f3050e7ff49d68fdbfb1a9a56ebf6d7f068ce1a"
+      },
+      {
+        "stage": "fund_max",
+        "event": "Funded",
+        "expectedUsdcBaseUnits": "100000",
+        "hash": "0xcd20dfc1c05646b570e2f2c7098e343489867b155a672604605311f146968b15",
+        "status": "RPC_VERIFIED",
+        "blockNumber": 27923754,
+        "timestamp": "2026-10-26T06:40:47.000Z",
+        "from": "0x2b65cf5eb9d5d48e4d02eff6ca40c854b43f95e3",
+        "to": "0xe05790767da98b524472ea9d78459aca4fb3b6c6",
+        "function": "fund",
+        "eventArgs": {
+          "roundId": "3",
+          "member": "0x2B65Cf5eb9D5D48e4D02EFF6ca40C854b43f95e3",
+          "amount": "100000",
+          "fundedTotal": "100000"
+        },
+        "explorer": "https://explorer.arc.io/tx/0xcd20dfc1c05646b570e2f2c7098e343489867b155a672604605311f146968b15",
+        "usdcTransferVerified": true
+      },
+      {
+        "stage": "fund_jon",
+        "event": "Funded",
+        "expectedUsdcBaseUnits": "100000",
+        "hash": "0x7e7b473a6fe9a42faaee6c28d379f69416e2fc3c2a331e1441dc83b4c9dd4251",
+        "status": "RPC_VERIFIED",
+        "blockNumber": 27923881,
+        "timestamp": "2026-10-26T06:41:51.000Z",
+        "from": "0x30917a314b1b48f415768aed78e9e239bcfea739",
+        "to": "0xe05790767da98b524472ea9d78459aca4fb3b6c6",
+        "function": "fund",
+        "eventArgs": {
+          "roundId": "3",
+          "member": "0x30917A314B1B48F415768AEd78e9e239BCFea739",
+          "amount": "100000",
+          "fundedTotal": "200000"
+        },
+        "explorer": "https://explorer.arc.io/tx/0x7e7b473a6fe9a42faaee6c28d379f69416e2fc3c2a331e1441dc83b4c9dd4251",
+        "usdcTransferVerified": true
+      },
+      {
+        "stage": "finalize",
+        "event": "Finalized",
+        "expectedUsdcBaseUnits": "200000",
+        "hash": "0x72d8c6d6828678c57092fd52c351d842554fece6d2b7b3e37a4276f818bb8856",
+        "status": "RPC_VERIFIED",
+        "blockNumber": 27923914,
+        "timestamp": "2026-10-26T06:42:08.000Z",
+        "from": "0x30917a314b1b48f415768aed78e9e239bcfea739",
+        "to": "0xe05790767da98b524472ea9d78459aca4fb3b6c6",
+        "function": "finalize",
+        "eventArgs": {
+          "roundId": "3",
+          "groupId": "5",
+          "caller": "0x30917A314B1B48F415768AEd78e9e239BCFea739",
+          "totalAmount": "200000"
+        },
+        "explorer": "https://explorer.arc.io/tx/0x72d8c6d6828678c57092fd52c351d842554fece6d2b7b3e37a4276f818bb8856"
+      },
+      {
+        "stage": "withdraw",
+        "event": "Withdrawn",
+        "expectedUsdcBaseUnits": "200000",
+        "hash": "0xdd4c6177fc57ba9096a6c62695125f3a6767a6ef265d480d33cb70aa11289a1f",
+        "status": "RPC_VERIFIED",
+        "blockNumber": 27923992,
+        "timestamp": "2026-10-26T06:42:48.000Z",
+        "from": "0x3b0278e623a5f9c50afaab22c972c69ec687448a",
+        "to": "0xe05790767da98b524472ea9d78459aca4fb3b6c6",
+        "function": "withdraw",
+        "eventArgs": {
+          "roundId": "3",
+          "member": "0x3B0278E623a5F9C50AfaAB22c972c69Ec687448a",
+          "to": "0x3B0278E623a5F9C50AfaAB22c972c69Ec687448a",
+          "amount": "200000"
+        },
+        "explorer": "https://explorer.arc.io/tx/0xdd4c6177fc57ba9096a6c62695125f3a6767a6ef265d480d33cb70aa11289a1f",
+        "usdcTransferVerified": true
+      }
+    ],
+    "members": [
+      "0x3B0278E623a5F9C50AfaAB22c972c69Ec687448a",
+      "0x30917A314B1B48F415768AEd78e9e239BCFea739",
+      "0x2B65Cf5eb9D5D48e4D02EFF6ca40C854b43f95e3"
+    ],
+    "planHash": "0x03c90bce6f84f19d5a8ddaff6e8ae437d9f381b8116622b40cee9d36179c90d2",
+    "finalState": {
+      "status": "Settled",
+      "totalUsdcBaseUnits": "200000",
+      "fundedUsdcBaseUnits": "200000",
+      "withdrawnUsdcBaseUnits": "200000"
+    }
+  },
+  "allowanceTransactions": {
+    "status": "HASHES_NOT_PROVIDED",
+    "hashes": []
+  },
+  "groupOne": {
+    "status": "RPC_VERIFIED_CURRENT_STATE",
+    "groupId": "1",
+    "name": "Atomic Closeout — Mainnet Demo",
+    "members": [
+      "0x3B0278E623a5F9C50AfaAB22c972c69Ec687448a",
+      "0x2B65Cf5eb9D5D48e4D02EFF6ca40C854b43f95e3",
+      "0x30917A314B1B48F415768AEd78e9e239BCFea739"
+    ],
+    "activeRoundId": "1",
+    "round": {
+      "statusCode": 3,
+      "totalUsdcBaseUnits": "200000",
+      "fundedUsdcBaseUnits": "200000",
+      "withdrawnUsdcBaseUnits": "200000"
+    },
+    "note": "Separate earlier run. Its transaction hashes are not part of Arc Demo evidence."
+  },
+  "verifiedAt": "2026-10-26T07:17:46.111Z",
+  "rpc": "https://rpc.blockdaemon.mainnet.arc.io"
+}
