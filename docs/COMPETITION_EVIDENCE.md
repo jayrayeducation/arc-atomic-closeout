@@ -8,7 +8,7 @@ This page maps the contest claims to inspectable sources. It is not a submission
 | Arc Mainnet contract exists | [Deployment transaction](https://explorer.arc.io/tx/0xd3135a28e036f0227c8b21e6c657b7e5325caa44e3d332a8cfba167c02a02b54), block 27,856,267; [contract](https://explorer.arc.io/address/0xe05790767da98b524472ea9d78459aca4fb3b6c6) | Receipt and runtime presence RPC verified; owner deployed separately from Studio |
 | Arc Demo completed | [Nine transaction receipts](MAINNET_EVIDENCE.md) for Group #5 / Round #3 | Three approvals, 0.20 USDC funded, finalized and withdrawn; RPC verified |
 | Earlier Mainnet Demo completed | [Group #1 current state](MAINNET_EVIDENCE.md#separate-earlier-run--group-1) | Settled and fully withdrawn 0.20 USDC; current contract state RPC verified; separate from Arc Demo |
-| Real video exists | [Six excerpts](assets/README.md) from the 367.916-second owner recording | Source MP4 checked locally; public full-video URL pending |
+| Full demo video | [Watch the 6:08 video on YouTube](https://www.youtube.com/watch?v=xWpZg0jgYL0); [six excerpts and source provenance](assets/README.md) | YouTube oEmbed returned the Atomic Closeout title and JayRay Education author; source MP4 checked locally |
 | Contract tests pass | `npm run contracts:test` | 153 passed, 0 failed in local run on 2026-10-26 |
 | App available | [Live site](https://arc-atomic-closeout.vercel.app/) | HTTP 200 checked; owner should confirm full browser flow after every release |
 
@@ -23,6 +23,6 @@ The exported Studio project contained `contracts/AtomicCloseout.sol`, Foundry te
 - ERC-20 allowance transaction hashes were not provided. The code and video show the allowance workflow, but allowance receipts are not claimed as verified.
 - Expense notes, labels and local archive/hide state are browser-local. Member addresses, approved plan, deposits and payout history are onchain.
 - The contract has **not** had an independent security audit. The project is an early-stage prototype; no real customer adoption or contest award is claimed.
-- The public video URL and actual contest submission are pending owner action.
+- The [full demo is public on YouTube](https://www.youtube.com/watch?v=xWpZg0jgYL0). Actual contest submission remains an owner action; no submitted entry or award is claimed.
 
 The [read-only verifier](../scripts/verify-mainnet-evidence.mjs) and [structured JSON record](mainnet-evidence.json) make the Mainnet claims repeatable without a wallet, private key or transaction.

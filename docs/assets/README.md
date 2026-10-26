@@ -1,6 +1,6 @@
 # Showcase media provenance
 
-The six animated WebP clips in this directory were extracted from the owner's real screen recording, `Atomic_Closeout_Final_Demo.mp4` (367.916 seconds, 2560 × 1410, H.264; SHA-256 `4a3b47bec7510147db73b38b165c0ca412f8772b8fdf29c04bb922bcde630376`). The source was read from the owner's Desktop on 2026-10-26. It is intentionally not committed (44,044,187 bytes). The corresponding MKV is `2026-10-26 08-37-09.mkv` in the owner's Videos directory.
+The six animated WebP clips in this directory were extracted from the owner's real screen recording, `Atomic_Closeout_Final_Demo.mp4` (367.916 seconds, 2560 × 1410, H.264; SHA-256 `4a3b47bec7510147db73b38b165c0ca412f8772b8fdf29c04bb922bcde630376`). [Watch the full demo on YouTube](https://www.youtube.com/watch?v=xWpZg0jgYL0). The source was read from the owner's Desktop on 2026-10-26. It is intentionally not committed (44,044,187 bytes). The corresponding MKV is `2026-10-26 08-37-09.mkv` in the owner's Videos directory.
 
 | Preview | Source interval (seconds) | Subject |
 |---|---:|---|

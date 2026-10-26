@@ -2,9 +2,12 @@ import { readFile, stat } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 
 const docs = ['README.md', 'docs/MAINNET_EVIDENCE.md', 'docs/COMPETITION_EVIDENCE.md', 'docs/DORAHACKS_SUBMISSION.md', 'docs/assets/README.md']
+const videoUrl = 'https://www.youtube.com/watch?v=xWpZg0jgYL0'
 let checked = 0
 for (const doc of docs) {
   const content = await readFile(doc, 'utf8')
+  if (!content.includes(videoUrl)) throw new Error(`Final demo video missing from ${doc}`)
+  if (/public (?:full-)?video URL:\s*pending|public full-video URL pending|owner to provide public URL/i.test(content)) throw new Error(`Old video placeholder in ${doc}`)
   for (const [, target] of content.matchAll(/!?(?:\[[^\]]*\])\(([^)]+)\)/g)) {
     if (/^(https?:|mailto:|#)/.test(target)) continue
     const file = resolve(dirname(doc), decodeURIComponent(target.split('#')[0]))

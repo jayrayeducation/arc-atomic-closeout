@@ -24,7 +24,7 @@ The mainnet contract is [`0xe05790767da98b524472ea9d78459aca4fb3b6c6`](https://e
 
 The featured real run is **Arc Demo, Group #5 / Round #3**: three wallet approvals of one 0.20 USDC plan, two 0.10 USDC deposits, finalization and a separate 0.20 USDC withdrawal. All nine unique receipts, decoded contract events, matching USDC transfers and final contract state were checked by read-only RPC. [Full evidence](MAINNET_EVIDENCE.md) · [machine-readable record](mainnet-evidence.json). The earlier completed **Group #1** is a separate run.
 
-The owner recorded a **6:08** walkthrough. [Six lightweight excerpts](assets/README.md) are in the repository. **Public full-video URL: pending upload.** Do not insert a YouTube link until the owner provides one.
+The owner recorded a **6:08** walkthrough: [watch the full Atomic Closeout demo on YouTube](https://www.youtube.com/watch?v=xWpZg0jgYL0). [Six lightweight excerpts](assets/README.md) from the same recording are in the repository.
 
 ## Why Arc and USDC
 
@@ -39,7 +39,7 @@ Arc Mainnet provides the network for the contract and uses USDC for gas. The app
 | Arc Studio original | https://studio.arc.io/app/c6e2330d-8e2f-44aa-935c-a9859f922a5e?thread=fe457d3b-009c-4455-8cd0-7944598e9009 |
 | Mainnet contract | https://explorer.arc.io/address/0xe05790767da98b524472ea9d78459aca4fb3b6c6 |
 | Transaction evidence | https://github.com/jayrayeducation/arc-atomic-closeout/blob/main/docs/MAINNET_EVIDENCE.md |
-| Full demo video | **Owner to provide public URL** |
+| Full demo video | https://www.youtube.com/watch?v=xWpZg0jgYL0 |
 | Builder profile / submission URL | **Owner to provide** |
 
 ## Honest limitations

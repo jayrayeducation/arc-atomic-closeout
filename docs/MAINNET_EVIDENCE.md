@@ -8,7 +8,7 @@ The owner deployed the contract separately from Arc Studio. The [deployment rece
 
 ## Arc Demo · Group #5, Round #3
 
-This is the full run featured in the owner's **6:08 recording**. All nine hashes below have successful receipts, target the pinned contract, decode to the listed function and emit the expected contract event. Block numbers and timestamps came from the RPC. All three approvals bind to the same plan hash, `0x03c90bce6f84f19d5a8ddaff6e8ae437d9f381b8116622b40cee9d36179c90d2`. The third approval has count 3 and opens funding; it is **one transaction**, not a tenth transaction.
+This is the full run featured in the owner's [**6:08 demo video**](https://www.youtube.com/watch?v=xWpZg0jgYL0). All nine hashes below have successful receipts, target the pinned contract, decode to the listed function and emit the expected contract event. Block numbers and timestamps came from the RPC. All three approvals bind to the same plan hash, `0x03c90bce6f84f19d5a8ddaff6e8ae437d9f381b8116622b40cee9d36179c90d2`. The third approval has count 3 and opens funding; it is **one transaction**, not a tenth transaction.
 
 | Step | Arc Explorer transaction | Block · UTC | Verified event / value |
 |---|---|---|---|

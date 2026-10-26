@@ -8,7 +8,7 @@
 
 Shared expenses become one plan that every member approves. Debtors deposit exactly what they owe; creditors withdraw only after the group is fully funded. If the deadline passes without full funding, depositors can reclaim their own money.
 
-[**LIVE DEMO ↗**](https://arc-atomic-closeout.vercel.app/) · [**WATCH DEMO VIDEO ↓**](#watch-the-full-demo) *(public URL pending)* · [**ARC STUDIO ORIGINAL ↗**](https://studio.arc.io/app/c6e2330d-8e2f-44aa-935c-a9859f922a5e?thread=fe457d3b-009c-4455-8cd0-7944598e9009)<br />
+[**LIVE DEMO ↗**](https://arc-atomic-closeout.vercel.app/) · [**WATCH FULL DEMO ▶**](https://www.youtube.com/watch?v=xWpZg0jgYL0) · [**ARC STUDIO ORIGINAL ↗**](https://studio.arc.io/app/c6e2330d-8e2f-44aa-935c-a9859f922a5e?thread=fe457d3b-009c-4455-8cd0-7944598e9009)<br />
 [**GITHUB SOURCE ↗**](https://github.com/jayrayeducation/arc-atomic-closeout) · [**MAINNET CONTRACT ↗**](https://explorer.arc.io/address/0xe05790767da98b524472ea9d78459aca4fb3b6c6) · [**MAINNET EVIDENCE ↓**](docs/MAINNET_EVIDENCE.md)
 
 ![Atomic Closeout landing page in the owner's real demo recording](docs/assets/overview.webp)
@@ -16,6 +16,12 @@ Shared expenses become one plan that every member approves. Debtors deposit exac
 *Capture from the owner's 6:08 screen recording. The landing-page sample card is labelled DEMO DATA; the Arc Demo transactions below are real Mainnet transactions.*
 
 </div>
+
+## Watch the Full Demo
+
+[![Watch Atomic Closeout: real USDC settlement on Arc Mainnet — Built with Arc Studio](https://i.ytimg.com/vi/xWpZg0jgYL0/hqdefault.jpg)](https://www.youtube.com/watch?v=xWpZg0jgYL0)
+
+**[▶ Watch the complete 6:08 Arc Mainnet walkthrough on YouTube](https://www.youtube.com/watch?v=xWpZg0jgYL0).** It covers group creation, expenses and balances, one proposed plan, three wallet approvals, debtor allowances and deposits, finalization, withdrawal, Activity and Explorer proofs. The receipt-backed run is **Arc Demo, Group #5 / Round #3**. [Verify the transactions](docs/MAINNET_EVIDENCE.md).
 
 ## See it work
 
@@ -88,11 +94,7 @@ The current read of Round #3 reports **Settled; 0.20 funded; 0.20 withdrawn**. [
 
 The earlier **Atomic Closeout — Mainnet Demo** is **Group #1 / Round #1**, a separate completed 0.20 USDC run. Its current settled and fully withdrawn state was also checked by RPC; its transaction hashes are not mixed into the Arc Demo table.
 
-## Watch the full demo
-
-The owner has a **6:08** recording showing group creation, expenses, balances, proposal, three approvals, debtor allowances and deposits, finalization, withdrawal, Activity and Explorer proofs. **Public video URL: pending upload by the owner.** The six previews above come from that recording. No unlisted YouTube destination is implied.
-
-Suggested fast walkthrough: open [Group #5](https://arc-atomic-closeout.vercel.app/#/g/5042/5), inspect **Round** and **Activity**, then follow the nine Explorer links. To explore controls without a wallet or USDC, use the clearly labelled [Interactive Demo](https://arc-atomic-closeout.vercel.app/#/demo).
+Suggested fast walkthrough: [watch the full demo](https://www.youtube.com/watch?v=xWpZg0jgYL0), open [Group #5](https://arc-atomic-closeout.vercel.app/#/g/5042/5), inspect **Round** and **Activity**, then follow the nine Explorer links. To explore controls without a wallet or USDC, use the clearly labelled [Interactive Demo](https://arc-atomic-closeout.vercel.app/#/demo).
 
 ## Architecture
 
