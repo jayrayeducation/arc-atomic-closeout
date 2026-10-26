@@ -1,28 +1,47 @@
-# DoraHacks: Arc Microgrants Round 2 — черновик заявки
+# Atomic Closeout · contest submission draft
 
-**Название:** Atomic Closeout
-**Tagline:** Close group expenses with a shared plan and real USDC settlement on Arc.
+**Submission status: not submitted.** The owner must check the current contest page, eligibility, deadline and form fields before submitting. This is English copy to adapt, not a claim that an award or acceptance exists.
 
-**Проблема:** приложения учёта расходов показывают долг, но не обеспечивают единое согласование финальных сумм и проверяемую выплату.
+## Short description
 
-**Решение:** группа фиксирует расходы, участники утверждают точный план, должники финансируют escrow, после полного финансирования раунд финализируется, кредитор отдельно получает USDC. При неполном финансировании после срока доступны индивидуальные возвраты.
+**Split the bill. Close it out for real.** Atomic Closeout turns shared expenses into one USDC settlement plan that every member approves with their own wallet. Debtors fund exactly what they owe on Arc Mainnet; creditors withdraw after full funding. A missed funding deadline lets each depositor reclaim their own deposit.
 
-**Технологии:** Arc Studio; Solidity 0.8.28 / Foundry; React / Vite / TypeScript; wagmi / viem; шестизначный ERC-20 интерфейс native USDC; точная целочисленная модель и хэш плана.
+## Problem and user
 
-**Почему Arc:** native USDC оплачивает gas, а ERC-20 интерфейс даёт allowance и `transferFrom` для escrow; быстрый проверяемый onchain расчёт.
+Small groups can track expenses and still end with uncertain collection: the balances live in one place, payments happen elsewhere, and there is no common record that everyone accepted the same numbers. Atomic Closeout is for groups that want the closeout itself to be explicit and verifiable, not just a list of IOUs.
 
-**Почему Arc Studio:** исходные контракт, приложение, тесты и testnet deployment созданы в Studio. [Проект](https://studio.arc.io/app/c6e2330d-8e2f-44aa-935c-a9859f922a5e?thread=fe457d3b-009c-4455-8cd0-7944598e9009); дальнейшие внешние правки описаны в `ARC_STUDIO_PROVENANCE.md`.
+## What is working
 
-| Материал | Статус |
+- Exact-integer USDC expense splits, net balances and a plan ID bound to member order and amounts.
+- Each member approves the immutable plan from their own wallet. The contract opens funding after unanimous approval.
+- Exact debtor deposits, separate finalization and creditor withdrawal, plus deadline refunds for incomplete funding.
+- Browser-local expense notes, group names, archive/hide and backups; onchain financial state remains authoritative.
+- A wallet-free Interactive Demo labelled DEMO DATA and a separate real Arc Mainnet run.
+
+The mainnet contract is [`0xe05790767da98b524472ea9d78459aca4fb3b6c6`](https://explorer.arc.io/address/0xe05790767da98b524472ea9d78459aca4fb3b6c6) on Arc Mainnet **5042**. The owner deployed it independently after the project originated in [Arc Studio](https://studio.arc.io/app/c6e2330d-8e2f-44aa-935c-a9859f922a5e?thread=fe457d3b-009c-4455-8cd0-7944598e9009).
+
+## Demonstration and proof
+
+The featured real run is **Arc Demo, Group #5 / Round #3**: three wallet approvals of one 0.20 USDC plan, two 0.10 USDC deposits, finalization and a separate 0.20 USDC withdrawal. All nine unique receipts, decoded contract events, matching USDC transfers and final contract state were checked by read-only RPC. [Full evidence](MAINNET_EVIDENCE.md) · [machine-readable record](mainnet-evidence.json). The earlier completed **Group #1** is a separate run.
+
+The owner recorded a **6:08** walkthrough. [Six lightweight excerpts](assets/README.md) are in the repository. **Public full-video URL: pending upload.** Do not insert a YouTube link until the owner provides one.
+
+## Why Arc and USDC
+
+Arc Mainnet provides the network for the contract and uses USDC for gas. The app and contract account for group obligations through Arc's 6-decimal USDC ERC-20 interface. The chain records consent and escrow state; local notes remain under the user's control in the browser. [Arc USDC event reference](https://docs.arc.io/integrate/infrastructure/indexing-events).
+
+## Links to paste into the form
+
+| Field | Link / value |
 |---|---|
-| Публичный GitHub `arc-atomic-closeout` | https://github.com/jayrayeducation/arc-atomic-closeout |
-| Публичный HTTPS сайт | https://arc-atomic-closeout.vercel.app/ — URL сообщил владелец; текущий bundle и MetaMask warning ещё не проверены |
-| Mainnet contract address | PENDING |
-| Mainnet transaction evidence с реальным USDC | PENDING |
-| Видео 90–120 c | сценарий готов, запись PENDING |
-| Публичный builder profile | PENDING — предоставляет владелец |
-| Testnet deployment | `0x329cc6b4adf9e136c4b254d1e46fbe228c0b01da`, архивный evidence |
+| Live app | https://arc-atomic-closeout.vercel.app/ |
+| Repository and README | https://github.com/jayrayeducation/arc-atomic-closeout |
+| Arc Studio original | https://studio.arc.io/app/c6e2330d-8e2f-44aa-935c-a9859f922a5e?thread=fe457d3b-009c-4455-8cd0-7944598e9009 |
+| Mainnet contract | https://explorer.arc.io/address/0xe05790767da98b524472ea9d78459aca4fb3b6c6 |
+| Transaction evidence | https://github.com/jayrayeducation/arc-atomic-closeout/blob/main/docs/MAINNET_EVIDENCE.md |
+| Full demo video | **Owner to provide public URL** |
+| Builder profile / submission URL | **Owner to provide** |
 
-## Проверка условий, 25.10.2026
+## Honest limitations
 
-Официальная [страница конкурса](https://dorahacks.io/hackathon/arc-microgrants-2/detail) из этого окружения возвращает HTTP 405; точное время окончания, формат формы, eligibility, лимит проектов и призовые условия **не удалось независимо подтвердить**. Публикации Arc указывают закрытие **1 ноября 2026**, но точный час и перевод на Киев — **PENDING**. До подачи владелец должен открыть официальную страницу под своим аккаунтом, сверить правила и заполнить поля формы. Требования Arc Studio, Arc Mainnet и реального USDC считать неподтверждёнными до этой проверки; в любом случае соответствующее mainnet evidence пока отсутствует. Заявка не отправлена.
+This is an early-stage prototype without an independent security audit. Expense notes do not automatically sync across devices. Group membership is fixed onchain; local archive/hide does not erase blockchain history. ERC-20 allowance receipts are not in the provided nine-hash evidence set. No customer traction, award or submitted contest entry is claimed.

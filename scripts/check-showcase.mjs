@@ -1,7 +1,7 @@
 import { readFile, stat } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 
-const docs = ['README.md', 'docs/MAINNET_EVIDENCE.md', 'docs/assets/README.md']
+const docs = ['README.md', 'docs/MAINNET_EVIDENCE.md', 'docs/COMPETITION_EVIDENCE.md', 'docs/DORAHACKS_SUBMISSION.md', 'docs/assets/README.md']
 let checked = 0
 for (const doc of docs) {
   const content = await readFile(doc, 'utf8')

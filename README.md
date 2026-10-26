@@ -145,6 +145,6 @@ The latest local release checks passed: `npm run check`, `npm run build`, `npm r
 
 ## Project links and credits
 
-[Live app](https://arc-atomic-closeout.vercel.app/) · [Source](https://github.com/jayrayeducation/arc-atomic-closeout) · [Original Arc Studio project](https://studio.arc.io/app/c6e2330d-8e2f-44aa-935c-a9859f922a5e?thread=fe457d3b-009c-4455-8cd0-7944598e9009) · [Mainnet contract](https://explorer.arc.io/address/0xe05790767da98b524472ea9d78459aca4fb3b6c6) · [Mainnet evidence](docs/MAINNET_EVIDENCE.md) · [Security notes](docs/SECURITY.md)
+[Live app](https://arc-atomic-closeout.vercel.app/) · [Source](https://github.com/jayrayeducation/arc-atomic-closeout) · [Original Arc Studio project](https://studio.arc.io/app/c6e2330d-8e2f-44aa-935c-a9859f922a5e?thread=fe457d3b-009c-4455-8cd0-7944598e9009) · [Mainnet contract](https://explorer.arc.io/address/0xe05790767da98b524472ea9d78459aca4fb3b6c6) · [Mainnet evidence](docs/MAINNET_EVIDENCE.md) · [Competition evidence](docs/COMPETITION_EVIDENCE.md) · [Submission draft](docs/DORAHACKS_SUBMISSION.md) · [Security notes](docs/SECURITY.md)
 
 Built with Arc Studio; developed further from the exported project by [jayrayeducation](https://github.com/jayrayeducation). Arc Mainnet deployment and the real-USDC demo were owner-run.
