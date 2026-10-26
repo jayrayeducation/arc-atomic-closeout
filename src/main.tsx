@@ -56,7 +56,7 @@ const StudioWatermark = () => (
       WebkitBackdropFilter: 'blur(12px) saturate(180%)',
       borderRadius: '20px',
       border: '1px solid rgba(255, 255, 255, 0.4)',
-      zIndex: 9999,
+      zIndex: 5,
       boxShadow: '0 4px 20px rgba(27, 49, 88, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.5)',
     }}
   >

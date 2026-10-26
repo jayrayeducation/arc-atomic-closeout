@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import type { Address } from 'viem'
 import { ArrowDown, ArrowUp, MoreHorizontal, X } from 'lucide-react'
 import { useLocalGroup } from '@/hooks/useLocalGroup'
@@ -26,18 +27,32 @@ export function GroupActions({ chainId, contract, groupId, onchainName, members,
   const [error, setError] = useState('')
   const dialog = useRef<HTMLDivElement>(null)
   const menu = useRef<HTMLDetailsElement>(null)
+  const actionTaken = useRef(false)
+  const hadDialog = useRef(false)
   const key = groupKey(chainId, contract, groupId)
   const visibleName = local.localTitle?.trim() || onchainName
   const open = (next: Mode) => {
     if (menu.current) menu.current.open = false
+    actionTaken.current = false
     setMode(next); setTitle(local.localTitle || onchainName); setDescription(local.description || '')
     setRows([...members]); setAcknowledged(false); setBackupMade(false); setPhrase(''); setError('')
   }
+  const close = () => {
+    setMode(null)
+    window.requestAnimationFrame(() => menu.current?.querySelector('summary')?.focus())
+  }
   useEffect(() => {
-    if (!mode) return
+    if (!mode) {
+      if (hadDialog.current) window.requestAnimationFrame(() => menu.current?.querySelector('summary')?.focus())
+      hadDialog.current = false
+      return
+    }
+    hadDialog.current = true
     dialog.current?.focus()
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') { setMode(null); menu.current?.querySelector('summary')?.focus(); return }
+      if (event.key === 'Escape') { close(); return }
       if (event.key !== 'Tab' || !dialog.current) return
       const items = [...dialog.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled])')]
       if (!items.length) return
@@ -45,7 +60,7 @@ export function GroupActions({ chainId, contract, groupId, onchainName, members,
       else if (!event.shiftKey && document.activeElement === items[items.length - 1]) { event.preventDefault(); items[0].focus() }
     }
     window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    return () => { window.removeEventListener('keydown', onKey); document.body.style.overflow = previousOverflow }
   }, [mode])
   const backup = () => {
     const text = exportLocalGroup(key, { expenses: local.expenses, names: local.names, localTitle: local.localTitle, description: local.description, visibility: local.visibility }, members)
@@ -55,6 +70,8 @@ export function GroupActions({ chainId, contract, groupId, onchainName, members,
     setBackupMade(true)
   }
   const saveVisibility = (visibility: GroupVisibility) => {
+    if (actionTaken.current) return
+    actionTaken.current = true
     if (menu.current) menu.current.open = false
     local.setVisibility(visibility); setMode(null); setNotice(`${visibility === 'active' ? 'Restored' : visibility === 'archived' ? 'Archived' : 'Hidden'} locally. Onchain history is unchanged.`)
   }
@@ -89,13 +106,13 @@ export function GroupActions({ chainId, contract, groupId, onchainName, members,
       </div>
     </details>
     {notice && <p role="status" className="mt-1 max-w-56 text-xs text-cyan">{notice}</p>}
-    {mode && <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-3" role="presentation"><div ref={dialog} tabIndex={-1} className="surface max-h-[92dvh] w-full max-w-xl overflow-y-auto p-5 shadow-2xl outline-none sm:p-7" role="dialog" aria-modal="true" aria-label={`${mode} group ${groupId}`}>
-      <div className="mb-4 flex items-start justify-between gap-3"><div><p className="label text-cyan">Group #{groupId.toString()} · LOCAL management</p><h2 className="font-display text-xl font-semibold">{mode === 'details' ? 'Edit local details' : mode === 'archive' ? 'Archive this group?' : mode === 'hide' ? 'Hide from My groups?' : mode === 'delete' ? 'Delete local notes?' : 'Change members / Create revised group'}</h2></div><button type="button" className="btn-ghost px-2" aria-label="Close dialog" onClick={() => setMode(null)}><X className="h-4 w-4" /></button></div>
+    {mode && createPortal(<div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-3" role="presentation" onClick={(event) => { if (event.target === event.currentTarget) close() }}><div ref={dialog} tabIndex={-1} className="surface max-h-[92dvh] w-full max-w-xl overflow-y-auto p-5 shadow-2xl outline-none sm:p-7" role="dialog" aria-modal="true" aria-label={`${mode} group ${groupId}`}>
+      <div className="mb-4 flex items-start justify-between gap-3"><div><p className="label text-cyan">Group #{groupId.toString()} · LOCAL management</p><h2 className="font-display text-xl font-semibold">{mode === 'details' ? 'Edit local details' : mode === 'archive' ? 'Archive this group?' : mode === 'hide' ? 'Hide from My groups?' : mode === 'delete' ? 'Delete local notes?' : 'Change members / Create revised group'}</h2></div><button type="button" className="btn-ghost px-2" aria-label="Close dialog" onClick={close}><X className="h-4 w-4" /></button></div>
       {local.storageError && <Callout tone="bad">Local notes cannot be changed: {local.storageError}</Callout>}
       {mode === 'details' && <div className="space-y-4"><p className="text-sm text-ink-dim">ONCHAIN name: {onchainName}. Your local title and description appear only in this browser.</p><label className="block text-sm">Local title<input className="input mt-1" value={title} maxLength={80} onChange={(event) => setTitle(event.target.value)} /></label><label className="block text-sm">Description<textarea className="input mt-1 min-h-24" value={description} maxLength={1000} onChange={(event) => setDescription(event.target.value)} /></label><button className="btn-primary" disabled={Boolean(local.storageError)} onClick={() => { local.setDetails(title.trim(), description.trim()); setMode(null); setNotice('Local details saved. Onchain name is unchanged.') }}>Save local details</button></div>}
       {(mode === 'archive' || mode === 'hide') && <div className="space-y-4"><p className="text-sm text-ink-dim">{visibleName} will move to the {mode === 'archive' ? 'Archived' : 'Hidden'} tab in this browser. Its onchain group, members and settlement remain public and unchanged. No wallet request or network fee is involved.</p><div className="flex gap-3"><button className="btn-ghost" onClick={() => setMode(null)}>Cancel</button><button className="btn-primary" disabled={Boolean(local.storageError)} onClick={() => saveVisibility(mode === 'archive' ? 'archived' : 'hidden')}>Confirm {mode}</button></div></div>}
       {mode === 'delete' && <div className="space-y-4"><Callout tone="warn">This clears {local.expenses.length} local expenses, member labels, local title and description from this browser. It does not delete the blockchain group or Group #{groupId.toString()} settlement history.</Callout><button className="btn-ghost" onClick={backup}>Download local backup first</button>{chainId === 5042 && groupId === 1n && <Callout tone="warn">Group #1 contains contest evidence. Download the backup before clearing its local notes.</Callout>}<label className="block text-sm">Type DELETE LOCAL NOTES to continue<input className="input mt-1" value={phrase} onChange={(event) => setPhrase(event.target.value)} /></label><div className="flex gap-3"><button className="btn-ghost" onClick={() => setMode(null)}>Cancel</button><button className="btn-primary" disabled={phrase !== 'DELETE LOCAL NOTES' || (chainId === 5042 && groupId === 1n && !backupMade) || Boolean(local.storageError)} onClick={() => { local.clearNotes(); setMode(null); setNotice('Only browser-local notes were cleared. Onchain history remains.') }}>Delete local notes</button></div></div>}
       {mode === 'revision' && <div className="space-y-4"><Callout tone="warn">The original Group #{groupId.toString()} and all approvals, deposits, claims and history stay unchanged. A draft creates no transaction. A separate Create new group onchain action will be required.</Callout>{activePlan && <Callout tone="bad">Current status: {status}. Finish the current approval or funding path, or use the contract's cancel/refund actions when available. No funds or entitlements move to the new group.</Callout>}<label className="block text-sm">New group name<input className="input mt-1" value={title} maxLength={64} onChange={(event) => setTitle(event.target.value)} /></label><p className="text-sm font-semibold">Old onchain members</p><ol className="list-inside list-decimal break-all text-xs text-ink-mute">{members.map((address) => <li key={address}>{address}</li>)}</ol><p className="text-sm font-semibold">New member order</p><ol className="space-y-2">{rows.map((address, index) => <li key={index} className="flex gap-2"><input className="input min-w-0 flex-1 font-mono text-xs" aria-label={`New member ${index + 1}`} value={address} onChange={(event) => setRows(rows.map((row, i) => i === index ? event.target.value as Address : row))} /><button className="btn-ghost px-2" aria-label={`Move member ${index + 1} up`} disabled={index === 0} onClick={() => move(index, -1)}><ArrowUp className="h-4 w-4" /></button><button className="btn-ghost px-2" aria-label={`Move member ${index + 1} down`} disabled={index === rows.length - 1} onClick={() => move(index, 1)}><ArrowDown className="h-4 w-4" /></button><button className="btn-ghost px-2" aria-label={`Remove member ${index + 1}`} disabled={rows.length <= 2} onClick={() => setRows(rows.filter((_, i) => i !== index))}><X className="h-4 w-4" /></button></li>)}</ol><button className="btn-ghost" disabled={rows.length >= 8} onClick={() => setRows([...rows, '' as Address])}>Add member</button>{draftError && <Callout tone="bad">{draftError}</Callout>}{draft && <Callout>Comparison: {members.length} old → {rows.length} new members. {draft.notes.expenses.length} local expenses copied; {draft.skippedExpenses} skipped because a removed participant was involved. {plan ? `Recalculated local plan total: ${usdc(plan.total)} USDC.` : 'No local plan to calculate.'}</Callout>}{activePlan && <label className="flex gap-2 text-sm"><input type="checkbox" checked={acknowledged} onChange={(event) => setAcknowledged(event.target.checked)} /> I understand the old active plan and funds remain in Group #{groupId.toString()}.</label>}{error && <Callout tone="bad">{error}</Callout>}<div className="flex gap-3"><button className="btn-ghost" onClick={() => setMode(null)}>Cancel</button><button className="btn-primary" disabled={!draft || (activePlan && !acknowledged) || Boolean(local.storageError)} onClick={() => { try { if (!draft) return; saveRevisedDraft(draft); navigate(`#/create/${chainId}/revised`); setMode(null) } catch (failure) { setError(failure instanceof Error ? failure.message : 'Could not save draft.') } }}>Save revised group draft</button></div></div>}
-    </div></div>}
+    </div></div>, document.body)}
   </div>
 }

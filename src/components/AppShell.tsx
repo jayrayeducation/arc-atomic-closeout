@@ -74,7 +74,7 @@ export function AppShell({ route, children }: { route: Route; children: ReactNod
           ))}
         </nav>
       </header>
-      <main className="relative z-10 mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
+      <main className="relative z-20 mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
         {(route.name === 'create' || route.name === 'groups') && (
           <div className="mb-6 flex flex-wrap items-center gap-3 text-sm">
             <span>Network:</span>
