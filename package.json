@@ -23,6 +23,7 @@
     "e2e:testnet": "bun run scripts/testnet-e2e.ts",
     "e2e:ui": "node tests-ui/run.mjs",
     "test:deploy": "node --test --test-concurrency=1 tests/browser-deploy.test.mjs tests/mainnet-app.test.mjs && node tests-ui/deploy-audit.mjs && node tests-ui/deploy-flow-mock.mjs && node tests-ui/mainnet-app-mock.mjs",
+    "test:groups": "node --test tests/group-management.test.mjs && node tests-ui/group-management-mock.mjs",
     "mainnet:preflight": "node scripts/mainnet-deploy.mjs",
     "mainnet:verify": "node scripts/mainnet-verify.mjs",
     "mainnet:smoke": "node scripts/mainnet-smoke-test.mjs",

@@ -19,6 +19,8 @@ export interface Expense {
   id: string
   title: string
   category: string
+  /** Browser-local explanation; never part of the plan hash. */
+  note?: string
   /** ISO date, YYYY-MM-DD */
   date: string
   payer: number

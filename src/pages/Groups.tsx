@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
 import { ConnectKitButton } from 'connectkit'
 import { Plus } from 'lucide-react'
 import { getDeployment } from '@/lib/deployments'
+import { groupKey, loadLocalGroup, LOCAL_GROUP_CHANGED, type GroupVisibility } from '@/lib/storage'
 import { useMyGroupIds } from '@/hooks/useChainEvents'
 import { GroupCard, OpenGroupById } from '@/components/GroupCards'
 import { NetworkBadge } from '@/components/NetworkBadge'
@@ -11,6 +13,22 @@ export default function Groups({ chainId }: { chainId: number }) {
   const { address } = useAccount()
   const q = useMyGroupIds(chainId, address)
   const deployment = getDeployment(chainId)
+  const [tab, setTab] = useState<GroupVisibility>('active')
+  const [, refreshLocal] = useState(0)
+  useEffect(() => {
+    const refresh = () => refreshLocal((value) => value + 1)
+    window.addEventListener(LOCAL_GROUP_CHANGED, refresh)
+    window.addEventListener('storage', refresh)
+    return () => { window.removeEventListener(LOCAL_GROUP_CHANGED, refresh); window.removeEventListener('storage', refresh) }
+  }, [])
+  const visibility = (id: bigint): GroupVisibility => {
+    if (!deployment?.contract) return 'active'
+    try { return loadLocalGroup(groupKey(chainId, deployment.contract, id)).visibility ?? 'active' }
+    catch { return 'active' }
+  }
+  const counts = { active: 0, archived: 0, hidden: 0 }
+  for (const id of q.ids) counts[visibility(id)]++
+  const visibleIds = q.ids.filter((id) => visibility(id) === tab)
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -23,6 +41,7 @@ export default function Groups({ chainId }: { chainId: number }) {
         </a>
       </div>
       <NetworkBadge chainId={chainId} />
+      <div className="flex flex-wrap gap-2" role="tablist" aria-label="Group visibility">{(['active', 'archived', 'hidden'] as const).map((value) => <button key={value} type="button" role="tab" aria-selected={tab === value} className={tab === value ? 'btn-primary' : 'btn-ghost'} onClick={() => setTab(value)}>{value[0].toUpperCase() + value.slice(1)} ({counts[value]})</button>)}</div>
       {(!deployment?.contract || deployment.fromBlock === null) && <Callout tone="bad">Deployment configuration is missing for {deployment?.label ?? `chain ${chainId}`}. Financial actions are disabled; the app will not switch to another network.</Callout>}
       {!address ? (
         <Callout title="Connect a wallet to see your groups">
@@ -52,11 +71,11 @@ export default function Groups({ chainId }: { chainId: number }) {
               Scanned to block {q.data.scanned.toString()} of {q.data.head.toString()}. More groups may appear.
             </Callout>
           )}
-          {q.ids.length === 0 ? (
-            <div className="surface p-8 text-center text-ink-dim">You are not a member of any group on this network yet.</div>
+          {visibleIds.length === 0 ? (
+            <div className="surface p-8 text-center text-ink-dim">{q.ids.length === 0 ? 'You are not a member of any group on this network yet.' : `No ${tab} groups in this browser. Onchain groups remain available by ID or shared link.`}</div>
           ) : (
             <div className="grid gap-4 sm:grid-cols-2">
-              {q.ids.map((id) => (
+              {visibleIds.map((id) => (
                 <GroupCard key={id.toString()} chainId={chainId} groupId={id} />
               ))}
             </div>

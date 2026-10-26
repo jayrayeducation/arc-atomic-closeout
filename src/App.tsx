@@ -14,7 +14,7 @@ export default function App() {
       {route.name === 'landing' && <Landing />}
       {route.name === 'demo' && <DemoMode />}
       {route.name === 'deploy' && <DeployMainnet />}
-      {route.name === 'create' && <CreateGroup key={route.chainId} chainId={route.chainId} />}
+      {route.name === 'create' && <CreateGroup key={`${route.chainId}-${route.revised}`} chainId={route.chainId} revised={route.revised} />}
       {route.name === 'groups' && <Groups chainId={route.chainId} />}
       {route.name === 'group' && (
         <GroupWorkspace key={`${route.chainId}-${route.groupId}`} chainId={route.chainId} groupId={route.groupId} initialTab={route.tab} />

@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { formatUnits } from 'viem'
 import { Plus } from 'lucide-react'
 import { parseUsdc } from '@/onchain-money'
 import { allocateExpense, type Expense, type SplitMode } from '@/lib/settlement'
@@ -26,21 +27,24 @@ function parsePercent(s: string): number | null {
 interface Props {
   members: Member[]
   onAdd: (e: Expense) => void
+  initial?: Expense
+  onSave?: (e: Expense) => void
   /** Index of the connected member, used as the default payer. */
   defaultPayer?: number
 }
 
-export function ExpenseEditor({ members, onAdd, defaultPayer = 0 }: Props) {
+export function ExpenseEditor({ members, onAdd, initial, onSave, defaultPayer = 0 }: Props) {
   const n = members.length
-  const [title, setTitle] = useState('')
-  const [category, setCategory] = useState(CATEGORIES[0])
-  const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10))
-  const [payer, setPayer] = useState(defaultPayer)
-  const [amountText, setAmountText] = useState('')
-  const [mode, setMode] = useState<SplitMode>('equal')
-  const [included, setIncluded] = useState<boolean[]>(() => new Array<boolean>(n).fill(true))
-  const [customText, setCustomText] = useState<string[]>(() => new Array<string>(n).fill(''))
-  const [pctText, setPctText] = useState<string[]>(() => new Array<string>(n).fill(''))
+  const [title, setTitle] = useState(initial?.title ?? '')
+  const [category, setCategory] = useState(initial?.category ?? CATEGORIES[0])
+  const [date, setDate] = useState(() => initial?.date ?? new Date().toISOString().slice(0, 10))
+  const [payer, setPayer] = useState(initial?.payer ?? defaultPayer)
+  const [amountText, setAmountText] = useState(initial ? formatUnits(initial.amount, 6) : '')
+  const [note, setNote] = useState(initial?.note ?? '')
+  const [mode, setMode] = useState<SplitMode>(initial?.mode ?? 'equal')
+  const [included, setIncluded] = useState<boolean[]>(() => initial?.included ?? new Array<boolean>(n).fill(true))
+  const [customText, setCustomText] = useState<string[]>(() => initial ? initial.custom.map((amount) => formatUnits(amount, 6)) : new Array<string>(n).fill(''))
+  const [pctText, setPctText] = useState<string[]>(() => initial ? initial.bps.map((bps) => (bps / 100).toString()) : new Array<string>(n).fill(''))
   const [touched, setTouched] = useState(false)
 
   const draft = useMemo<{ expense: Expense | null; error: string | null; shares: bigint[] | null }>(() => {
@@ -57,9 +61,10 @@ export function ExpenseEditor({ members, onAdd, defaultPayer = 0 }: Props) {
       return { expense: null, error: 'Custom amounts must be numbers with at most 6 decimals.', shares: null }
     }
     const expense: Expense = {
-      id: crypto.randomUUID(),
+      id: initial?.id ?? crypto.randomUUID(),
       title: title.trim(),
       category,
+      note: note.trim(),
       date,
       payer,
       amount,
@@ -70,12 +75,14 @@ export function ExpenseEditor({ members, onAdd, defaultPayer = 0 }: Props) {
     }
     const a = allocateExpense(expense, n)
     return a.ok ? { expense, error: null, shares: a.shares } : { expense: null, error: a.error, shares: null }
-  }, [amountText, title, category, date, payer, mode, included, customText, pctText, n])
+  }, [amountText, title, category, note, date, payer, mode, included, customText, pctText, n, initial?.id])
 
   const submit = () => {
     setTouched(true)
     if (!draft.expense) return
-    onAdd(draft.expense)
+    if (initial && onSave) onSave(draft.expense)
+    else onAdd(draft.expense)
+    if (initial) return
     setTitle('')
     setAmountText('')
     setCustomText(new Array<string>(n).fill(''))
@@ -104,11 +111,8 @@ export function ExpenseEditor({ members, onAdd, defaultPayer = 0 }: Props) {
         </label>
         <label className="block">
           <span className="label">Category</span>
-          <select className="input mt-1.5" value={category} onChange={(e) => setCategory(e.target.value)}>
-            {CATEGORIES.map((c) => (
-              <option key={c}>{c}</option>
-            ))}
-          </select>
+          <input className="input mt-1.5" list="expense-categories" value={category} onChange={(e) => setCategory(e.target.value)} maxLength={40} />
+          <datalist id="expense-categories">{CATEGORIES.map((c) => <option key={c} value={c} />)}</datalist>
         </label>
         <label className="block">
           <span className="label">Date</span>
@@ -125,6 +129,8 @@ export function ExpenseEditor({ members, onAdd, defaultPayer = 0 }: Props) {
           </select>
         </label>
       </div>
+
+      <label className="block"><span className="label">Note (local only)</span><textarea className="input mt-1.5 min-h-20" value={note} onChange={(e) => setNote(e.target.value)} maxLength={500} /></label>
 
       <fieldset>
         <legend className="label mb-2">Split</legend>
@@ -166,7 +172,7 @@ export function ExpenseEditor({ members, onAdd, defaultPayer = 0 }: Props) {
 
       {touched && draft.error && <Callout tone="bad">{draft.error}</Callout>}
       <button type="submit" className="btn-primary w-full sm:w-auto" disabled={touched && !draft.expense}>
-        <Plus className="h-4 w-4" aria-hidden /> Add expense
+        <Plus className="h-4 w-4" aria-hidden /> {initial ? 'Save local expense' : 'Add expense'}
       </button>
       <p className="text-xs text-ink-mute">Odd base units are assigned to included members in group order, so the same inputs always produce the same shares.</p>
     </form>

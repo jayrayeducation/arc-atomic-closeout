@@ -33,6 +33,7 @@ Mainnet deployment tx (owner-run): `0xd3135a28e036f0227c8b21e6c657b7e5325caa44e3
 - `src/lib/settlement.ts` - exact-integer split, netting and plan-hash model (mirrors the contract's hash; cross-checked by `AtomicCloseout.HashVector.t.sol`)
 - `src/lib/abi.ts` - generated from the forge artifact
 - `src/pages/` and `src/components/` - UI. Contract state is the source of truth; expense notes are browser-local (`src/lib/storage.ts`)
+- Group titles/descriptions, visibility and notes are browser-local. `src/lib/revisedGroup.ts` stores a separate draft for a *new* group; it never edits onchain membership or moves funds. V2 backups bind notes to chain, contract, group ID and member order.
 - `scripts/testnet-e2e.ts` - live Arc Testnet lifecycle test. `tests-ui/` - real-UI lifecycle test with an injected test wallet
 - `docs/` - README companions, test output, screenshots, mainnet package
 

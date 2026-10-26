@@ -16,14 +16,14 @@ export type Route =
   | { name: 'deploy' }
   | { name: 'demo' }
   | { name: 'groups'; chainId: number }
-  | { name: 'create'; chainId: number }
+  | { name: 'create'; chainId: number; revised: boolean }
   | { name: 'group'; chainId: number; groupId: bigint; tab: string | null }
 
 export function parseHash(hash: string): Route {
   const parts = hash.replace(/^#\/?/, '').split('/').filter(Boolean)
   if (parts[0] === 'demo') return { name: 'demo' }
   if (parts[0] === 'groups') return { name: 'groups', chainId: isSupportedChain(Number(parts[1])) ? Number(parts[1]) : DEFAULT_CHAIN_ID }
-  if (parts[0] === 'create') return { name: 'create', chainId: isSupportedChain(Number(parts[1])) ? Number(parts[1]) : DEFAULT_CHAIN_ID }
+  if (parts[0] === 'create') return { name: 'create', chainId: isSupportedChain(Number(parts[1])) ? Number(parts[1]) : DEFAULT_CHAIN_ID, revised: parts[2] === 'revised' }
   if (parts[0] === 'g' && /^\d+$/.test(parts[1] ?? '') && /^\d+$/.test(parts[2] ?? '')) {
     return { name: 'group', chainId: Number(parts[1]), groupId: BigInt(parts[2]), tab: parts[3] ?? null }
   }

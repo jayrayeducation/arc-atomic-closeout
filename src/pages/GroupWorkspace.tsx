@@ -3,10 +3,11 @@ import { useAccount } from 'wagmi'
 import clsx from 'clsx'
 import { Check, Copy, Link2 } from 'lucide-react'
 import { getDeployment } from '@/lib/deployments'
-import { buildPlan, computeBalances } from '@/lib/settlement'
+import { buildPlan, computeBalances, hashExpenses } from '@/lib/settlement'
 import { buildMembers } from '@/lib/members'
 import { buildShareLink } from '@/lib/share'
 import { hrefGroup } from '@/lib/router'
+import { groupKey } from '@/lib/storage'
 import { statusName } from '@/lib/types'
 import { usdc, formatDeadline, shortAddr } from '@/lib/format'
 import { useGroup } from '@/hooks/useGroup'
@@ -20,6 +21,7 @@ import { NetworkBadge } from '@/components/NetworkBadge'
 import { Callout, Card, Skeleton, Stat, StatusPill } from '@/components/primitives'
 import { RoundTab } from '@/components/RoundTab'
 import { SettlementPlan } from '@/components/SettlementPlan'
+import { GroupActions } from '@/components/GroupActions'
 
 const TABS = [
   { id: 'round', label: 'Round' },
@@ -83,6 +85,12 @@ export default function GroupWorkspace({ chainId, groupId, initialTab }: { chain
 
   const { group, current } = q.data
   const status = current ? statusName(current.status) : 'None'
+  const localDiffers = current && balances ? (() => {
+    const plan = buildPlan(balances.net)
+    return plan.debts.some((amount, i) => amount !== current.debts[i]) ||
+      plan.credits.some((amount, i) => amount !== current.credits[i]) ||
+      hashExpenses(local.expenses, members.length).toLowerCase() !== current.expensesHash.toLowerCase()
+  })() : false
   const stage = status === 'Approval' ? 1 : status === 'Funding' ? 2 : status === 'Settled' ? 3 : 0
   const totalPaidLocal = local.expenses.reduce((a, e) => a + e.amount, 0n)
   const live = status === 'Approval' || status === 'Funding'
@@ -93,7 +101,9 @@ export default function GroupWorkspace({ chainId, groupId, initialTab }: { chain
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0">
           <p className="label">Group #{groupId.toString()}</p>
-          <h1 className="truncate font-display text-3xl font-semibold tracking-tight">{group.name}</h1>
+          <h1 className="truncate font-display text-3xl font-semibold tracking-tight">{local.localTitle?.trim() || group.name}</h1>
+          {local.localTitle?.trim() && <p className="mt-1 text-sm text-ink-mute">ONCHAIN name: {group.name}</p>}
+          {local.description && <p className="mt-2 max-w-2xl text-sm text-ink-dim">{local.description}</p>}
           <div className="mt-3 flex flex-wrap items-center gap-3">
             <NetworkBadge chainId={chainId} />
             <StatusPill status={status} fullyFunded={current ? current.fundedTotal === current.totalAmount : false} />
@@ -102,7 +112,7 @@ export default function GroupWorkspace({ chainId, groupId, initialTab }: { chain
             </span>
           </div>
         </div>
-        <button
+        <div className="flex flex-wrap items-start gap-2"><GroupActions chainId={chainId} contract={deployment.contract} groupId={groupId} onchainName={group.name} members={group.members} status={status} local={local} /><button
           className="btn-ghost"
           onClick={() => {
             void navigator.clipboard.writeText(shareUrl).then(() => {
@@ -114,8 +124,11 @@ export default function GroupWorkspace({ chainId, groupId, initialTab }: { chain
         >
           {copied ? <Check className="h-4 w-4 text-ok" aria-hidden /> : <Copy className="h-4 w-4" aria-hidden />}
           {copied ? 'Link copied' : 'Copy group link'}
-        </button>
+        </button></div>
       </div>
+
+      {local.storageError && <Callout tone="bad" title="Local notes could not be loaded">{local.storageError}. Onchain history remains available. Back up browser storage before changing it.</Callout>}
+      {localDiffers && <Callout tone="warn" title={`LOCAL notes differ from ONCHAIN Plan ID ${current?.roundId.toString()}`}>Local calculations or expense commitment no longer match the proposed plan. The onchain debts, credits and settlement remain authoritative.</Callout>}
 
       <ol className="grid grid-cols-4 gap-2" aria-label="Round stage">
         {STAGES.map((s, i) => (
@@ -144,7 +157,7 @@ export default function GroupWorkspace({ chainId, groupId, initialTab }: { chain
         <RoundTab chainId={chainId} contract={deployment.contract} groupId={groupId} data={q.data} members={members} me={me} events={ev.events} expenses={local.expenses} />
       )}
       {tab === 'expenses' && (
-        <ExpensesTab members={members} expenses={local.expenses} names={local.names} me={me} locked={live} onAdd={local.addExpense} onDelete={local.removeExpense} onNameChange={local.setName} onReplace={local.replaceAll} />
+        <ExpensesTab members={members} expenses={local.expenses} names={local.names} localTitle={local.localTitle} description={local.description} visibility={local.visibility} me={me} locked={Boolean(current)} storageKey={groupKey(chainId, deployment.contract, groupId)} groupId={groupId} chainId={chainId} onAdd={local.addExpense} onDelete={local.removeExpense} onUpdate={local.updateExpense} onNameChange={local.setName} onReplace={local.replaceAll} />
       )}
       {tab === 'balances' && (
         <div className="space-y-6">
